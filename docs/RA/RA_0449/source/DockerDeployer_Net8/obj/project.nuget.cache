@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "+agwq8yLfOg=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\bonneval\\source\\repos\\archimedes-reference-architecture\\docs\\RA\\RA_0449\\source\\DockerDeployer_Net8\\DockerDeployerNet8.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\bonneval\\.nuget\\packages\\system.configuration.configurationmanager\\9.0.5\\system.configuration.configurationmanager.9.0.5.nupkg.sha512",
+    "C:\\Users\\bonneval\\.nuget\\packages\\system.diagnostics.eventlog\\9.0.5\\system.diagnostics.eventlog.9.0.5.nupkg.sha512",
+    "C:\\Users\\bonneval\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.5\\system.security.cryptography.protecteddata.9.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}

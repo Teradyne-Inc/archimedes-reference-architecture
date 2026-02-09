@@ -1,0 +1,295 @@
+/* ===================================================================
+   Archimedes Reference Architecture - Common Index Styles
+   Shared CSS for consistent styling across all index.md files
+   ================================================================== */
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  margin: 20px 0 40px 0;
+  padding: 40px 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-logo {
+  width: 200px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  color: #2c3e50;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 20px 0 15px 0;
+}
+
+.hero-description {
+  color: #5d6d7e;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Header Image Styling */
+.header-image {
+  margin: 0;
+  padding: 0;
+}
+
+.header-image img {
+  width: 100%;
+  height: auto;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation Cards */
+.nav-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.nav-card {
+  background: white;
+  border: 2px solid #e1e8ed;
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: #3498db;
+}
+
+.nav-card.featured {
+  border-color: #e74c3c;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+}
+
+.card-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.nav-card h3 {
+  color: #2c3e50;
+  font-size: 24px;
+  margin: 15px 0;
+}
+
+.nav-card h3 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-card h3 a:hover {
+  color: #3498db;
+}
+
+.nav-card p {
+  color: #5d6d7e;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.tag {
+  background: #ecf0f1;
+  color: #2c3e50;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Content Grid */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.content-item {
+  background: white;
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  padding: 25px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.content-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.content-icon {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.content-item h4 {
+  color: #2c3e50;
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.content-item h4 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.content-item h4 a:hover {
+  color: #3498db;
+}
+
+.content-item p {
+  color: #5d6d7e;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Section Styling */
+.section-container {
+  margin: 50px 0;
+}
+
+.section-header {
+  background: #f8f9fa;
+  padding: 40px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+/* Table Styling */
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.responsive-table th,
+.responsive-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+.responsive-table th {
+  background: #f8f9fa;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.responsive-table tr:hover {
+  background: #f8f9fa;
+}
+
+.responsive-table a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.responsive-table a:hover {
+  text-decoration: underline;
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+  background: #f8f9fa;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.breadcrumb a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-subtitle {
+    font-size: 24px;
+  }
+  
+  .hero-description {
+    font-size: 16px;
+  }
+  
+  .nav-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-icon {
+    font-size: 36px;
+  }
+  
+  .nav-card h3 {
+    font-size: 20px;
+  }
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.margin-top {
+  margin-top: 30px;
+}
+
+.margin-bottom {
+  margin-bottom: 30px;
+}
+
+/* Navbar Logo - Ensure Teradyne logo is visible */
+.navbar-brand img,
+#logo {
+  display: block !important;
+  height: 40px !important;
+  width: auto !important;
+  max-height: 50px;
+}
+
+.navbar-brand {
+  display: flex !important;
+  align-items: center;
+}

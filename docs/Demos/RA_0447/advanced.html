@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Advanced Details - RA 0450 </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Advanced Details - RA 0450 ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/Demos/RA_0447/advanced.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/header.jpg" alt="RA 447 Advanced" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h1 id="advanced-details---ra-0450">Advanced Details - RA 0450</h1>
+<h2 id="understanding-the-dockerfile">Understanding the Dockerfile</h2>
+<p>In this section, we dive into the core components of the Docker container used in RA 0450. The container hosts a Python-based DAS (Data Acquisition System) service running on an UltraEdge system. Below, we analyze key instructions in the <code>Dockerfile</code>.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The full <code>Dockerfile</code> can be found here: <a href="source/Docker/Dockerfile">source/Docker/Dockerfile</a></p>
+</div>
+<hr>
+<h2 id="key-dockerfile-commands-explained">Key Dockerfile Commands Explained</h2>
+<h3 id="run-pip-install-flask"><code>RUN pip install flask</code></h3>
+<p>This line installs <strong>Flask</strong>, a lightweight web framework for Python. Flask is widely used to build RESTful APIs, which makes it a natural fit for serving communication endpoints in a microservice environment like this DAS.</p>
+<p>In this use case, Flask enables the DAS inside the Docker container to:</p>
+<ul>
+<li>Act as a <strong>local web server</strong> on the UltraEdge</li>
+<li>Respond to incoming HTTP requests from the tester</li>
+<li>Serve dynamically computed data such as updated test limits</li>
+</ul>
+<p>Flask's simplicity and minimal footprint make it ideal for containerized microservices.</p>
+<h3 id="expose-5001"><code>EXPOSE 5001</code></h3>
+<p>This command declares <strong>port 5001</strong> as the port on which the container will listen. It is essential to enable communication between the:</p>
+<ul>
+<li><strong>Tester Host</strong> (running IGXL or MST)</li>
+<li><strong>Docker Container</strong> (running on the UltraEdge)</li>
+</ul>
+<p>By convention in this setup, port <code>5001</code> is used to:</p>
+<ul>
+<li>Receive incoming requests from the test program</li>
+<li>Respond with computed data from the DAS (e.g., updated test limits)</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>While <code>EXPOSE</code> does not publish the port to the host by itself, it <strong>documents the intention</strong> and allows tools like Docker Compose or manual publishing (<code>-p 5001:5001</code>) to expose it.</p>
+</div>
+<p>In summary, these two lines are essential for enabling the Python DAS application to:</p>
+<ul>
+<li>Be reachable from outside the container (via port 5001)</li>
+<li>Serve test results or configuration updates using a lightweight Flask server</li>
+</ul>
+<p>The combination of Flask + port exposure establishes the communication bridge between your test program and the DAS logic running in an isolated UltraEdge container.</p>
+<hr>
+<h2 id="understanding-the-python-das-pydaspy">Understanding the Python DAS (<code>pydas.py</code>)</h2>
+<p>The Python DAS is a Flask-based web service that:</p>
+<ul>
+<li>Receives AMP messages via HTTP POST requests</li>
+<li>Extracts test data from incoming JSON payloads</li>
+<li>Computes the new <strong>low limit</strong> as the average of recent results</li>
+<li>Sends this value back to the test program via a FIFO file descriptor</li>
+</ul>
+<h3 id="architecture-overview">Architecture Overview</h3>
+<ul>
+<li><strong>Communication with Tester</strong>: The tester sends AMP messages (like <code>TEST_DATA</code>, <code>TEST_END</code>, etc.) to the DAS.</li>
+<li><strong>Threading</strong>: Test data is managed in parallel threads to avoid blocking.</li>
+<li><strong>Data Storage</strong>: Test values are stored in a list of <code>TestData</code> instances.</li>
+<li><strong>Computation</strong>: On <code>TEST_END</code>, the average of the <code>RESULT</code> values is computed.</li>
+<li><strong>Result Reporting</strong>: The final result is sent through a FIFO to the tester program.</li>
+</ul>
+<h3 id="key-components-explained">Key Components Explained</h3>
+<ul>
+<li><code>TestData</code> class: Used to encapsulate one test's data (test number, site, result, and limits).</li>
+<li>Flask routes: Handle various AMP message types:
+<ul>
+<li><code>/SUBLOT_START</code>: Initializes the process</li>
+<li><code>/TEST_START</code>: Clears the previous data</li>
+<li><code>/TEST_DATA</code>: Parses and stores new data</li>
+<li><code>/TEST_END</code>: Triggers computation and sends results</li>
+<li><code>/SUBLOT_END</code>: Final clean-up</li>
+</ul>
+</li>
+</ul>
+<h3 id="inter-process-communication">Inter-Process Communication</h3>
+<p>The line:</p>
+<pre><code class="lang-python">fifo_output = &quot;/app/exec/fifo_to_TP&quot;
+output_stream = open(fifo_output, 'w')
+</code></pre>
+<p>is critical for communication between the Docker-based DAS and the IGXL tester. It uses a <strong>named FIFO pipe</strong> to push results back into the tester host.</p>
+<p>Example result message sent:</p>
+<pre><code>CODE:0.87|report:[S:0,TN:1234,R:0.5,LLM:-1,HLM:1],...
+</code></pre>
+<hr>
+<h2 id="message-flow-diagram">Message Flow Diagram</h2>
+<pre><code class="lang-text">┌────────────────────┐         ┌──────────────────────┐
+│  IGXL Test Program │ ─────▶  │     Flask App (DAS)  │
+│   (Tester Host)    │         │     in Docker/UE     │
+└────────────────────┘         └──────────────────────┘
+         ▲                                 │
+         │                                 ▼
+         │                       +---------------------+
+         │                       |  Compute Average    |
+         │                       |  from TEST_DATA     |
+         │                       +---------------------+
+         │                                 │
+         │                                 ▼
+         │                      +------------------------+
+         └──────────────────────│ Send result to FIFO   │
+                                +------------------------+
+</code></pre>
+<p>This illustrates how the test program interacts with the DAS inside UltraEdge:</p>
+<ol>
+<li>Test program sends messages (e.g., <code>TEST_DATA</code>, <code>TEST_END</code>) to Flask routes.</li>
+<li>Flask handles and processes data.</li>
+<li>Result is computed.</li>
+<li>Result is sent back to the tester using FIFO.</li>
+</ol>
+<hr>
+<h2 id="test-program--tester-host-communication">Test Program &amp; Tester Host Communication</h2>
+<p>On the tester host, the IGXL test program drives interaction with the UltraEdge system. It performs the following steps:</p>
+<h3 id="step-1-connect-to-ultraedge">Step 1: Connect to UltraEdge</h3>
+<p>In the <code>OnProgramLoaded</code> event:</p>
+<pre><code class="lang-vbnet">UE.Connect &quot;10.100.100.1&quot;, 2023
+</code></pre>
+<p>This establishes a TCP connection with the UltraEdge server (port 2023).</p>
+<h3 id="step-2-start-session-and-launch-docker">Step 2: Start Session and Launch Docker</h3>
+<p>In the <code>OnProgramValidated</code> event:</p>
+<pre><code class="lang-vbnet">UE.SecureSession.Start &quot;&quot;
+UEToolsDocker.SetupCommunicationPath(&quot;pydas&quot;)
+UEToolsDocker.UE_InstallandStartDockerApp
+</code></pre>
+<p>This:</p>
+<ul>
+<li>Starts a secure session</li>
+<li>Creates FIFO for tester-to-UE communication</li>
+<li>Installs and runs the Dockerized DAS</li>
+</ul>
+<h3 id="supporting-module-uetoolsdocker">Supporting Module: <code>UEToolsDocker</code></h3>
+<p>This module includes utilities to:</p>
+<ul>
+<li>Transfer the <code>pydas.tar.gz</code> archive to UltraEdge</li>
+<li>Load the Docker image</li>
+<li>Start the container mapped on port 5001</li>
+<li>Send/receive data via FIFO</li>
+</ul>
+<p><strong>Key method:</strong></p>
+<pre><code class="lang-vbnet">UE.Application(&quot;pydas&quot;).RunDockerContainer(&quot;pydas&quot;, &quot;/app/pydas.py&quot;, &quot;pydas&quot;, &quot;5001:5001&quot;)
+</code></pre>
+<p>This runs the Flask app inside Docker and exposes it to tester.</p>
+<h3 id="reading-the-results">Reading the Results</h3>
+<pre><code class="lang-vbnet">UE.ReadString ApplicationName &amp; FROMUE_FIFO, data
+</code></pre>
+<p>This reads the output from the FIFO and extracts:</p>
+<ul>
+<li><code>CODE:&lt;limit&gt;</code>: the new test limit</li>
+<li><code>report:&lt;raw&gt;</code>: a report string of test results</li>
+</ul>
+<h3 id="test-function">Test Function</h3>
+<pre><code class="lang-vbnet">Call TheExec.Flow.TestLimit(measure, lowlimit, 10, , , , unitVolt, , , , , , , , , , 123)
+</code></pre>
+<p>The test program uses the updated low limit received from the DAS to dynamically adjust pass/fail criteria.</p>
+<hr>
+<p>Next section: How the AMP JSON messages are structured and parsed in Python.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/Demos/RA_0447/advanced.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

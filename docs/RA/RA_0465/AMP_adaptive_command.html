@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Table of Contents </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Table of Contents ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../UltraEdge/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0465/AMP_adaptive_command.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="table-of-contents">Table of Contents</h1>
+
+<ul>
+<li><a href="#AMP_adaptive_command">AMP_adaptive_command</a>
+<ul>
+<li><a href="#AMP_adaptive_command.AdaptiveCommandsKeyNames">AdaptiveCommandsKeyNames</a></li>
+<li><a href="#AMP_adaptive_command.AdaptiveBaseCommand">AdaptiveBaseCommand</a>
+<ul>
+<li><a href="#AMP_adaptive_command.AdaptiveBaseCommand.__init__">__init__</a></li>
+<li><a href="#AMP_adaptive_command.AdaptiveBaseCommand.create_base">create_base</a></li>
+</ul>
+</li>
+<li><a href="#AMP_adaptive_command.EnableWordCommand">EnableWordCommand</a>
+<ul>
+<li><a href="#AMP_adaptive_command.EnableWordCommand.__init__">__init__</a></li>
+<li><a href="#AMP_adaptive_command.EnableWordCommand.activate_enable_words">activate_enable_words</a></li>
+<li><a href="#AMP_adaptive_command.EnableWordCommand.deactivate_enable_words">deactivate_enable_words</a></li>
+<li><a href="#AMP_adaptive_command.EnableWordCommand.add_action">add_action</a></li>
+<li><a href="#AMP_adaptive_command.EnableWordCommand.create_command">create_command</a></li>
+</ul>
+</li>
+<li><a href="#AMP_adaptive_command.TestControlCommand">TestControlCommand</a>
+<ul>
+<li><a href="#AMP_adaptive_command.TestControlCommand.__init__">__init__</a></li>
+<li><a href="#AMP_adaptive_command.TestControlCommand.enable_testnames">enable_testnames</a></li>
+<li><a href="#AMP_adaptive_command.TestControlCommand.enable_testnumbers">enable_testnumbers</a></li>
+<li><a href="#AMP_adaptive_command.TestControlCommand.disable_testnames">disable_testnames</a></li>
+<li><a href="#AMP_adaptive_command.TestControlCommand.disable_testnumbers">disable_testnumbers</a></li>
+<li><a href="#AMP_adaptive_command.TestControlCommand.add_action">add_action</a></li>
+<li><a href="#AMP_adaptive_command.TestControlCommand.create_command">create_command</a></li>
+</ul>
+</li>
+<li><a href="#AMP_adaptive_command.UpdateLimitsCommand">UpdateLimitsCommand</a>
+<ul>
+<li><a href="#AMP_adaptive_command.UpdateLimitsCommand.__init__">__init__</a></li>
+<li><a href="#AMP_adaptive_command.UpdateLimitsCommand.limits_command_with_names">limits_command_with_names</a></li>
+<li><a href="#AMP_adaptive_command.UpdateLimitsCommand.limits_command_with_numbers">limits_command_with_numbers</a></li>
+<li><a href="#AMP_adaptive_command.UpdateLimitsCommand.update_limits_with_testnames">update_limits_with_testnames</a></li>
+<li><a href="#AMP_adaptive_command.UpdateLimitsCommand.update_limits_with_testnumbers">update_limits_with_testnumbers</a></li>
+<li><a href="#AMP_adaptive_command.UpdateLimitsCommand.add_action">add_action</a></li>
+<li><a href="#AMP_adaptive_command.UpdateLimitsCommand.create_command">create_command</a></li>
+</ul>
+</li>
+<li><a href="#AMP_adaptive_command.ClearCommand">ClearCommand</a>
+<ul>
+<li><a href="#AMP_adaptive_command.ClearCommand.__init__">__init__</a></li>
+<li><a href="#AMP_adaptive_command.ClearCommand.create_command">create_command</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="AMP_adaptive_command"></a></p>
+<h1 id="amp_adaptive_command">AMP_adaptive_command</h1>
+<p><a id="AMP_adaptive_command.AdaptiveCommandsKeyNames"></a></p>
+<h2 id="adaptivecommandskeynames-objects">AdaptiveCommandsKeyNames Objects</h2>
+<pre><code class="lang-python">class AdaptiveCommandsKeyNames()
+</code></pre>
+<p>List of the adaptive command key names for the JSON object sent to the RabbitMQ host</p>
+<p><a id="AMP_adaptive_command.AdaptiveBaseCommand"></a></p>
+<h2 id="adaptivebasecommand-objects">AdaptiveBaseCommand Objects</h2>
+<pre><code class="lang-python">class AdaptiveBaseCommand()
+</code></pre>
+<p>Common elements to all adaptive commands</p>
+<p><a id="AMP_adaptive_command.AdaptiveBaseCommand.__init__"></a></p>
+<h4 id="__init__">__init__</h4>
+<pre><code class="lang-python">def __init__(DAS_URL)
+</code></pre>
+<p>Constructor.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>DAS_URL</code> (<code>str</code>): identifier sent to the RabbitMQ host for traceability.
+It is meant to be the URL of the DAS sending the adaptive commands.</li>
+</ul>
+<p><a id="AMP_adaptive_command.AdaptiveBaseCommand.create_base"></a></p>
+<h4 id="create_base">create_base</h4>
+<pre><code class="lang-python">def create_base()
+</code></pre>
+<p>Base command with the fields common to all commands</p>
+<p><a id="AMP_adaptive_command.EnableWordCommand"></a></p>
+<h2 id="enablewordcommand-objects">EnableWordCommand Objects</h2>
+<pre><code class="lang-python">class EnableWordCommand()
+</code></pre>
+<p>Adaptive command targeting enable words</p>
+<p><a id="AMP_adaptive_command.EnableWordCommand.__init__"></a></p>
+<h4 id="__init__-1">__init__</h4>
+<pre><code class="lang-python">def __init__(DAS_URL)
+</code></pre>
+<p>Constructor.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>DAS_URL</code> (<code>str</code>): identifier sent to the RabbitMQ host for traceability.
+It is meant to be the URL of the DAS sending the adaptive commands.</li>
+</ul>
+<p><a id="AMP_adaptive_command.EnableWordCommand.activate_enable_words"></a></p>
+<h4 id="activate_enable_words">activate_enable_words</h4>
+<pre><code class="lang-python">def activate_enable_words(enablewords: list)
+</code></pre>
+<p>This function generates a command enabling a list of IGXL enable words.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>enablewords</code> (<code>list</code>): list of enable words strings to activate.</li>
+</ul>
+<p><a id="AMP_adaptive_command.EnableWordCommand.deactivate_enable_words"></a></p>
+<h4 id="deactivate_enable_words">deactivate_enable_words</h4>
+<pre><code class="lang-python">def deactivate_enable_words(enablewords: list)
+</code></pre>
+<p>This function generates a command disabling a list of IGXL enable words.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>enablewords</code> (<code>list</code>): list of enable words strings to deactivate.</li>
+</ul>
+<p><a id="AMP_adaptive_command.EnableWordCommand.add_action"></a></p>
+<h4 id="add_action">add_action</h4>
+<pre><code class="lang-python">def add_action(action)
+</code></pre>
+<p>Add an enable word action to the command</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>action</code> (<code>dict</code>): enable word action to add to the list of actions for this command.</li>
+</ul>
+<p><a id="AMP_adaptive_command.EnableWordCommand.create_command"></a></p>
+<h4 id="create_command">create_command</h4>
+<pre><code class="lang-python">def create_command()
+</code></pre>
+<p>Creates a JSON adaptive command string using the recorded actions</p>
+<p><a id="AMP_adaptive_command.TestControlCommand"></a></p>
+<h2 id="testcontrolcommand-objects">TestControlCommand Objects</h2>
+<pre><code class="lang-python">class TestControlCommand()
+</code></pre>
+<p>Adaptive command to enable/disable tests</p>
+<p><a id="AMP_adaptive_command.TestControlCommand.__init__"></a></p>
+<h4 id="__init__-2">__init__</h4>
+<pre><code class="lang-python">def __init__(DAS_URL)
+</code></pre>
+<p>Constructor.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>DAS_URL</code> (<code>str</code>): identifier sent to the RabbitMQ host for traceability.
+It is meant to be the URL of the DAS sending the adaptive commands.</li>
+</ul>
+<p><a id="AMP_adaptive_command.TestControlCommand.enable_testnames"></a></p>
+<h4 id="enable_testnames">enable_testnames</h4>
+<pre><code class="lang-python">def enable_testnames(tnames: list)
+</code></pre>
+<p>Enable a test using its name.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>tnames</code> (<code>list</code>): List of test names to enable</li>
+</ul>
+<p><a id="AMP_adaptive_command.TestControlCommand.enable_testnumbers"></a></p>
+<h4 id="enable_testnumbers">enable_testnumbers</h4>
+<pre><code class="lang-python">def enable_testnumbers(tnums: list)
+</code></pre>
+<p>Enable a test using its number.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>tnums</code> (<code>list</code>): List of test numbers to enable</li>
+</ul>
+<p><a id="AMP_adaptive_command.TestControlCommand.disable_testnames"></a></p>
+<h4 id="disable_testnames">disable_testnames</h4>
+<pre><code class="lang-python">def disable_testnames(tnames: list)
+</code></pre>
+<p>Disable a test using its name</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>tnames</code> (<code>list</code>): List of test names to disable</li>
+</ul>
+<p><a id="AMP_adaptive_command.TestControlCommand.disable_testnumbers"></a></p>
+<h4 id="disable_testnumbers">disable_testnumbers</h4>
+<pre><code class="lang-python">def disable_testnumbers(tnums: list)
+</code></pre>
+<p>Disable a test using its number.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>tnums</code> (<code>list</code>): List of test numbers to disable</li>
+</ul>
+<p><a id="AMP_adaptive_command.TestControlCommand.add_action"></a></p>
+<h4 id="add_action-1">add_action</h4>
+<pre><code class="lang-python">def add_action(action)
+</code></pre>
+<p>Add a test enabling/disabling action to the command.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>action</code> (<code>dict</code>): test step action to add to the list of actions for this command.</li>
+</ul>
+<p><a id="AMP_adaptive_command.TestControlCommand.create_command"></a></p>
+<h4 id="create_command-1">create_command</h4>
+<pre><code class="lang-python">def create_command()
+</code></pre>
+<p>Creates a JSON adaptive command string using the recorded actions.</p>
+<p><a id="AMP_adaptive_command.UpdateLimitsCommand"></a></p>
+<h2 id="updatelimitscommand-objects">UpdateLimitsCommand Objects</h2>
+<pre><code class="lang-python">class UpdateLimitsCommand()
+</code></pre>
+<p>Adaptive command to update limits for given tests</p>
+<p><a id="AMP_adaptive_command.UpdateLimitsCommand.__init__"></a></p>
+<h4 id="__init__-3">__init__</h4>
+<pre><code class="lang-python">def __init__(DAS_URL)
+</code></pre>
+<p>Constructor.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>DAS_URL</code> (<code>str</code>): identifier sent to the RabbitMQ host for traceability.
+It is meant to be the URL of the DAS sending the adaptive commands.</li>
+</ul>
+<p><a id="AMP_adaptive_command.UpdateLimitsCommand.limits_command_with_names"></a></p>
+<h4 id="limits_command_with_names">limits_command_with_names</h4>
+<pre><code class="lang-python">def limits_command_with_names(limits: list,
+                              lo_lim: float,
+                              hi_lim: float,
+                              llm_scale: int = None,
+                              hlm_scale: int = None)
+</code></pre>
+<p>Creates a portion of a limit command focused on a specific limit update.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>limits</code> (<code>list</code>): list of names as found in the &quot;Use-Limit&quot; IGXL flow entries.</li>
+<li><code>lo_lim</code> (<code>float</code>): new low limit</li>
+<li><code>hi_lim</code> (<code>float</code>): new high limit</li>
+<li><code>llm_scale</code> (<code>int</code>): scaling value for the low limit (0 = no scaling)</li>
+<li><code>hlm_scale</code> (<code>int</code>): scaling value for the high limit (0 = no scaling)</li>
+</ul>
+<p><a id="AMP_adaptive_command.UpdateLimitsCommand.limits_command_with_numbers"></a></p>
+<h4 id="limits_command_with_numbers">limits_command_with_numbers</h4>
+<pre><code class="lang-python">def limits_command_with_numbers(limits: list,
+                                lo_lim: float,
+                                hi_lim: float,
+                                llm_scale: int = None,
+                                hlm_scale: int = None)
+</code></pre>
+<p>Creates a portion of a limit command focused on a specific limit update.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>limits</code> (<code>list</code>): list of numbers as found in the &quot;Use-Limit&quot; IGXL flow entries.</li>
+<li><code>lo_lim</code> (<code>float</code>): new low limit</li>
+<li><code>hi_lim</code> (<code>float</code>): new high limit</li>
+<li><code>llm_scale</code> (<code>int</code>): scaling value for the low limit (0 = no scaling)</li>
+<li><code>hlm_scale</code> (<code>int</code>): scaling value for the high limit (0 = no scaling)</li>
+</ul>
+<p><a id="AMP_adaptive_command.UpdateLimitsCommand.update_limits_with_testnames"></a></p>
+<h4 id="update_limits_with_testnames">update_limits_with_testnames</h4>
+<pre><code class="lang-python">def update_limits_with_testnames(tnames: list, limits_cmd: dict)
+</code></pre>
+<p>Update limits for a list of test names.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>tnames</code> (<code>list</code>): list of test names on which to update the limits.</li>
+<li><code>limits_cmd</code> (<code>dict</code>): update limits command to apply the list of test names.</li>
+</ul>
+<p><a id="AMP_adaptive_command.UpdateLimitsCommand.update_limits_with_testnumbers"></a></p>
+<h4 id="update_limits_with_testnumbers">update_limits_with_testnumbers</h4>
+<pre><code class="lang-python">def update_limits_with_testnumbers(tnums: list, limits_cmd: dict)
+</code></pre>
+<p>Update limits for a list of test numbers.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>tnums</code> (<code>list</code>): list of test number on which to update the limits.</li>
+<li><code>limits_cmd</code> (<code>dict</code>): update limits command to apply the list of test number.</li>
+</ul>
+<p><a id="AMP_adaptive_command.UpdateLimitsCommand.add_action"></a></p>
+<h4 id="add_action-2">add_action</h4>
+<pre><code class="lang-python">def add_action(action)
+</code></pre>
+<p>Add an enable word action to the command.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>action</code> (<code>dict</code>): single update limits action to perform.</li>
+</ul>
+<p><a id="AMP_adaptive_command.UpdateLimitsCommand.create_command"></a></p>
+<h4 id="create_command-2">create_command</h4>
+<pre><code class="lang-python">def create_command()
+</code></pre>
+<p>Creates a JSON adaptive command string using the recorded actions</p>
+<p><a id="AMP_adaptive_command.ClearCommand"></a></p>
+<h2 id="clearcommand-objects">ClearCommand Objects</h2>
+<pre><code class="lang-python">class ClearCommand()
+</code></pre>
+<p><a id="AMP_adaptive_command.ClearCommand.__init__"></a></p>
+<h4 id="__init__-4">__init__</h4>
+<pre><code class="lang-python">def __init__(DAS_URL)
+</code></pre>
+<p>Constructor.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>DAS_URL</code> (<code>str</code>): identifier sent to the RabbitMQ host for traceability.
+It is meant to be the URL of the DAS sending the adaptive commands.</li>
+</ul>
+<p><a id="AMP_adaptive_command.ClearCommand.create_command"></a></p>
+<h4 id="create_command-3">create_command</h4>
+<pre><code class="lang-python">def create_command()
+</code></pre>
+<p>Creates the JSON adaptive command string to clear previous commands.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0465/AMP_adaptive_command.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

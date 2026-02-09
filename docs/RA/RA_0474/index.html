@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>HTTPS Configuration Guide for DAS </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="HTTPS Configuration Guide for DAS ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0474/index.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/httpsbanner.png" alt="RA 474 Overview" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h1 id="https-configuration-guide-for-das">HTTPS Configuration Guide for DAS</h1>
+<p>Welcome to the documentation for enabling HTTPS in your Data Analytics Solution (DAS).</p>
+<h2 id="overview">Overview</h2>
+<p>This documentation explains how to set up HTTPS on a Data Analytics Solution (DAS) server using a PowerShell script to automate SSL certificate generation and binding. The goal is to secure HTTP communications between clients and DAS components.</p>
+<p>Using HTTPS ensures:</p>
+<ul>
+<li><p>Data confidentiality and integrity</p>
+</li>
+<li><p>Protection against MITM (Man-in-the-Middle) attacks</p>
+</li>
+<li><p>Compliance with enterprise security standards</p>
+</li>
+</ul>
+<h2 id="why-use-https">Why Use HTTPS?</h2>
+<ul>
+<li><p>Encrypt communication between DAS and clients (e.g., test programs)</p>
+</li>
+<li><p>Avoid security warnings from browsers and automated tools</p>
+</li>
+<li><p>Prepare DAS for production environments with stricter security policies</p>
+</li>
+</ul>
+<h2 id="structure">Structure</h2>
+<ul>
+<li><a href="index.html">Overview &amp; Structure</a></li>
+<li><a href="prerequisites.html">Prerequisites</a></li>
+<li><a href="script_workflow.html">Script Workflow</a></li>
+<li><a href="usage.html">How to Use the Script</a></li>
+<li><a href="unbinding.html">Unbinding SSL Certificates</a></li>
+<li><a href="security.html">Security Considerations</a></li>
+<li><a href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<hr>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0474/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

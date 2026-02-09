@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>DAS Collecting Failed Tests Results </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="DAS Collecting Failed Tests Results ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/Demos/RA_0434/index.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/header.jpg" alt="RA 434 Overview" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h1 id="das-collecting-failed-tests-results">DAS Collecting Failed Tests Results</h1>
+<h4 id="reference--ra-434">Reference : RA 434</h4>
+<hr>
+<h2 id="description">Description</h2>
+<p>This Reference Architecture (RA 434) demonstrates a practical use of the <strong>Analytics Management Platform (AMP)</strong> to collect data from a running test program.</p>
+<p>The use case describes the creation of a <strong>Data Application Server (DAS)</strong> that:</p>
+<ul>
+<li>Runs on an MST or IGXL tester</li>
+<li>Collects <strong>parametric and functional test results</strong></li>
+<li><strong>Saves only failed test data</strong> to a report file</li>
+</ul>
+<p>The DAS is implemented in <strong>C# (.NET 8.0)</strong> and is designed to generate a formatted <code>.txt</code> report each time a <strong>sublot</strong> runs.</p>
+<hr>
+<h2 id="general-technical-info">General Technical Info</h2>
+<ul>
+<li><strong>Language:</strong> C#</li>
+<li><strong>Framework:</strong> .NET 8.0</li>
+<li><strong>IDE:</strong> Visual Studio 2022</li>
+<li><strong>Platform:</strong> MST or IGXL</li>
+<li><strong>File Lifecycle:</strong>
+<ul>
+<li>File is opened at sublot start</li>
+<li>File is closed at sublot end</li>
+</ul>
+</li>
+</ul>
+<h2 id="report-format">Report Format</h2>
+<h3 id="parametric-test-example">Parametric Test Example:</h3>
+<pre><code class="lang-text">[Touchdown_001]
+S:0|TNum:1235|TName:MyTest1|R:8|LLM:-5|HLM:5|RS:3|LLS:3|HLS:3
+S:2|TNum:1235|TName:MyTest1|R:8|LLM:-5|HLM:5|RS:3|LLS:3|HLS:3
+S:0|TNum:1236|TName:MyTest1|R:-12|LLM:-5|HLM:5|RS:3|LLS:3|HLS:3
+</code></pre>
+<h3 id="functional-test-example">Functional Test Example:</h3>
+<pre><code class="lang-text">FUNCTIONAL|S:0|TNum:6543|TName:FTest1
+FUNCTIONAL|S:2|TNum:6543|TName:FTest1
+</code></pre>
+<h3 id="format-details">Format Details:</h3>
+<ul>
+<li><strong>S:</strong> Site</li>
+<li><strong>TNum:</strong> Test Number</li>
+<li><strong>TName:</strong> Test Name</li>
+<li><strong>R:</strong> Result</li>
+<li><strong>LLM / HLM:</strong> Low/High Limit Measured</li>
+<li><strong>RS / LLS / HLS:</strong> Scaling factors</li>
+</ul>
+<hr>
+<p>[!NOTE]
+The source code will be available soon in a dedicated Git repo.</p>
+<hr>
+<h2 id="user-guide">User Guide</h2>
+<h3 id="start-the-das">Start the DAS</h3>
+<pre><code class="lang-bash">FailedTests.exe
+</code></pre>
+<h3 id="load-the-igxl-test-program">Load the IGXL Test Program</h3>
+<ul>
+<li>Open: <code>FailedTestsTP.igxl</code></li>
+</ul>
+<h3 id="open-the-data-collect-setup">Open the Data Collect Setup</h3>
+<ul>
+<li>Navigate to: <strong>Main Tab &gt; Data Collect Group &gt; DataCollect Setup</strong></li>
+</ul>
+<h3 id="set-the-sublot-id">Set the Sublot ID</h3>
+<ul>
+<li>Go to the <strong>Lot Definition</strong> tab</li>
+<li>Click “More…”</li>
+<li>Set the <strong>Sub Lot</strong> value (5th from the bottom on the right column)</li>
+<li>Click OK</li>
+</ul>
+<h3 id="execute-the-test-program">Execute the Test Program</h3>
+<ul>
+<li>Enable <strong>Datalog On</strong></li>
+<li>Click <strong>Run</strong> several times</li>
+</ul>
+<h3 id="close-the-datalog">Close the Datalog</h3>
+<ul>
+<li>Re-open <strong>DataCollect Setup</strong></li>
+<li>Go to <strong>Summary Report</strong> tab</li>
+<li>Click <strong>“Get Final Summary / End Lot”</strong></li>
+<li>DAS window should show <code>SubLot End</code> and the path to the file</li>
+</ul>
+<h3 id="view-the-results">View the Results</h3>
+<ul>
+<li>Go to <code>C:\temp</code></li>
+<li>Open the generated <code>.txt</code> file</li>
+<li>Results are grouped by <strong>Touchdown ID</strong>, showing only <strong>failing sites</strong></li>
+</ul>
+<hr>
+<h2 id="screenshots">Screenshots</h2>
+<p>[!NOTE] Coming Soon</p>
+<h2 id="demo-video">Demo Video</h2>
+<p>[!NOTE] Coming Soon</p>
+<hr>
+<h2 id="summary">Summary</h2>
+<p>RA 434 shows how AMP and DAS can be used to filter and report only failed test data, reducing file size and focusing on valuable debugging content. This provides a solid foundation for integrating intelligent data filtering into your production test flow.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/Demos/RA_0434/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

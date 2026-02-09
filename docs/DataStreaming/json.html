@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/DataStreaming/json.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/json.png" alt="JSON Overview" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h2 id="introduction-understanding-json-messages">Introduction: Understanding JSON Messages</h2>
+<p><strong>JSON (JavaScript Object Notation)</strong> is a lightweight and widely used data format for exchanging information between systems such as <strong>AMP</strong> and <strong>DAS</strong>.<br>
+It is structured in a simple key–value format that makes it both <strong>human-readable</strong> and <strong>machine-parsable</strong>.</p>
+<h3 id="what-is-a-json-message-high-level-overview">What is a JSON Message? (High-Level Overview)</h3>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#E8F4F8','secondaryColor':'#F0F9E8','tertiaryColor':'#FFF4E6','primaryTextColor':'#000000','secondaryTextColor':'#000000','tertiaryTextColor':'#000000'}}}%%
+mindmap
+  root((JSON Message))
+    Structure:::structureClass
+      Key Value Pairs
+        Keys are strings in quotes
+        Values have different types
+      Hierarchical
+        Nested objects
+        Arrays of data
+      Human readable
+        Plain text format
+        Easy to understand
+    Data Types:::datatypeClass
+      Primitives
+        String
+          Text values
+          Example IDLE
+        Number
+          Integers
+          Decimals
+          Example 123 or 3.14
+        Boolean
+          true or false values
+        Null
+          Represents no value
+      Complex
+        Object
+          Nested key value pairs
+          Example user info
+        Array
+          Ordered list of values
+          Example message list
+</pre>
+<h3 id="basic-structure">Basic Structure</h3>
+<p>A JSON message consists of:</p>
+<ul>
+<li><strong>Keys</strong> (also called <em>fields</em>), written as text inside quotes.</li>
+<li><strong>Values</strong>, which can be text, numbers, booleans, arrays, or even nested objects.</li>
+</ul>
+<h4 id="visual-structure">Visual Structure</h4>
+<pre class="mermaid">
+graph TD
+    JSON[JSON Object]
+    JSON --> K1[Key: STATUS]
+    JSON --> K2[Key: CURRENT_USER]
+    JSON --> K3[Key: TST_SOFT]
+    
+    K1 --> V1[Value: IDLE<br>Type: String]
+    K2 --> V2[Value: TER\\bonneval<br>Type: String]
+    K3 --> V3[Value: false<br>Type: Boolean]
+    
+    style JSON fill:#e1f5ff,stroke:#0078d4,stroke-width:2px
+    style K1 fill:#fff4ce,stroke:#f59e0b,stroke-width:2px
+    style K2 fill:#fff4ce,stroke:#f59e0b,stroke-width:2px
+    style K3 fill:#fff4ce,stroke:#f59e0b,stroke-width:2px
+    style V1 fill:#d4f4dd,stroke:#16a34a,stroke-width:2px
+    style V2 fill:#d4f4dd,stroke:#16a34a,stroke-width:2px
+    style V3 fill:#d4f4dd,stroke:#16a34a,stroke-width:2px
+</pre>
+<h4 id="example">Example</h4>
+<pre><code class="lang-json">{
+  &quot;STATUS&quot;: &quot;IDLE&quot;,
+  &quot;CURRENT_USER&quot;: &quot;TER\\bonneval&quot;,
+  &quot;TST_SOFT&quot;: false
+}
+</code></pre>
+<p>In this example:</p>
+<ul>
+<li><code>&quot;STATUS&quot;</code> is a <strong>key</strong>, and <code>&quot;IDLE&quot;</code> is its <strong>value</strong>.</li>
+<li><code>&quot;CURRENT_USER&quot;</code> is another key whose value is the logged user.</li>
+<li><code>&quot;TST_SOFT&quot;: false</code> means the test software is currently inactive.</li>
+</ul>
+<h3 id="nested-and-array-values">Nested and Array Values</h3>
+<p>JSON can contain <strong>arrays</strong> (lists) and <strong>nested objects</strong>.<br>
+Arrays are surrounded by square brackets <code>[]</code>, and objects by curly braces <code>{}</code>.</p>
+<p>Example with a message list:</p>
+<pre><code class="lang-json">{
+  &quot;MESSAGE_LIST&quot;: [
+    &quot;INITIALIZATION&quot;,
+    &quot;STATUS&quot;,
+    &quot;TEST_START&quot;,
+    &quot;TEST_END&quot;
+  ]
+}
+</code></pre>
+<p>Here, <code>MESSAGE_LIST</code> is a key whose value is an array of strings.</p>
+<h3 id="reading-json-in-practice">Reading JSON in Practice</h3>
+<p>To read JSON data:</p>
+<ol>
+<li><strong>Identify the top-level keys</strong> – these describe the main categories of information (e.g., <code>TIME_STAMP</code>, <code>STATUS</code>, <code>MESSAGE_LIST</code>).</li>
+<li><strong>Inspect the values</strong> – determine what each represents (text, number, list, etc.).</li>
+<li><strong>Follow hierarchy</strong> – if a value is an object, open its <code>{}</code> section and repeat the process.</li>
+<li><strong>Ignore order</strong> – JSON fields are unordered; their sequence doesn’t matter.</li>
+</ol>
+<h3 id="in-the-das-context">In the DAS Context</h3>
+<p>In the AMP–DAS communication:</p>
+<ul>
+<li><strong>AMP</strong> sends messages formatted in JSON.</li>
+<li><strong>DAS</strong> reads these messages, checks their <strong>keys and values</strong>, and responds with its own JSON structure.</li>
+</ul>
+<p>Each message type (for example, <code>INITIALIZATION</code>, <code>STATUS</code>, or <code>TEST_END</code>) may include different fields, but they all follow the same readable JSON format.</p>
+<h4 id="common-message-types">Common Message Types</h4>
+<p>The following table shows the most common message types exchanged between AMP and DAS:</p>
+<table>
+<thead>
+<tr>
+<th>Message Type</th>
+<th>Direction</th>
+<th>Purpose</th>
+<th>Key Fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>INITIALIZATION</code></td>
+<td>AMP → DAS</td>
+<td>Start communication</td>
+<td><code>TCS_MESSAGE_LIST</code>, <code>TCS_VENDOR</code>, <code>TCS_VERSION</code></td>
+</tr>
+<tr>
+<td><code>STATUS</code></td>
+<td>AMP → DAS</td>
+<td>System status update</td>
+<td><code>STATUS</code>, <code>CURRENT_USER</code>, <code>TST_SOFT</code></td>
+</tr>
+<tr>
+<td><code>TEST_START</code></td>
+<td>AMP → DAS</td>
+<td>Test execution started</td>
+<td><code>LOT_ID</code>, <code>SUBLOT_ID</code>, <code>TEST_PROGRAM</code></td>
+</tr>
+<tr>
+<td><code>TEST_DATA</code></td>
+<td>AMP → DAS</td>
+<td>Test results data</td>
+<td><code>TEST_NUMBER</code>, <code>RESULTS</code>, <code>BIN</code></td>
+</tr>
+<tr>
+<td><code>TEST_END</code></td>
+<td>AMP → DAS</td>
+<td>Test execution ended</td>
+<td><code>FINAL_BIN</code>, <code>DURATION</code></td>
+</tr>
+<tr>
+<td><code>SHUTDOWN</code></td>
+<td>AMP → DAS</td>
+<td>Close connection</td>
+<td><code>REASON</code></td>
+</tr>
+<tr>
+<td><code>MESSAGE_LIST</code></td>
+<td>DAS → AMP</td>
+<td>DAS subscriptions</td>
+<td><code>MESSAGE_LIST</code> (array)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="example-complete-status-message">Example: Complete STATUS Message</h4>
+<pre><code class="lang-json">{
+  &quot;TIME_STAMP&quot;: &quot;2025-12-17T14:23:45.1234567Z&quot;,
+  &quot;MESSAGE_TYPE&quot;: &quot;STATUS&quot;,
+  &quot;STATUS&quot;: &quot;TESTING&quot;,
+  &quot;CURRENT_USER&quot;: &quot;TER\\bonneval&quot;,
+  &quot;TST_SOFT&quot;: true,
+  &quot;CELL_ID&quot;: &quot;TEST_CELL_01&quot;,
+  &quot;PROGRAM_NAME&quot;: &quot;PROGRAM_X_V1.2&quot;,
+  &quot;HEARTBEAT_COUNT&quot;: 142
+}
+</code></pre>
+<h4 id="example-test_data-message-with-nested-data">Example: TEST_DATA Message with Nested Data</h4>
+<pre><code class="lang-json">{
+  &quot;TIME_STAMP&quot;: &quot;2025-12-17T14:24:10.5678901Z&quot;,
+  &quot;MESSAGE_TYPE&quot;: &quot;TEST_DATA&quot;,
+  &quot;DEVICE_ID&quot;: &quot;DEV_12345&quot;,
+  &quot;TEST_NUMBER&quot;: 1523,
+  &quot;RESULTS&quot;: {
+    &quot;VOLTAGE&quot;: 3.3,
+    &quot;CURRENT&quot;: 0.125,
+    &quot;TEMPERATURE&quot;: 25.4,
+    &quot;PASS&quot;: true
+  },
+  &quot;BIN&quot;: 1,
+  &quot;SITE&quot;: 0
+}
+</code></pre>
+<h3 id="going-further">Going further</h3>
+<h4 id="json-data-types-quick-reference">JSON Data Types Quick Reference</h4>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td><code>&quot;IDLE&quot;</code>, <code>&quot;TEST_CELL_01&quot;</code></td>
+<td>Text enclosed in double quotes</td>
+</tr>
+<tr>
+<td>Number</td>
+<td><code>123</code>, <code>3.14</code>, <code>-42</code></td>
+<td>Integer or decimal values</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td><code>true</code>, <code>false</code></td>
+<td>Logical true/false values</td>
+</tr>
+<tr>
+<td>Array</td>
+<td><code>[&quot;A&quot;, &quot;B&quot;, &quot;C&quot;]</code></td>
+<td>Ordered list of values</td>
+</tr>
+<tr>
+<td>Object</td>
+<td><code>{&quot;key&quot;: &quot;value&quot;}</code></td>
+<td>Nested key-value pairs</td>
+</tr>
+<tr>
+<td>Null</td>
+<td><code>null</code></td>
+<td>Represents no value</td>
+</tr>
+</tbody>
+</table>
+<h4 id="validation-tips">Validation Tips</h4>
+<p>When working with JSON messages in DAS:</p>
+<ol>
+<li><strong>Validate structure</strong> – Ensure the message has all required keys</li>
+<li><strong>Check data types</strong> – Verify values match expected types (string, number, etc.)</li>
+<li><strong>Handle missing fields</strong> – Use default values or reject invalid messages</li>
+<li><strong>Parse carefully</strong> – Use proper JSON parsing libraries to avoid errors</li>
+<li><strong>Log errors</strong> – Record malformed messages for debugging</li>
+</ol>
+<h4 id="example-json-parsing-in-c">Example: JSON Parsing in C#</h4>
+<pre><code class="lang-csharp">using System.Text.Json;
+
+// Parse JSON string to object
+var jsonString = @&quot;{&quot;&quot;STATUS&quot;&quot;: &quot;&quot;IDLE&quot;&quot;, &quot;&quot;TST_SOFT&quot;&quot;: false}&quot;;
+var doc = JsonDocument.Parse(jsonString);
+
+// Access values
+string status = doc.RootElement.GetProperty(&quot;STATUS&quot;).GetString();
+bool testSoft = doc.RootElement.GetProperty(&quot;TST_SOFT&quot;).GetBoolean();
+
+Console.WriteLine($&quot;Status: {status}, Test Software: {testSoft}&quot;);
+</code></pre>
+<h4 id="example-json-parsing-in-python">Example: JSON Parsing in Python</h4>
+<pre><code class="lang-python">import json
+
+# Parse JSON string to dictionary
+json_string = '{&quot;STATUS&quot;: &quot;IDLE&quot;, &quot;TST_SOFT&quot;: false}'
+data = json.loads(json_string)
+
+# Access values
+status = data[&quot;STATUS&quot;]
+test_soft = data[&quot;TST_SOFT&quot;]
+
+print(f&quot;Status: {status}, Test Software: {test_soft}&quot;)
+</code></pre>
+<h4 id="additional-resources">Additional Resources</h4>
+<p><a href="https://www.w3schools.com/js/js_json.asp">If you want to learn more about JSON</a></p>
+<hr>
+<p><em>Understanding JSON is key to interpreting and debugging the communication between AMP and the Data Analytics Solution (DAS).</em></p>
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/DataStreaming/json.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Advanced Code Overview </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Advanced Code Overview ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/Demos/RA_0434/advanced.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/header.jpg" alt="RA 434 Overview" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h1 id="advanced-code-overview">Advanced Code Overview</h1>
+<h4 id="reference--ra-434">Reference : RA 434</h4>
+<p>This page provides a technical deep dive into the source code of <strong>RA_FAARCH_434</strong>, which demonstrates how a DAS (Data Application Server) is used to collect failed test results in an AMP environment.</p>
+<hr>
+<h2 id="project-overview">Project Overview</h2>
+<ul>
+<li><strong>Language:</strong> C# (.NET 8.0)</li>
+<li><strong>Structure:</strong> Modular, event-driven design</li>
+<li><strong>Executable:</strong> <code>FailedTests.exe</code></li>
+</ul>
+<p>The application listens to AMP messages during test execution, collects results, and logs only the failed tests (parametric and functional) into a report.</p>
+<hr>
+<h2 id="key-components">Key Components</h2>
+<h3 id="programcs"><code>Program.cs</code></h3>
+<p>Entry point for the DAS. Initializes listeners and starts execution.</p>
+<h3 id="amp_dasexecutioncs"><code>AMP_DASExecution.cs</code></h3>
+<p>Orchestrates the main DAS lifecycle:</p>
+<ul>
+<li>SubLot start/end logic</li>
+<li>Test cycle handling</li>
+<li>Data collection triggering</li>
+</ul>
+<h3 id="amp_messages_processorcs"><code>AMP_Messages_Processor.cs</code></h3>
+<p>Processes raw AMP messages and dispatches them to handlers:</p>
+<ul>
+<li>Handles site/test info</li>
+<li>Routes messages to appropriate data models</li>
+</ul>
+<hr>
+<h2 id="amp-communication">AMP Communication</h2>
+<h3 id="ampeventscs"><code>AMPEvents.cs</code></h3>
+<p>Defines AMP-related events and constants.</p>
+<h3 id="daslistenercs"><code>DASListener.cs</code></h3>
+<p>Listens for incoming AMP messages and manages connection state.</p>
+<h3 id="requestprocessorcs"><code>RequestProcessor.cs</code></h3>
+<p>Processes inbound communication requests and ensures they follow expected structure.</p>
+<hr>
+<h2 id="data-models">Data Models</h2>
+<h3 id="ampmessagemodelcs"><code>AMPMessageModel.cs</code></h3>
+<p>Object model for parsing and holding AMP message details.</p>
+<h3 id="amp_message_listcs"><code>AMP_MESSAGE_LIST.cs</code></h3>
+<p>Maintains a categorized list of parsed AMP messages.</p>
+<h3 id="failedfunctionaltestmodelcs--failedparametrictestmodelcs"><code>FailedFunctionalTestModel.cs</code> / <code>FailedParametricTestModel.cs</code></h3>
+<p>Specific models used to store failed test results.</p>
+<h3 id="touchdownscs"><code>Touchdowns.cs</code></h3>
+<p>Keeps track of touchdown events and test site association.</p>
+<h3 id="failedtestmodelcs"><code>FailedTestModel.cs</code></h3>
+<p>Base class for both parametric and functional test models.</p>
+<hr>
+<h2 id="file-output-logic">File Output Logic</h2>
+<h3 id="failedtestsdatafilecs"><code>FailedTestsDataFile.cs</code></h3>
+<p>Handles creation and writing of output files:</p>
+<ul>
+<li>Report file lifecycle (start/end)</li>
+<li>Appending formatted test result strings</li>
+<li>Formatting logic for both parametric and functional records</li>
+</ul>
+<hr>
+<h2 id="utilities">Utilities</h2>
+<h3 id="utilscs"><code>Utils.cs</code></h3>
+<p>Common helper methods for:</p>
+<ul>
+<li>String parsing</li>
+<li>Test site formatting</li>
+<li>Field validation</li>
+</ul>
+<hr>
+<h2 id="browse-the-code">Browse the Code</h2>
+<p>The full source code is located in the <code>/source</code> folder of this RA package.</p>
+<p>Example:</p>
+<ul>
+<li><a href="source/FailedTests/AMP_DASExecution.cs">AMP_DASExecution.cs</a></li>
+<li><a href="source/FailedTests/AMPCommunication/DASListener.cs">DASListener.cs</a></li>
+<li><a href="source/FailedTests/DataFiles/FailedTestsDataFile.cs">FailedTestsDataFile.cs</a></li>
+</ul>
+<hr>
+<h2 id="download-source-package">Download Source Package</h2>
+<ul>
+<li><a href="source/FailedTests.zip">Download FailedTests.zip</a></li>
+</ul>
+<h2 id="view-api-documentation">View API Documentation</h2>
+<ul>
+<li><a href="api/index.html">View Generated Code Documentation</a></li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Actual file paths should reflect your deployment.</p>
+</div>
+<hr>
+<h2 id="summary">Summary</h2>
+<p>This RA showcases a robust and modular implementation of an AMP-connected DAS designed to extract only failed test information in a structured and scalable way.</p>
+<p>Explore the source to dive deeper into the message processing and data modeling logic powering this application.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/Demos/RA_0434/advanced.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

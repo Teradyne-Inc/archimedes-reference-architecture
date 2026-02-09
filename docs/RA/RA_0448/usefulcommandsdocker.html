@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Useful Docker Commands </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Useful Docker Commands ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../UltraEdge/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0448/usefulcommandsdocker.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="useful-docker-commands">Useful Docker Commands</h1>
+
+<hr>
+<p><a id="mind-map"></a></p>
+<h2 id="mind-map">Mind Map</h2>
+<pre><code class="lang-mermaid">%%{init: {'theme':'dark', 'themeVariables': { 'primaryColor':'#6366f1','primaryTextColor':'#fff','primaryBorderColor':'#4f46e5','lineColor':'#ec4899','secondaryColor':'#8b5cf6','tertiaryColor':'#06b6d4','fontSize':'16px'}}}%%
+graph LR
+    A[🐳 Docker Commands]:::mainNode
+    A --&gt;|Info| B[📋 Check Version]:::infoNode
+    A --&gt;|List| C[📦 List Containers]:::listNode
+    A --&gt;|List| D[🖼️ List Images]:::listNode
+    A --&gt;|Control| E[⏹️ Stop Container]:::controlNode
+    A --&gt;|Cleanup| F[🗑️ Remove Container]:::cleanupNode
+    A --&gt;|Cleanup| G[🗑️ Remove Image]:::cleanupNode
+    A --&gt;|Debug| H[📜 View Logs]:::debugNode
+    A --&gt;|Interact| I[💻 Exec in Container]:::interactNode
+    
+    click B &quot;#check-version&quot; &quot;Go to Check Docker Version&quot;
+    click C &quot;#list-containers&quot; &quot;Go to List Containers&quot;
+    click D &quot;#list-images&quot; &quot;Go to List Images&quot;
+    click E &quot;#stop-container&quot; &quot;Go to Stop Container&quot;
+    click F &quot;#remove-container&quot; &quot;Go to Remove Container&quot;
+    click G &quot;#remove-image&quot; &quot;Go to Remove Image&quot;
+    click H &quot;#view-logs&quot; &quot;Go to View Logs&quot;
+    click I &quot;#exec-container&quot; &quot;Go to Exec in Container&quot;
+    
+    classDef mainNode fill:#6366f1,stroke:#4f46e5,stroke-width:4px,color:#fff,font-weight:bold,font-size:18px
+    classDef infoNode fill:#06b6d4,stroke:#0891b2,stroke-width:3px,color:#fff,font-weight:bold
+    classDef listNode fill:#8b5cf6,stroke:#7c3aed,stroke-width:3px,color:#fff,font-weight:bold
+    classDef controlNode fill:#f59e0b,stroke:#d97706,stroke-width:3px,color:#fff,font-weight:bold
+    classDef cleanupNode fill:#ef4444,stroke:#dc2626,stroke-width:3px,color:#fff,font-weight:bold
+    classDef debugNode fill:#10b981,stroke:#059669,stroke-width:3px,color:#fff,font-weight:bold
+    classDef interactNode fill:#ec4899,stroke:#db2777,stroke-width:3px,color:#fff,font-weight:bold
+</code></pre>
+<hr>
+<p><a id="check-version"></a></p>
+<h2 id="1-check-docker-version">1. Check Docker Version</h2>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-bash">docker --version
+</code></pre>
+<pre><code class="lang-bash">check_docker_version() {
+    docker --version
+}
+</code></pre>
+<p><a href="#mind-map">⬆️ Back to Mind Map</a></p>
+<p><a id="list-containers"></a></p>
+<h2 id="2-list-running-containers">2. List Running Containers</h2>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-bash">docker ps
+</code></pre>
+<pre><code class="lang-bash">list_running_containers() {
+    docker ps
+}
+</code></pre>
+<p><a href="#mind-map">⬆️ Back to Mind Map</a></p>
+<h2 id="3-list-all-containers">3. List All Containers</h2>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-bash">docker ps -a
+</code></pre>
+<pre><code class="lang-bash">list_all_containers() {
+    docker ps -a
+}
+</code></pre>
+<p><a href="#mind-map">⬆️ Back to Mind Map</a></p>
+<p><a id="list-images"></a></p>
+<h2 id="4-list-images">4. List Images</h2>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-bash">docker images
+</code></pre>
+<pre><code class="lang-bash">list_docker_images() {
+    docker images
+}
+</code></pre>
+<p><a href="#mind-map">⬆️ Back to Mind Map</a></p>
+<p><a id="stop-container"></a></p>
+<h2 id="5-stop-a-container">5. Stop a Container</h2>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-bash">docker stop &lt;container_id&gt;
+</code></pre>
+<pre><code class="lang-bash">stop_container() {
+    docker stop &quot;$1&quot;
+}
+# Usage: stop_container &lt;container_id&gt;
+</code></pre>
+<p><a href="#mind-map">⬆️ Back to Mind Map</a></p>
+<p><a id="remove-container"></a></p>
+<h2 id="6-remove-a-container">6. Remove a Container</h2>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-bash">docker rm &lt;container_id&gt;
+</code></pre>
+<pre><code class="lang-bash">remove_container() {
+    docker rm &quot;$1&quot;
+}
+# Usage: remove_container &lt;container_id&gt;
+</code></pre>
+<p><a href="#mind-map">⬆️ Back to Mind Map</a></p>
+<p><a id="remove-image"></a></p>
+<h2 id="7-remove-an-image">7. Remove an Image</h2>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-bash">docker rmi &lt;image_id&gt;
+</code></pre>
+<pre><code class="lang-bash">remove_image() {
+    docker rmi &quot;$1&quot;
+}
+# Usage: remove_image &lt;image_id&gt;
+</code></pre>
+<p><a href="#mind-map">⬆️ Back to Mind Map</a></p>
+<p><a id="view-logs"></a></p>
+<h2 id="8-view-docker-logs">8. View Docker Logs</h2>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-bash">docker logs &lt;container_id&gt;
+</code></pre>
+<pre><code class="lang-bash">view_container_logs() {
+    docker logs &quot;$1&quot;
+}
+# Usage: view_container_logs &lt;container_id&gt;
+</code></pre>
+<p><a href="#mind-map">⬆️ Back to Mind Map</a></p>
+<p><a id="exec-container"></a></p>
+<h2 id="9-exec-in-container">9. Exec in Container</h2>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-bash">docker exec -it &lt;container_id&gt; /bin/bash
+</code></pre>
+<pre><code class="lang-bash">exec_in_container() {
+    docker exec -it &quot;$1&quot; /bin/bash
+}
+# Usage: exec_in_container &lt;container_id&gt;
+</code></pre>
+<p><a href="#mind-map">⬆️ Back to Mind Map</a></p>
+<hr>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0448/usefulcommandsdocker.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

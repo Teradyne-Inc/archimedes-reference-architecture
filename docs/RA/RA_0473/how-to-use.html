@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../DataStreaming/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0473/how-to-use.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA_0473_Header.png" alt="RA 473 Overview" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h2 id="how-to-use-the-powershell-das-listener">How to Use the PowerShell DAS Listener</h2>
+<h4 id="reference-ra-473">Reference RA 473</h4>
+<p>This guide explains how to use the PowerShell scripts provided in RA 473.</p>
+<hr>
+<h2 id="prepare-the-environment">Prepare the Environment</h2>
+<p>Make sure you have:</p>
+<ul>
+<li>PowerShell 5.1 or PowerShell Core installed</li>
+<li>Edit the AMP configuration file to declare the DAS</li>
+</ul>
+<h3 id="configuration-file">Configuration File</h3>
+<p>You need to declare your DAS in the following file:</p>
+<pre><code>C:\ProgramData\Teradyne\Production\AMP\Conf\DAS_Conf.xml
+</code></pre>
+<h3 id="example-configuration">Example Configuration</h3>
+<pre><code class="lang-xml">&lt;DAS&gt;
+    &lt;URL&gt;http://127.0.0.1:1000/TestDAS/&lt;/URL&gt;
+    &lt;MaxMsg&gt;50&lt;/MaxMsg&gt;
+    &lt;Name&gt;TestDAS&lt;/Name&gt;
+    &lt;Enable&gt;true&lt;/Enable&gt;
+    &lt;Specification&gt;S_08&lt;/Specification&gt;
+&lt;/DAS&gt;
+</code></pre>
+<p>Ensure that the URL defined in the DAS matches exactly the one you provide to your listener.</p>
+<hr>
+<h2 id="load-the-required-files">Load the Required Files</h2>
+<p>Open a PowerShell console and run:</p>
+<pre><code class="lang-powershell">. ./source/DASMessage.ps1
+. ./source/DASListener.ps1
+. ./source/CallbackExample.ps1
+</code></pre>
+<hr>
+<h2 id="start-the-listener">Start the Listener</h2>
+<pre><code class="lang-powershell">$queue = [System.Collections.Concurrent.ConcurrentQueue[object]]::new()
+$cts = [System.Threading.CancellationTokenSource]::new()
+
+$consumerJob = Start-Job -ScriptBlock {
+    param ($queue, $callbackScript, $token)
+
+    while (-not $token.IsCancellationRequested) {
+        if (-not $queue.IsEmpty) {
+            $ok, [ref]$msg = $null
+            $ok = $queue.TryDequeue([ref]$msg)
+            if ($ok) {
+                &amp; $callbackScript.Invoke($msg.Value)
+            }
+        } else {
+            Start-Sleep -Milliseconds 100
+        }
+    }
+    Write-Host &quot;Consumer stopped.&quot;
+} -ArgumentList $queue, ${function:MyCallback}, $cts.Token
+
+Start-WebServiceListener -Url &quot;http://localhost:8080/das/&quot; -Queue $queue -Token $cts.Token
+</code></pre>
+<hr>
+<h2 id="stop-the-listener">Stop the Listener</h2>
+<pre><code class="lang-powershell">$cts.Cancel()
+Stop-Job $consumerJob
+Remove-Job $consumerJob
+</code></pre>
+<hr>
+<h2 id="using-the-automation-script">Using the Automation Script</h2>
+<p>Instead of running the steps manually, you can simply launch:</p>
+<pre><code class="lang-powershell">./source/Run-DAS.ps1
+</code></pre>
+<p>The script will:</p>
+<ul>
+<li>Start the DAS listener and background consumer</li>
+<li>Print all messages received</li>
+<li>Stop when you type <code>q</code> and press Enter</li>
+</ul>
+<p>Logs are saved to <code>$env:TEMP\das.log</code> if write access is available.</p>
+<p>This script is ideal for developers wanting to experiment with DAS-style communication and simulate AMP system behavior using native PowerShell.</p>
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0473/how-to-use.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

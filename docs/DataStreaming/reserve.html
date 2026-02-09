@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/DataStreaming/reserve.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<h2 id="url-reservation-for-das-listeners">URL Reservation for DAS Listeners</h2>
+<h3 id="overview">Overview</h3>
+<p>When running a <strong>Data Analytics Solution (DAS)</strong> that listens on HTTP/HTTPS ports, Windows requires specific permissions to bind to network endpoints. This document explains <strong>URL reservations</strong> in HTTP.SYS and how they affect DAS operation.</p>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#E8F4F8','primaryTextColor':'#000000','primaryBorderColor':'#2C5282','lineColor':'#2C5282','secondaryColor':'#F0F9E8','tertiaryColor':'#FFF4E6','noteBkgColor':'#FFF4E6','noteTextColor':'#000000'}}}%%
+graph TD
+    Start[Want to run DAS on HTTP port]
+    Admin{Running as<br>Administrator?}
+    Reserved{URL Reserved<br>in HTTP.SYS?}
+    Success1[DAS Starts Successfully]
+    Success2[DAS Starts Successfully]
+    Fail[Access Denied Error]
+    
+    Start --> Admin
+    Admin -->|Yes| Success1
+    Admin -->|No| Reserved
+    Reserved -->|Yes| Success2
+    Reserved -->|No| Fail
+    
+    style Start fill:#E8F4F8
+    style Success1 fill:#F0F9E8
+    style Success2 fill:#F0F9E8
+    style Fail fill:#FFE6E6
+    style Admin fill:#FFF4E6
+    style Reserved fill:#FFF4E6
+</pre>
+<hr>
+<h3 id="what-is-a-reserved-port">What is a Reserved Port?</h3>
+<p>A <strong>reserved port</strong> (or more accurately, a <strong>reserved URL</strong>) is a URL namespace registered in <strong>HTTP.SYS</strong> — the Windows kernel-mode HTTP listener. HTTP.SYS is the low-level component that handles HTTP requests before they reach your application.</p>
+<p>When you reserve a URL in HTTP.SYS, you grant specific users or groups the permission to listen on that URL <strong>without requiring administrator privileges</strong>.</p>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#E8F4F8','primaryTextColor':'#000000','primaryBorderColor':'#2C5282','lineColor':'#2C5282','secondaryColor':'#F0F9E8','tertiaryColor':'#FFF4E6'}}}%%
+graph TB
+    subgraph Windows["Windows Operating System"]
+        subgraph Kernel["Kernel Space"]
+            HTTPSYS["HTTP.SYS<br>(Kernel-mode HTTP Driver)"]
+            URLTable["Reserved URL Table<br>http://+:3000/tems/ → Users<br>http://+:1805/TRV/ → Everyone"]
+        end
+        
+        subgraph UserSpace["User Space"]
+            DAS1["DAS Instance 1<br>Port 3000<br>(Standard User)"]
+            DAS2["DAS Instance 2<br>Port 1805<br>(Standard User)"]
+            AdminDAS["DAS Instance 3<br>Port 8080<br>(Administrator)"]
+        end
+    end
+    
+    Network["Network Requests<br>HTTP/HTTPS"]
+    
+    Network --> HTTPSYS
+    HTTPSYS --> URLTable
+    URLTable -.Check Permission.-> DAS1
+    URLTable -.Check Permission.-> DAS2
+    URLTable -.Check Permission.-> AdminDAS
+    DAS1 --> HTTPSYS
+    DAS2 --> HTTPSYS
+    AdminDAS --> HTTPSYS
+    
+    style HTTPSYS fill:#E8F4F8
+    style URLTable fill:#FFF4E6
+    style DAS1 fill:#F0F9E8
+    style DAS2 fill:#F0F9E8
+    style AdminDAS fill:#FFE6E6
+</pre>
+<h4 id="why-url-reservation-matters-for-das">Why URL Reservation Matters for DAS</h4>
+<ul>
+<li><strong>Without reservation</strong>: A DAS must run as <strong>Administrator</strong> to bind to an HTTP endpoint</li>
+<li><strong>With reservation</strong>: A DAS can run as a <strong>standard user</strong>, improving security and deployment flexibility</li>
+</ul>
+<hr>
+<h3 id="das-implementation-considerations">DAS Implementation Considerations</h3>
+<p>The need for URL reservation depends on how the DAS implements its HTTP listener:</p>
+<h4 id="webcontract-based-das">WebContract-Based DAS</h4>
+<p>If a local DAS uses <strong>WebContract</strong> (WCF ServiceHost), it requires:</p>
+<ul>
+<li>✅ URL reservation in HTTP.SYS <strong>OR</strong></li>
+<li>⚠️ Administrator privileges to run</li>
+</ul>
+<p><strong>Recommendation</strong>: Reserve the port to avoid running as Administrator.</p>
+<h5 id="httplistener-based-das">HttpListener-Based DAS</h5>
+<p>If a DAS uses the <strong>.NET <code>HttpListener</code> class</strong>, behavior varies:</p>
+<ul>
+<li>✅ On most systems: Works fine with reserved URLs</li>
+<li>⚠️ On some systems: <strong>Cannot connect to reserved ports</strong></li>
+</ul>
+<p><strong>Note</strong>: If you encounter connection issues with <code>HttpListener</code> on a reserved port, you may need to remove the reservation and run as Administrator, or use a different implementation approach.</p>
+<hr>
+<h3 id="managing-url-reservations-with-netsh">Managing URL Reservations with <code>netsh</code></h3>
+<p>Windows provides the <code>netsh</code> command-line tool to manage URL reservations. All commands must be run in an <strong>elevated (Administrator) command prompt</strong>.</p>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#E8F4F8','primaryTextColor':'#000000','primaryBorderColor':'#2C5282','lineColor':'#2C5282','secondaryColor':'#F0F9E8','tertiaryColor':'#FFF4E6','noteBkgColor':'#FFF4E6','noteTextColor':'#000000'}}}%%
+flowchart TD
+    Start[Need to manage URL reservations]
+    AdminCmd[Open Command Prompt as Administrator]
+    
+    Choice{What do you<br>want to do?}
+    
+    Show[Show all reservations:<br>netsh http show urlacl]
+    Add[Add reservation:<br>netsh http add urlacl<br>url=http://+:3000/tems/<br>user=Everyone]
+    Delete[Delete reservation:<br>netsh http delete urlacl<br>url=http://+:3000/tems/]
+    
+    ShowResult[View list of<br>reserved URLs]
+    AddResult[URL now accessible<br>to specified users]
+    DeleteResult[URL requires<br>Admin rights again]
+    
+    Start --> AdminCmd
+    AdminCmd --> Choice
+    Choice -->|List| Show
+    Choice -->|Add| Add
+    Choice -->|Remove| Delete
+    
+    Show --> ShowResult
+    Add --> AddResult
+    Delete --> DeleteResult
+    
+    style Start fill:#E8F4F8
+    style AdminCmd fill:#FFE6E6
+    style Choice fill:#FFF4E6
+    style Show fill:#E8F4F8
+    style Add fill:#F0F9E8
+    style Delete fill:#FFE6E6
+    style ShowResult fill:#E8F4F8
+    style AddResult fill:#F0F9E8
+    style DeleteResult fill:#FFE6E6
+</pre>
+<h4 id="show-all-reserved-urls">Show All Reserved URLs</h4>
+<p>Display all currently reserved URLs:</p>
+<pre><code class="lang-cmd">netsh http show urlacl
+</code></pre>
+<p><strong>Example Output:</strong></p>
+<pre><code>Reserved URL            : http://+:3000/tems/
+    User: BUILTIN\Users
+        Listen: Yes
+        Delegate: No
+        SDDL: D:(A;;GX;;;S-1-5-32-545)
+
+Reserved URL            : http://+:1805/TRV/
+    User: NT AUTHORITY\Authenticated Users
+        Listen: Yes
+        Delegate: No
+        SDDL: D:(A;;GX;;;S-1-5-11)
+</code></pre>
+<p><strong>Understanding the Output:</strong></p>
+<ul>
+<li><strong>Reserved URL</strong>: The URL pattern being reserved</li>
+<li><strong><code>+</code></strong>: Wildcard that matches all hostnames (localhost, IP addresses, machine name)</li>
+<li><strong>User</strong>: The user or group granted permission</li>
+<li><strong>Listen</strong>: Permission to listen on this URL</li>
+<li><strong>SDDL</strong>: Security Descriptor Definition Language (low-level permission format)</li>
+</ul>
+<hr>
+<h4 id="add-a-url-reservation">Add a URL Reservation</h4>
+<p>Grant permission to a specific user or group to listen on a URL:</p>
+<pre><code class="lang-cmd">netsh http add urlacl url=http://+:3000/tems/ user=Everyone
+</code></pre>
+<p><strong>Common Parameters:</strong></p>
+<ul>
+<li><code>url=&lt;URL&gt;</code>: The URL pattern to reserve (e.g., <code>http://+:3000/tems/</code>)</li>
+<li><code>user=&lt;USER&gt;</code>: User or group to grant permission
+<ul>
+<li><code>Everyone</code> — all users</li>
+<li><code>BUILTIN\Users</code> — standard users</li>
+<li><code>NT AUTHORITY\Authenticated Users</code> — authenticated users only</li>
+<li><code>DOMAIN\Username</code> — specific domain user</li>
+<li><code>MACHINENAME\Username</code> — specific local user</li>
+</ul>
+</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre><code class="lang-cmd"># Reserve for all users
+netsh http add urlacl url=http://+:5000/AdaptiveDAS/ user=Everyone
+
+# Reserve for authenticated users only
+netsh http add urlacl url=http://+:1805/TRV/ user=&quot;NT AUTHORITY\Authenticated Users&quot;
+
+# Reserve for a specific user
+netsh http add urlacl url=http://localhost:8080/myapp/ user=DOMAIN\myuser
+</code></pre>
+<p><strong>URL Pattern Rules:</strong></p>
+<ul>
+<li>Use <code>+</code> as a wildcard for all hostnames</li>
+<li>Use <code>*</code> for strong wildcard (less common)</li>
+<li>Use <code>localhost</code> or specific IPs for restricted bindings</li>
+<li>Always include the trailing slash if your DAS expects it</li>
+</ul>
+<hr>
+<h4 id="delete-a-url-reservation">Delete a URL Reservation</h4>
+<p>Remove an existing URL reservation:</p>
+<pre><code class="lang-cmd">netsh http delete urlacl url=http://+:3000/tems/
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-cmd">netsh http delete urlacl url=http://+:1805/TRV/
+</code></pre>
+<p>⚠️ <strong>Important</strong>: After deleting a reservation, applications using that URL will need Administrator privileges to run.</p>
+<hr>
+<h3 id="programmatically-checking-url-reservations">Programmatically Checking URL Reservations</h3>
+<p>For automation and diagnostics, you can programmatically query and validate URL reservations in your DAS implementation.</p>
+<h4 id="urlreservationservice-example">UrlReservationService Example</h4>
+<p>The following C# service demonstrates how to:</p>
+<ol>
+<li>Query HTTP.SYS for reserved URLs using <code>netsh</code></li>
+<li>Check if a specific DAS URL is reserved</li>
+<li>Handle different reservation patterns</li>
+</ol>
+<pre><code class="lang-csharp">using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
+
+namespace Teradyne.FA.DIA.DAS.Utils.Services
+{
+    /// &lt;summary&gt;
+    /// Service to check URL reservations in HTTP.SYS
+    /// &lt;/summary&gt;
+    public class UrlReservationService
+    {
+        /// &lt;summary&gt;
+        /// Gets the list of reserved URLs from HTTP.SYS
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;A set of reserved URLs&lt;/returns&gt;
+        public HashSet&lt;string&gt; GetReservedUrls()
+        {
+            HashSet&lt;string&gt; reservedUrls = new HashSet&lt;string&gt;(StringComparer.OrdinalIgnoreCase);
+
+            try
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = &quot;netsh&quot;,
+                    Arguments = &quot;http show urlacl&quot;,
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                using (Process process = Process.Start(startInfo))
+                {
+                    using (var reader = process.StandardOutput)
+                    {
+                        string output = reader.ReadToEnd();
+                        process.WaitForExit();
+
+                        // Parse the output to extract reserved URLs
+                        // Pattern: &quot;Reserved URL            : http://+:3000/tems/&quot;
+                        Regex regex = new Regex(@&quot;Reserved URL\s*:\s*(.+)&quot;, RegexOptions.IgnoreCase);
+                        MatchCollection matches = regex.Matches(output);
+
+                        foreach (Match match in matches)
+                        {
+                            if (match.Groups.Count &gt; 1)
+                            {
+                                string url = match.Groups[1].Value.Trim();
+                                reservedUrls.Add(url);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // If netsh fails, return empty set
+            }
+
+            return reservedUrls;
+        }
+
+        /// &lt;summary&gt;
+        /// Checks if a DAS URL is reserved in HTTP.SYS
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;dasUrl&quot;&gt;The DAS URL to check&lt;/param&gt;
+        /// &lt;param name=&quot;reservedUrls&quot;&gt;The set of reserved URLs&lt;/param&gt;
+        /// &lt;returns&gt;True if the URL is reserved, false otherwise&lt;/returns&gt;
+        public bool IsUrlReserved(string dasUrl, HashSet&lt;string&gt; reservedUrls)
+        {
+            if (string.IsNullOrEmpty(dasUrl) || reservedUrls == null)
+                return false;
+
+            try
+            {
+                // Parse the DAS URL to extract host, port, and path
+                Uri uri = new Uri(dasUrl);
+                
+                // Only local URLs can be reserved
+                if (!IsLocalUrl(uri))
+                    return false;
+
+                string scheme = uri.Scheme;
+                int port = uri.Port;
+                string path = uri.AbsolutePath;
+
+                // Check different reservation patterns
+                // Pattern 1: http://+:port/path/
+                string pattern1 = $&quot;{scheme}://+:{port}{path}&quot;;
+                // Pattern 2: http://*:port/path/
+                string pattern2 = $&quot;{scheme}://*:{port}{path}&quot;;
+                // Pattern 3: http://127.0.0.1:port/path/ (exact match)
+                string pattern3 = dasUrl;
+                // Pattern 4: http://localhost:port/path/
+                string pattern4 = $&quot;{scheme}://localhost:{port}{path}&quot;;
+                // Pattern 5: http://+:port/
+                string pattern5 = $&quot;{scheme}://+:{port}/&quot;;
+                // Pattern 6: http://*:port/
+                string pattern6 = $&quot;{scheme}://*:{port}/&quot;;
+                // Pattern 7: http://localhost:port/
+                string pattern7 = $&quot;{scheme}://localhost:{port}/&quot;;
+
+                return reservedUrls.Contains(pattern1) ||
+                       reservedUrls.Contains(pattern2) ||
+                       reservedUrls.Contains(pattern3) ||
+                       reservedUrls.Contains(pattern4) ||
+                       reservedUrls.Contains(pattern5) ||
+                       reservedUrls.Contains(pattern6) ||
+                       reservedUrls.Contains(pattern7);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private bool IsLocalUrl(Uri uri)
+        {
+            string host = uri.Host.ToLower();
+            return host == &quot;127.0.0.1&quot; || 
+                   host == &quot;localhost&quot; || 
+                   host == &quot;::1&quot; ||
+                   host.StartsWith(&quot;127.&quot;);
+        }
+    }
+}
+</code></pre>
+<h3 id="how-the-service-works">How the Service Works</h3>
+<ol>
+<li><p><strong>GetReservedUrls()</strong>:</p>
+<ul>
+<li>Executes <code>netsh http show urlacl</code></li>
+<li>Parses the output using a regex pattern</li>
+<li>Returns a set of all reserved URLs</li>
+</ul>
+</li>
+<li><p><strong>IsUrlReserved()</strong>:</p>
+<ul>
+<li>Checks if a specific DAS URL matches any reservation pattern</li>
+<li>Handles wildcards (<code>+</code>, <code>*</code>) and specific hostnames</li>
+<li>Supports path-specific and port-wide reservations</li>
+</ul>
+</li>
+<li><p><strong>Usage Example</strong>:</p>
+</li>
+</ol>
+<pre><code class="lang-csharp">var service = new UrlReservationService();
+var reservedUrls = service.GetReservedUrls();
+
+string dasUrl = &quot;http://127.0.0.1:3000/tems/&quot;;
+bool isReserved = service.IsUrlReserved(dasUrl, reservedUrls);
+
+if (isReserved)
+{
+    Console.WriteLine($&quot;{dasUrl} is reserved - can run without Admin privileges&quot;);
+}
+else
+{
+    Console.WriteLine($&quot;{dasUrl} is NOT reserved - requires Admin privileges&quot;);
+}
+</code></pre>
+<hr>
+<h3 id="common-das-url-reservation-examples">Common DAS URL Reservation Examples</h3>
+<p>Based on typical DAS configurations:</p>
+<pre><code class="lang-cmd"># TEMS Debug DAS
+netsh http add urlacl url=http://+:3000/tems/ user=Everyone
+
+# TRV DAS
+netsh http add urlacl url=http://+:1805/TRV/ user=Everyone
+
+# Adaptive DAS
+netsh http add urlacl url=http://+:5002/AdaptiveDAS/ user=Everyone
+</code></pre>
+<hr>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#E8F4F8','primaryTextColor':'#000000','primaryBorderColor':'#2C5282','lineColor':'#2C5282','secondaryColor':'#F0F9E8','tertiaryColor':'#FFF4E6','noteBkgColor':'#FFF4E6','noteTextColor':'#000000'}}}%%
+flowchart TD
+    Problem[DAS fails to start]
+    Error{What is the<br>error message?}
+    
+    AccessDenied[Access Denied Error]
+    CannotConnect[HttpListener Cannot Connect]
+    
+    CheckAdmin{Running as<br>Administrator?}
+    CheckReserved{URL<br>Reserved?}
+    
+    Solution1[Add URL reservation:<br>netsh http add urlacl]
+    Solution2[Run DAS as Administrator]
+    Solution3[DAS should work<br>Check other issues]
+    
+    HttpIssue[Known HttpListener<br>compatibility issue]
+    HttpSol1[Remove reservation:<br>netsh http delete urlacl]
+    HttpSol2[Run as Administrator]
+    HttpSol3[Use different port]
+    HttpSol4[Switch to WebContract<br>implementation]
+    
+    Problem --> Error
+    Error -->|Access Denied| AccessDenied
+    Error -->|Cannot Connect| CannotConnect
+    
+    AccessDenied --> CheckAdmin
+    CheckAdmin -->|No| CheckReserved
+    CheckAdmin -->|Yes| Solution3
+    CheckReserved -->|No| Solution1
+    CheckReserved -->|Yes| Solution3
+    
+    CannotConnect --> HttpIssue
+    HttpIssue --> HttpSol1
+    HttpIssue --> HttpSol2
+    HttpIssue --> HttpSol3
+    HttpIssue --> HttpSol4
+    
+    style Problem fill:#FFE6E6
+    style AccessDenied fill:#FFE6E6
+    style CannotConnect fill:#FFE6E6
+    style Solution1 fill:#F0F9E8
+    style Solution2 fill:#FFF4E6
+    style Solution3 fill:#F0F9E8
+    style HttpSol1 fill:#FFF4E6
+    style HttpSol2 fill:#FFF4E6
+    style HttpSol3 fill:#F0F9E8
+    style HttpSol4 fill:#F0F9E8
+</pre>
+<h4 id="das-fails-to-start-with-access-denied">DAS Fails to Start with &quot;Access Denied&quot;</h4>
+<ul>
+<li><strong>Cause</strong>: URL is not reserved and DAS is not running as Administrator</li>
+<li><strong>Solution</strong>:
+<ol>
+<li>Add URL reservation with <code>netsh http add urlacl</code>, OR</li>
+<li>Run the DAS as Administrator</li>
+</ol>
+</li>
+</ul>
+<h4 id="httplistener-cannot-connect-to-reserved-port">HttpListener Cannot Connect to Reserved Port</h4>
+<ul>
+<li><strong>Cause</strong>: Known compatibility issue on some Windows configurations</li>
+<li><strong>Solution</strong>:
+<ol>
+<li>Remove the reservation: <code>netsh http delete urlacl url=&lt;URL&gt;</code></li>
+<li>Run the DAS as Administrator, OR</li>
+<li>Use a different port, OR</li>
+<li>Switch to a different HTTP listener implementation</li>
+</ol>
+</li>
+</ul>
+<h4 id="checking-current-reservations">Checking Current Reservations</h4>
+<pre><code class="lang-cmd">netsh http show urlacl | findstr &quot;3000&quot;
+</code></pre>
+<hr>
+<h3 id="best-practices">Best Practices</h3>
+<ol>
+<li><strong>Use Specific Paths</strong>: Reserve <code>http://+:3000/tems/</code> instead of <code>http://+:3000/</code> to avoid conflicts</li>
+<li><strong>Least Privilege</strong>: Grant to specific users/groups rather than <code>Everyone</code> when possible</li>
+<li><strong>Document Reservations</strong>: Keep a record of which DAS instances require which reservations</li>
+<li><strong>Deployment Scripts</strong>: Include reservation commands in installation scripts</li>
+<li><strong>Test Both Modes</strong>: Verify your DAS works with and without reservations during development</li>
+</ol>
+<hr>
+<h3 id="summary">Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>Allow non-admin users to bind HTTP listeners</td>
+</tr>
+<tr>
+<td><strong>Command Tool</strong></td>
+<td><code>netsh http</code></td>
+</tr>
+<tr>
+<td><strong>Key Commands</strong></td>
+<td><code>show urlacl</code>, <code>add urlacl</code>, <code>delete urlacl</code></td>
+</tr>
+<tr>
+<td><strong>WebContract DAS</strong></td>
+<td>Requires reservation or Admin rights</td>
+</tr>
+<tr>
+<td><strong>HttpListener DAS</strong></td>
+<td>Usually works with reservations, but may have compatibility issues</td>
+</tr>
+<tr>
+<td><strong>Best Practice</strong></td>
+<td>Reserve specific URL paths, not entire ports</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><em>For more information on DAS implementations, see:</em></p>
+<ul>
+<li><a href="../RA/RA_0468/index.html">C# DAS Listener (RA_0468)</a></li>
+<li><a href="WhatIsADas.html">What is a DAS?</a></li>
+<li><a href="DASListenerConcept.html">DAS Listener Concept</a></li>
+</ul>
+<hr>
+<p>*<em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/DataStreaming/reserve.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

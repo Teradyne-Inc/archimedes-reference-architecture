@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>RA_0478 – DAS Listener Library (Source) </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="RA_0478 – DAS Listener Library (Source) ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0478/source/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="ra_0478--das-listener-library-source">RA_0478 – DAS Listener Library (Source)</h1>
+
+<p>This <code>source/</code> directory contains the implementation of the DAS Listener library for the RA_0478 architecture. It provides the necessary components to build and integrate a Data Analytics Solution (DAS) listener into your projects.</p>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><p><strong>DASListener/</strong><br>
+Contains the core implementation of the DAS Listener library, including source code, headers, examples, and build configuration files.</p>
+<ul>
+<li><p><strong>CMakeLists.txt</strong><br>
+Build configuration file for compiling the DAS Listener library and examples using CMake.</p>
+</li>
+<li><p><strong>examples/</strong><br>
+Example applications demonstrating how to use the DAS Listener library in real-world scenarios.</p>
+</li>
+<li><p><strong>include/</strong><br>
+Header files defining the public API of the DAS Listener library.</p>
+</li>
+<li><p><strong>src/</strong><br>
+Source files implementing the DAS Listener library.</p>
+</li>
+<li><p><strong>README.md</strong><br>
+Documentation for the DAS Listener library, including usage instructions and integration details.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="purpose">Purpose</h2>
+<p>This module demonstrates:</p>
+<ul>
+<li>How to implement a DAS Listener library for handling AMP messages.</li>
+<li>Integration with C++ projects using the provided API.</li>
+<li>Real-world examples of DAS Listener usage.</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Navigate to the <code>DASListener/</code> directory.</li>
+<li>Build the library and examples using CMake:
+<pre><code class="lang-bash">mkdir build &amp;&amp; cd build
+cmake ..
+cmake --build .
+</code></pre>
+</li>
+<li>Run the example application to test the DAS Listener:
+<pre><code class="lang-bash">./DASListenerExample
+</code></pre>
+</li>
+<li>Integrate the library into your own projects by including the headers and linking against the compiled library.</li>
+</ol>
+<h2 id="recommendations">Recommendations</h2>
+<ul>
+<li>Ensure your environment meets the requirements specified in the <code>README.md</code> file inside the <code>DASListener/</code> directory.</li>
+<li>Use the examples as a starting point for integrating the DAS Listener library into your projects.</li>
+<li>Log all AMP messages for debugging and analysis.</li>
+</ul>
+<hr>
+<p><em>Part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0478/source/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

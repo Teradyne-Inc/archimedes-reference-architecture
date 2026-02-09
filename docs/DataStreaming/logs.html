@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/DataStreaming/logs.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<h2 id="how-to-activate-amp-logs">How to activate AMP logs</h2>
+<p>You can activate the logs by using the <code>ampshell</code> command.</p>
+<p>To activate all logs:
+<code>ampshell -log enableall</code></p>
+<p>To enable only the communication logs:
+<code>ampshell -log enable comm</code></p>
+<h2 id="communication-log-file-location">Communication Log File Location</h2>
+<p>The communication log files are located in the <code>%AMPLOG%\TEMS\</code> folder. <code>%AMPLOG%</code> points to the <code>C:\ProgramData\Teradyne\Production\AMP\logs\</code> folder.
+The COMM log file will be located in <code>C:\ProgramData\Teradyne\Production\AMP\logs\TEMS</code>.
+The file will be named <code>Comm_yyyy_mm_dd.log</code>. When the file reaches a certain size, it will be split into different files. For example, a new file will be created named <code>Comm_2025_11_07(1).log</code>. The number in parentheses will be incremented.</p>
+<h2 id="communication-file-format">Communication file format</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Name</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Date</td>
+<td>20251107</td>
+<td>Date of the Day</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Time</td>
+<td>00:13:31.811</td>
+<td>Time of the event</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Log Type</td>
+<td>COMM</td>
+<td>Which log. In this case COMM</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Success</td>
+<td>True or False</td>
+<td>If this is a success ==&gt; True</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Operation</td>
+<td>HTTPS SEND</td>
+<td>Type of the Event (Send, Read)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>DAS #</td>
+<td>00-S_08</td>
+<td>Das number and protocol</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Description</td>
+<td>StatusCode [OK]</td>
+<td>Description of the log</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example-of-a-successful-message">Example of a Successful Message</h3>
+<pre><code class="lang-log">20251107|00:13:31.811|COMM|True|HTTPS SEND|00-S_08||SendMessage|Sending Message to http://127.0.0.1:8101/omclocal/TEST_CELL/TEMS-01/STATUS {&quot;TIME_STAMP&quot;:&quot;2025-11-06T23:13:31.7925497Z&quot;,&quot;STATUS&quot;:&quot;IDLE&quot;,&quot;IDLE_MESSAGE&quot;:&quot;TESTER NOT RUNNING&quot;,&quot;CURRENT_USER&quot;:&quot;SYSTEM&quot;}
+20251107|00:13:31.815|COMM|True|READ|00-S_08|Read []
+20251107|00:13:31.815|COMM|True|READ|00-S_08|StatusCode [OK]
+</code></pre>
+<p>In this example, we successfully send the message</p>
+<pre><code class="lang-json">{&quot;TIME_STAMP&quot;:&quot;2025-11-06T23:13:31.7925497Z&quot;,&quot;STATUS&quot;:&quot;IDLE&quot;,&quot;IDLE_MESSAGE&quot;:&quot;TESTER NOT RUNNING&quot;,&quot;CURRENT_USER&quot;:&quot;SYSTEM&quot;}
+</code></pre>
+<p>to the URL <code>http://127.0.0.1:8101/omclocal/TEST_CELL/TEMS-01/STATUS</code>.
+The DAS responded with an empty string and the HTTP code <code>OK</code> (200).</p>
+<h3 id="example-of-a-message-that-was-not-sent">Example of a Message That Was Not Sent</h3>
+<pre><code class="lang-log">20251112|08:00:00.125|COMM|True|HTTP Send|03-S_08|Time Elapsed for sending request (No Response): [2044 ms] for sending to URL http://127.0.0.1:3000/tems/; ProceedingToNextMessage: False; WebException encountered: [Unable to connect to the remote server] Message that was not sent: [{&quot;TIME_STAMP&quot;:&quot;2025-11-12T06:59:57.4061006Z&quot;,&quot;TCS_VENDOR&quot;:&quot;Teradyne&quot;,&quot;TCS_VERSION&quot;:&quot;3.0.1-alpha.4-build.90&quot;,&quot;TEMS_VERSION&quot;:&quot;0.80&quot;,&quot;TCS_MESSAGE_LIST&quot;:[&quot;INITIALIZATION&quot;,&quot;SHUTDOWN&quot;,&quot;STATUS&quot;,&quot;T_STATUS&quot;,&quot;USER_ACCOUNT&quot;,&quot;DTR&quot;,&quot;IGXL_DATA&quot;,&quot;MST_DATA&quot;,&quot;QUALITY_MONITOR_DATA&quot;,&quot;TEST_END&quot;,&quot;TESTER_OS&quot;,&quot;TEST_PROGRAM_LOAD&quot;,&quot;TEST_START&quot;,&quot;CONFIGURATION&quot;,&quot;LOCATION&quot;,&quot;BINNAME&quot;,&quot;RESULTFILE&quot;,&quot;LOT_END&quot;,&quot;LOT_START&quot;,&quot;SUBLOT_END&quot;,&quot;SUBLOT_START&quot;,&quot;HALT&quot;,&quot;LICENSE&quot;,&quot;PERIPHERAL&quot;,&quot;ALARM&quot;,&quot;MAINTENANCE&quot;,&quot;MAINTENANCE_DATA&quot;,&quot;CZ_DATA_POINT&quot;,&quot;CZ_END&quot;,&quot;CZ_SETUP&quot;,&quot;CZ_START&quot;,&quot;CZ_START_POINT&quot;,&quot;CZ_SUMMARY&quot;,&quot;ADAPTIVE_CHANGE&quot;,&quot;PRE_TEST_END&quot;,&quot;TEST_DATA&quot;],&quot;TCS_CONTROL_LIST&quot;:[],&quot;TCS_LOST_MESSAGES&quot;:0,&quot;TCS_STATUS_FREQUENCY&quot;:60,&quot;IS_PRIMARY_DAS&quot;:true,&quot;TCS_COMPRESSION_TYPES&quot;:[]}]
+</code></pre>
+<p>In this case, the message <code>INITIALIZATION</code> could not be sent to <code>http://127.0.0.1:3000/tems/</code> for the following reason: <code>WebException encountered: [Unable to connect to the remote server]</code></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/DataStreaming/logs.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

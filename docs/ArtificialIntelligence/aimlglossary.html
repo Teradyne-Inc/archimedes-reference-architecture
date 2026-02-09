@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/ArtificialIntelligence/aimlglossary.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<h2 id="aiml-glossary">AI/ML Glossary</h2>
+<style>
+.glossary-nav {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 25px;
+  margin: 30px 0;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.glossary-nav h3 {
+  color: white;
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.alphabet-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.alphabet-nav a {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.alphabet-nav a:hover,
+.alphabet-nav a:focus {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.glossary-section {
+  margin: 50px 0;
+}
+
+.section-letter {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 20px 20px 0;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  float: left;
+}
+
+.glossary-term {
+  background: white;
+  border-left: 4px solid #667eea;
+  border-radius: 8px;
+  padding: 20px 25px;
+  margin: 15px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  clear: both;
+}
+
+.glossary-term:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+  border-left-color: #764ba2;
+}
+
+.term-title {
+  color: #2c3e50;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+
+.term-definition {
+  color: #5d6d7e;
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.term-category {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.back-to-top {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.back-to-top a {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.back-to-top a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.intro-text {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 30px;
+  margin: 30px 0;
+  text-align: center;
+  color: #5d6d7e;
+  font-size: 16px;
+  line-height: 1.7;
+}
+</style>
+<div class="intro-text">
+A comprehensive glossary of common terms used in Artificial Intelligence and Machine Learning. 
+Navigate by clicking on letters below or scroll to browse all terms. Definitions are referenced from industry-standard sources<sup>[1]</sup><sup>[2]</sup>.
+</div>
+<div class="glossary-nav">
+<h3>Quick Navigation - Jump to Letter</h3>
+<div class="alphabet-nav">
+<a href="#A">A</a>
+<a href="#B">B</a>
+<a href="#C">C</a>
+<a href="#D">D</a>
+<a href="#E">E</a>
+<a href="#F">F</a>
+<a href="#G">G</a>
+<a href="#I">I</a>
+<a href="#L">L</a>
+<a href="#M">M</a>
+<a href="#N">N</a>
+<a href="#O">O</a>
+<a href="#P">P</a>
+<a href="#R">R</a>
+<a href="#S">S</a>
+<a href="#T">T</a>
+<a href="#U">U</a>
+<a href="#V">V</a>
+</div>
+</div>
+<div class="glossary-section" id="A">
+<span class="section-letter">A</span>
+<h3 style="clear: none; padding-top: 15px;">A</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Accuracy</div>
+<div class="term-definition">
+The fraction of predictions that a classification model got correct. For binary classification, accuracy is calculated as: (True Positives + True Negatives) / (Total Examples).
+</div>
+<span class="term-category">Metrics</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Activation Function</div>
+<div class="term-definition">
+A function that enables neural networks to learn nonlinear (complex) relationships between features and the label. Common activation functions include ReLU, sigmoid, and tanh.
+</div>
+<span class="term-category">Neural Networks</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Agent</div>
+<div class="term-definition">
+Software that can reason about user inputs to plan and execute actions on behalf of the user. In reinforcement learning, the entity that uses a policy to maximize expected return gained from interacting with an environment.
+</div>
+<span class="term-category">AI Systems</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Artificial General Intelligence (AGI)</div>
+<div class="term-definition">
+A non-human mechanism that demonstrates a broad range of problem-solving, creativity, and adaptability across diverse domains, similar to human cognitive abilities.
+</div>
+<span class="term-category">AI Concepts</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Artificial Intelligence (AI)</div>
+<div class="term-definition">
+The effort to automate intellectual tasks normally performed by humans. AI encompasses machine learning, deep learning, and rule-based symbolic AI systems.
+</div>
+<span class="term-category">AI Concepts</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="B">
+<span class="section-letter">B</span>
+<h3 style="clear: none; padding-top: 15px;">B</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Backpropagation</div>
+<div class="term-definition">
+The primary algorithm for performing gradient descent on neural networks. It calculates the gradient of the loss function with respect to the weights of the network.
+</div>
+<span class="term-category">Training</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Batch</div>
+<div class="term-definition">
+The set of examples used in one iteration of model training. Batch size refers to the number of examples in a batch.
+</div>
+<span class="term-category">Training</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Bias</div>
+<div class="term-definition">
+An intercept or offset from an origin. In machine learning, bias allows models to shift the activation function to better fit the data. Also refers to unfair prejudice in model predictions.
+</div>
+<span class="term-category">Model Parameters</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="C">
+<span class="section-letter">C</span>
+<h3 style="clear: none; padding-top: 15px;">C</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Classification</div>
+<div class="term-definition">
+A type of supervised learning where the model predicts which category (or class) an input belongs to. For example, determining if an email is spam or not spam.
+</div>
+<span class="term-category">ML Tasks</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Clustering</div>
+<div class="term-definition">
+An unsupervised learning technique that groups similar examples together without predefined labels. The algorithm discovers natural groupings in the data.
+</div>
+<span class="term-category">Unsupervised Learning</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Convolutional Neural Network (CNN)</div>
+<div class="term-definition">
+A type of neural network specialized for processing grid-like data such as images. CNNs use convolutional layers to automatically learn spatial hierarchies of features.
+</div>
+<span class="term-category">Neural Networks</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Cross-Validation</div>
+<div class="term-definition">
+A technique for assessing how well a model generalizes to independent data by partitioning the original dataset into training and validation subsets multiple times.
+</div>
+<span class="term-category">Evaluation</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="D">
+<span class="section-letter">D</span>
+<h3 style="clear: none; padding-top: 15px;">D</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Dataset</div>
+<div class="term-definition">
+A collection of examples used for training, validation, or testing a machine learning model. Each example consists of features and (optionally) a label.
+</div>
+<span class="term-category">Data</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Deep Learning (DL)</div>
+<div class="term-definition">
+A subfield of machine learning that uses neural networks with multiple layers (deep neural networks) to learn hierarchical representations of data.
+</div>
+<span class="term-category">ML Techniques</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Dropout</div>
+<div class="term-definition">
+A regularization technique where randomly selected neurons are ignored during training, helping to prevent overfitting by reducing co-adaptation of neurons.
+</div>
+<span class="term-category">Regularization</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="E">
+<span class="section-letter">E</span>
+<h3 style="clear: none; padding-top: 15px;">E</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Embedding</div>
+<div class="term-definition">
+A mapping from discrete objects (such as words) to vectors of continuous numbers. Embeddings capture semantic relationships between objects in a lower-dimensional space.
+</div>
+<span class="term-category">Representation</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Ensemble Learning</div>
+<div class="term-definition">
+A technique that combines predictions from multiple models to create a more robust and accurate final prediction than any individual model.
+</div>
+<span class="term-category">ML Techniques</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Epoch</div>
+<div class="term-definition">
+One complete pass through the entire training dataset. Training typically involves multiple epochs to allow the model to learn patterns in the data.
+</div>
+<span class="term-category">Training</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="F">
+<span class="section-letter">F</span>
+<h3 style="clear: none; padding-top: 15px;">F</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Feature</div>
+<div class="term-definition">
+An input variable used in making predictions. In a dataset about houses, features might include the number of bedrooms, square footage, or location.
+</div>
+<span class="term-category">Data</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Feature Engineering</div>
+<div class="term-definition">
+The process of creating new features or transforming existing features to make machine learning algorithms work better. This can include normalization, encoding, and creating interaction terms.
+</div>
+<span class="term-category">Data Preparation</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Fine-tuning</div>
+<div class="term-definition">
+The process of adapting a pre-trained model to a specific task or dataset by continuing training on task-specific data with a smaller learning rate.
+</div>
+<span class="term-category">Transfer Learning</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="G">
+<span class="section-letter">G</span>
+<h3 style="clear: none; padding-top: 15px;">G</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Generative AI</div>
+<div class="term-definition">
+A class of AI models that creates new content (text, images, music, code) from user input. Examples include text-to-text, text-to-image, and text-to-video models.
+</div>
+<span class="term-category">AI Systems</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Gradient Descent</div>
+<div class="term-definition">
+An optimization algorithm that iteratively adjusts model parameters to minimize the loss function by moving in the direction of steepest descent of the gradient.
+</div>
+<span class="term-category">Optimization</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="I">
+<span class="section-letter">I</span>
+<h3 style="clear: none; padding-top: 15px;">I</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Inference</div>
+<div class="term-definition">
+The process of using a trained model to make predictions on new, unseen data. This occurs after the model has been trained and validated.
+</div>
+<span class="term-category">Deployment</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="L">
+<span class="section-letter">L</span>
+<h3 style="clear: none; padding-top: 15px;">L</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Label</div>
+<div class="term-definition">
+The "answer" or target value in supervised learning. For example, in a spam classifier, the label indicates whether an email is spam or not spam.
+</div>
+<span class="term-category">Supervised Learning</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Large Language Model (LLM)</div>
+<div class="term-definition">
+A Transformer-based language model trained on vast amounts of text data, such as GPT, Claude, or Gemini. More formally, it estimates the probability of tokens or sequences of tokens.
+</div>
+<span class="term-category">NLP</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Learning Rate</div>
+<div class="term-definition">
+A hyperparameter that controls how much to adjust model parameters during each training step. Too high can cause unstable training; too low can make training extremely slow.
+</div>
+<span class="term-category">Hyperparameters</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Loss Function</div>
+<div class="term-definition">
+A function that measures how far a model's predictions are from the actual labels. During training, the goal is to minimize this loss. Common examples include cross-entropy and mean squared error.
+</div>
+<span class="term-category">Training</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="M">
+<span class="section-letter">M</span>
+<h3 style="clear: none; padding-top: 15px;">M</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Machine Learning (ML)</div>
+<div class="term-definition">
+A branch of AI where computers learn patterns from data without being explicitly programmed. Instead of coding rules, ML systems learn rules from examples of inputs and outputs.
+</div>
+<span class="term-category">AI Concepts</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">MLOps</div>
+<div class="term-definition">
+Machine Learning Operations - a set of practices that combines ML, DevOps, and data engineering to deploy and maintain ML systems reliably and efficiently in production.
+</div>
+<span class="term-category">Operations</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Model</div>
+<div class="term-definition">
+A mathematical representation of a process learned from data. In machine learning, a model defines the relationship between features and predictions.
+</div>
+<span class="term-category">Core Concepts</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="N">
+<span class="section-letter">N</span>
+<h3 style="clear: none; padding-top: 15px;">N</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Neural Network</div>
+<div class="term-definition">
+A machine learning model inspired by the structure of the human brain, consisting of interconnected layers of nodes (neurons) that process and transform input data.
+</div>
+<span class="term-category">Neural Networks</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Normalization</div>
+<div class="term-definition">
+The process of scaling features to a standard range (often 0 to 1 or -1 to 1) to improve training stability and speed. Common techniques include min-max scaling and z-score normalization.
+</div>
+<span class="term-category">Data Preparation</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="O">
+<span class="section-letter">O</span>
+<h3 style="clear: none; padding-top: 15px;">O</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Overfitting</div>
+<div class="term-definition">
+When a model learns the training data too well, including its noise and outliers, resulting in poor performance on new data. The model has memorized rather than generalized.
+</div>
+<span class="term-category">Model Issues</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="P">
+<span class="section-letter">P</span>
+<h3 style="clear: none; padding-top: 15px;">P</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Precision</div>
+<div class="term-definition">
+A classification metric that answers: "Of all the examples the model predicted as positive, what percentage were actually positive?" Calculated as: True Positives / (True Positives + False Positives).
+</div>
+<span class="term-category">Metrics</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Pre-training</div>
+<div class="term-definition">
+The initial phase of training a model on a large general dataset before fine-tuning it on a specific task. Common in transfer learning and large language models.
+</div>
+<span class="term-category">Transfer Learning</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Prompt</div>
+<div class="term-definition">
+The input text given to a language model to generate a response. Prompt engineering involves crafting effective prompts to get desired outputs from LLMs.
+</div>
+<span class="term-category">NLP</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="R">
+<span class="section-letter">R</span>
+<h3 style="clear: none; padding-top: 15px;">R</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Recall</div>
+<div class="term-definition">
+A classification metric that answers: "Of all the actual positive examples, what percentage did the model correctly identify?" Calculated as: True Positives / (True Positives + False Negatives).
+</div>
+<span class="term-category">Metrics</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Recurrent Neural Network (RNN)</div>
+<div class="term-definition">
+A type of neural network designed for sequential data, where connections between nodes form a directed cycle, allowing information to persist across time steps.
+</div>
+<span class="term-category">Neural Networks</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Regression</div>
+<div class="term-definition">
+A type of supervised learning where the model predicts a continuous numeric value. For example, predicting house prices or temperature.
+</div>
+<span class="term-category">ML Tasks</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Regularization</div>
+<div class="term-definition">
+Techniques used to prevent overfitting by adding constraints or penalties to the model. Common methods include L1 regularization, L2 regularization, and dropout.
+</div>
+<span class="term-category">Regularization</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Reinforcement Learning</div>
+<div class="term-definition">
+A type of learning where an agent learns to make decisions by interacting with an environment, receiving rewards or penalties, and learning to maximize cumulative reward.
+</div>
+<span class="term-category">ML Techniques</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="S">
+<span class="section-letter">S</span>
+<h3 style="clear: none; padding-top: 15px;">S</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Self-Supervised Learning</div>
+<div class="term-definition">
+A type of supervised learning that doesn't require human-labeled data. The model creates its own labels from the data structure (e.g., predicting masked words in a sentence).
+</div>
+<span class="term-category">ML Techniques</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Supervised Learning</div>
+<div class="term-definition">
+The most common type of machine learning, where models learn to map input features to known output labels using labeled training data.
+</div>
+<span class="term-category">ML Techniques</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="T">
+<span class="section-letter">T</span>
+<h3 style="clear: none; padding-top: 15px;">T</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Token</div>
+<div class="term-definition">
+The atomic unit used for model training and inference in NLP. A token can be a word, character, or subword. Tokens are the basic units language models use for processing text.
+</div>
+<span class="term-category">NLP</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Training Data</div>
+<div class="term-definition">
+The subset of the dataset used to train the model. The model learns patterns and relationships from this data during the training process.
+</div>
+<span class="term-category">Data</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Transfer Learning</div>
+<div class="term-definition">
+A technique where a model trained on one task is adapted for a different but related task, leveraging the knowledge gained from the original training.
+</div>
+<span class="term-category">ML Techniques</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Transformer</div>
+<div class="term-definition">
+A neural network architecture that uses attention mechanisms to process sequential data in parallel, forming the foundation of modern large language models like GPT and BERT.
+</div>
+<span class="term-category">Neural Networks</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="U">
+<span class="section-letter">U</span>
+<h3 style="clear: none; padding-top: 15px;">U</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Underfitting</div>
+<div class="term-definition">
+When a model is too simple to capture the underlying patterns in the data, resulting in poor performance on both training and test data.
+</div>
+<span class="term-category">Model Issues</span>
+</div>
+<div class="glossary-term">
+<div class="term-title">Unsupervised Learning</div>
+<div class="term-definition">
+A type of machine learning that finds patterns in data without labeled outputs. Common techniques include clustering, dimensionality reduction, and anomaly detection.
+</div>
+<span class="term-category">ML Techniques</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<div class="glossary-section" id="V">
+<span class="section-letter">V</span>
+<h3 style="clear: none; padding-top: 15px;">V</h3>
+</div>
+<div class="glossary-term">
+<div class="term-title">Validation Data</div>
+<div class="term-definition">
+A subset of data used to evaluate the model during training and tune hyperparameters. It helps prevent overfitting by providing feedback on generalization performance.
+</div>
+<span class="term-category">Data</span>
+</div>
+<div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+<hr>
+<h3 id="references">References</h3>
+<p><a id="1">[1]</a> <a href="https://developers.google.com/machine-learning/glossary">https://developers.google.com/machine-learning/glossary</a></p>
+<p><a id="2">[2]</a> Chollet, Francois. Deep Learning with Python (2018)</p>
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/ArtificialIntelligence/aimlglossary.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

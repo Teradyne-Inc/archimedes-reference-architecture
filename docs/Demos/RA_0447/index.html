@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Dynamic Limit Adjustment Using UltraEdge and AMP </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Dynamic Limit Adjustment Using UltraEdge and AMP ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/Demos/RA_0447/index.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/header.jpg" alt="RA 447 Overview" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h1 id="dynamic-limit-adjustment-using-ultraedge-and-amp">Dynamic Limit Adjustment Using UltraEdge and AMP</h1>
+<h4 id="reference--ra-447">Reference : RA 447</h4>
+<h2 id="description">Description</h2>
+<p>This demo demonstrates how a test program can interact with an <strong>UltraEdge (UE)</strong> system by uploading a <strong>Docker container</strong>.</p>
+<p>The container includes:</p>
+<ul>
+<li>An <strong>AMP DAS (Data Acquisition System)</strong></li>
+<li>A mechanism to compute a <strong>new low limit</strong> for a specific test</li>
+</ul>
+<p>Once computed, this limit is transmitted via a <strong>FIFO (First-In-First-Out)</strong> queue to the test program, allowing it to update the test limit dynamically in real time.</p>
+<p>For demonstration purposes, the new test limit is calculated as the <strong>average of all previous test results</strong>. As the test program continues, the limit is automatically updated, showcasing the system’s adaptive behavior.</p>
+<p>The primary objective of this demo is to highlight the <strong>ecosystem synergy between AMP and UltraEdge</strong>. By combining AMP's analytics with UE’s execution capability, the test program becomes smarter and evolves based on collected data.</p>
+<hr>
+<h2 id="key-highlights">Key Highlights</h2>
+<ul>
+<li><p><strong>UltraEdge and AMP Integration</strong><br>
+Demonstrates interaction between AMP and UE to enable smarter test behavior.</p>
+</li>
+<li><p><strong>Dynamic Test Limits</strong><br>
+Real-time limit updates based on live results.</p>
+</li>
+<li><p><strong>Adaptive Test Program</strong><br>
+Test conditions evolve based on previous outcomes.</p>
+</li>
+</ul>
+<hr>
+<h2 id="visual-summary">Visual Summary</h2>
+<p align="center">
+  <img src="media/datapath.png" alt="Docker System Diagram" width="600">
+</p>
+<h2 id="source-code">Source Code</h2>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The source code will be available in a future release via a dedicated Git repository.</p>
+</div>
+<hr>
+<h2 id="general-information">General Information</h2>
+<ul>
+<li><strong>Language</strong>: Python</li>
+<li><strong>Platform</strong>: IG-XL 10.50.00</li>
+<li><strong>System</strong>: UltraEdge with AMP</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/Demos/RA_0447/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

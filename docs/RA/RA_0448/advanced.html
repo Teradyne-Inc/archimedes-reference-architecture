@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Advanced Docker File Explanation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Advanced Docker File Explanation ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../UltraEdge/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0448/advanced.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA_0448_Header.png" alt="RA 448 Overview" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h1 id="advanced-docker-file-explanation">Advanced Docker File Explanation</h1>
+<p>This page provides a detailed explanation of the <code>Dockerfile</code> used in the RA_FAARCH_448_CreateDocker reference. We'll break down each instruction and explain its purpose. Additionally, you can directly download the full <code>Dockerfile</code> and the <code>makedocker.sh</code> script used to build your Docker image.</p>
+<h2 id="dockerfile-concepts-mindmap">Dockerfile Concepts Mindmap</h2>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Click on any node to jump directly to its detailed explanation below.</p>
+</div>
+<pre class="mermaid">
+graph TB
+    Root((Dockerfile))
+    FROM[Select Base Image]
+    WORKDIR[Set Working Directory]
+    COPY[Copy Files to Container]
+    RUN[Install Dependencies]
+    CMD[Define Startup Command]
+    Make[Build & Package]
+    
+    Root --- FROM
+    Root --- WORKDIR
+    Root --- COPY
+    Root --- RUN
+    Root --- CMD
+    Root --- Make
+    
+    click FROM "#base-image" "Click to see FROM keyword"
+    click WORKDIR "#working-directory" "Click to see WORKDIR keyword"
+    click COPY "#copy-files" "Click to see COPY keyword"
+    click RUN "#install-dependencies-optional-section" "Click to see RUN keyword"
+    click CMD "#run-command" "Click to see CMD keyword"
+    click Make "#-docker-build-script" "Click to see build script"
+    
+    style Root fill:#3498DB,stroke:#2C3E50,stroke-width:3px,color:#fff
+    style FROM fill:#E74C3C,stroke:#C0392B,stroke-width:2px,color:#fff
+    style WORKDIR fill:#9B59B6,stroke:#7D3C98,stroke-width:2px,color:#fff
+    style COPY fill:#F39C12,stroke:#D68910,stroke-width:2px,color:#fff
+    style RUN fill:#27AE60,stroke:#1E8449,stroke-width:2px,color:#fff
+    style CMD fill:#E67E22,stroke:#CA6F1E,stroke-width:2px,color:#fff
+    style Make fill:#16A085,stroke:#117A65,stroke-width:2px,color:#fff
+</pre>
+<hr>
+<h2 id="dockerfile-breakdown">Dockerfile Breakdown</h2>
+<p>The <code>Dockerfile</code> is a set of instructions that Docker uses to build an image. Here's a common structure and what each section typically does:</p>
+<h3 id="base-image">Base Image</h3>
+<pre><code class="lang-dockerfile">FROM python:3.8-slim
+</code></pre>
+<ul>
+<li>This sets the <strong>base image</strong> for your container. <code>python:3.8-slim</code> provides a lightweight Python environment.</li>
+</ul>
+<p><a href="#dockerfile-concepts-mindmap">↑ Back to diagram</a></p>
+<h3 id="working-directory">Working Directory</h3>
+<pre><code class="lang-dockerfile">WORKDIR /app
+</code></pre>
+<ul>
+<li>Defines the working directory inside the container. Any subsequent commands (like <code>COPY</code> or <code>RUN</code>) operate relative to this directory.</li>
+</ul>
+<p><a href="#dockerfile-concepts-mindmap">↑ Back to diagram</a></p>
+<h3 id="copy-files">Copy Files</h3>
+<pre><code class="lang-dockerfile">COPY script.py ./
+</code></pre>
+<ul>
+<li>Copies <code>script.py</code> from your host into the container’s <code>/app</code> directory.
+<a href="#dockerfile-concepts-mindmap">↑ Back to diagram</a></li>
+</ul>
+<h3 id="install-dependencies-optional-section">Install Dependencies (optional section)</h3>
+<pre><code class="lang-dockerfile">RUN pip install --no-cache-dir -r requirements.txt
+</code></pre>
+<ul>
+<li>Installs Python dependencies inside the container if a <code>requirements.txt</code> file exists.</li>
+</ul>
+<p><a href="#dockerfile-concepts-mindmap">↑ Back to diagram</a></p>
+<h3 id="run-command">Run Command</h3>
+<pre><code class="lang-dockerfile">CMD [&quot;python&quot;, &quot;script.py&quot;]
+</code></pre>
+<ul>
+<li>This defines the default command that will run when the container starts. Here, it launches the Python script.</li>
+</ul>
+<p><a href="#dockerfile-concepts-mindmap">↑ Back to diagram</a></p>
+<hr>
+<h2 id="docker-build-script">Docker Build Script</h2>
+<p>The <code>makedocker.sh</code> script automates Docker image creation, compression, cleanup, and verification.</p>
+<h3 id="download-the-files">Download the Files</h3>
+<ul>
+<li><a href="source/Dockerfile">Download Dockerfile</a></li>
+<li><a href="source/makedocker.sh">Download makedocker.sh</a></li>
+</ul>
+<h3 id="what-makedockersh-does">What makedocker.sh Does</h3>
+<ol>
+<li>Builds a Docker image</li>
+<li>Compresses it into <code>.tar.gz</code></li>
+<li>Cleans up the image to save space</li>
+<li>Lists remaining Docker images for verification</li>
+</ol>
+<p><a href="#dockerfile-concepts-mindmap">↑ Back to diagram</a></p>
+<hr>
+<h2 id="running-the-script">Running the Script</h2>
+<p>To execute the script:</p>
+<pre><code class="lang-bash">chmod +x makedocker.sh
+./makedocker.sh
+</code></pre>
+<p>This generates <code>sampleapp.tar.gz</code>, a ready-to-deploy Docker image.</p>
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>This detailed view should help you understand how each part of the Dockerfile contributes to building and running your container. The shell script complements it by making the build process simple and repeatable.</p>
+<p>For additional customization, modify the <code>Dockerfile</code> to suit your application requirements.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0448/advanced.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

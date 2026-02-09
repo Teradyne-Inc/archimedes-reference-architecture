@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>boostdas </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="boostdas ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="boostdas">boostdas</h1>
+
+<p>A DAS written in standard C++23 using the C++ boost libraries.</p>
+<h2 id="building-and-running">Building And Running</h2>
+<p>The DAS uses the zig build system <em><b>0.15.2</b></em> (ignore the CMake files,
+those were for early prototyping). This is straightforward to install ((link)[https://ziglang.org/download/], be sure to use
+0.15.2, other versions may not work!). The executable is
+standalone, so you could even add it to the project folder and invoke it directly
+(or add the downloaded folder to your PATH for easy access to zig.exe from
+powershell). This build system allows out of the box
+cross-compilation (even to ARM MacOS! Which we don't need, but it highlights the
+versatility of the tool). You may run it locally on your windows machine for
+testing, then build for Linux to deploy on the UE, allowing you to
+utilize the performance of a compiled DAS with no .NET runtime.</p>
+<p>With some testing, some build configurations can yield a completely statically linked binary around 600KB in size.</p>
+<p>The DAS URL and log file path can be configured via command-line arguments. By default,
+it listens on port 4242 with path &quot;/cppdas/&quot;, and logs to &quot;DasLog.log&quot;. The DAS even
+works when running on a different computer than AMP (from my initial testing).</p>
+<p>All builds are placed in the &quot;zig-out&quot; folder. When I put something in
+[brackets], this means optionally not-required flags you may pass to the build.</p>
+<p>To simply build the DAS for your local environment:</p>
+<pre><code class="lang-sh">zig build [OTHER OPTIONS]
+</code></pre>
+<p>To run it in your local environment through zig build system:</p>
+<pre><code class="lang-sh">zig build run [OTHER OPTIONS]
+</code></pre>
+<p>Of course running the executable directly works as you would expect:</p>
+<pre><code class="lang-sh">./path/to/das/cppdas.exe
+</code></pre>
+<p>However, running with the zig build system allows you to pass build options and
+run the resulting exe in one step, which is convenient for testing.</p>
+<p>To run it with command line arguments:</p>
+<pre><code class="lang-sh">zig build run [OTHER OPTIONS] -- [ARGS]
+</code></pre>
+<p>Mind the '--' delimitting build arguments from runtime arguments!</p>
+<h3 id="runtime-options">Runtime Options</h3>
+<p>To display help for runtime command-line arguments:</p>
+<pre><code class="lang-sh">zig build run -- -h
+</code></pre>
+<p>or</p>
+<pre><code class="lang-sh">zig build run -- --help
+</code></pre>
+<p>Available runtime options:</p>
+<ul>
+<li><code>-dasLog [file_name]</code>: Specify the path to the DAS log file (default: &quot;DasLog.log&quot;)</li>
+<li><code>-dasUrl [url]</code>: Specify the complete DAS URL including port and path (default: &quot;http://localhost:4242/cppdas/&quot;)</li>
+</ul>
+<p>Example with custom log and URL:</p>
+<pre><code class="lang-sh">zig build run -- -dasLog mylog.txt -dasUrl &quot;http://localhost:8080/mydas/&quot;
+</code></pre>
+<p>To stop the DAS server, type 'Q' in the terminal.</p>
+<h3 id="compile-time-build-options">Compile-Time Build Options</h3>
+<p>Please keep in mind that as this prototype is developed further, build and
+runtime options may change and not be reflected here. For the single absolute
+source of truth for the build, run the build with the help flag:</p>
+<pre><code class="lang-sh">zig build -h
+</code></pre>
+<p>There are various parts of the DAS that can be configured at
+<em>compile time</em> to be excluded for performance reasons. For example,
+you can disable logging entirely at compile-time, or disable the HTTP listener
+portion if needed.</p>
+<p>To disable logging at compile-time (for performance, gives a smaller binary):</p>
+<pre><code class="lang-sh">zig build -Dnologs [OTHER OPTIONS]
+</code></pre>
+<p>To disable the DAS HTTP listener at compile-time:</p>
+<pre><code class="lang-sh">zig build -Dnolistener [OTHER OPTIONS]
+</code></pre>
+<p>To cross compile to another target:</p>
+<pre><code class="lang-sh">zig build -Dtarget=ARCH-OS[-ABI] [OTHER OPTIONS]
+</code></pre>
+<p>Where ARCH is the cpu architecture (you will likely only use 'x86_64', but you
+can run 'zig targets' to see all possibilities), OS is the target OS (like
+'windows' or 'linux') and the ABI is the linking strategy used. For linux, you
+can use 'gnu' for a traditional dynamically linked exe, or 'musl' for a
+standalone exe that is completely statically linked. On windows, you should
+always use 'gnu', but if you develop on windows you can skip this flag.</p>
+<p>For example (assuming a windows development machine):</p>
+<pre><code class="lang-sh">zig build                              # Native build. Implicitly targets x86_64-windows-gnu if you are on classic windows
+zig build -Dtarget=x86_64-windows-gnu  # Explicitly target classic windows
+zig build -Dtarget=x86_64-windows      # Note the optional abi
+zig build -Dtarget=aarch64-windows-gnu # Even targeting ARM on windows works!
+zig build -Dtarget=x86_64-linux-gnu    # Target the UE with a traditional linux exe
+zig build -Dtarget=x86_64-linux-musl   # Target the UE with a statically linked exe
+zig build -Dtarget=aarch64-macos       # Even MacOS target is possible! Note the missing ABI (though not needed for us)
+# ... And many more combinations desired ...
+</code></pre>
+<p>Please note that some combos do not work. For example, windows+musl is invalid,
+as musl is a linux only ABI.</p>
+<p>To build in release mode:</p>
+<pre><code class="lang-sh">zig build                 # No flag; builds in debug mode
+zig build --release=small # builds optimizing for size using -Os
+zig build --release=fast  # builds optimizing for speed using -O2
+</code></pre>
+<p>All of these examples can be combined. For example, to build a statically linked
+DAS for the UE optimizing for size with no logging:</p>
+<pre><code class="lang-sh">zig build -Dtarget=x86_64-linux-musl --release=small -Dnologs
+</code></pre>
+<p>In fact, this is the configuration that gives us a small binary of around 600KB.</p>
+<h2 id="documentation">Documentation</h2>
+<p>To build and serve the http doc site, run</p>
+<pre><code class="lang-sh">zig build docs
+</code></pre>
+<p>This will print to stdout the port the docs will be listening to. Simply
+go to your browser and enter</p>
+<pre><code class="lang-sh">localhost:PORT
+</code></pre>
+<p>with the proper PORT number reported on the console.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

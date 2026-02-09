@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Zig Installation Guide </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Zig Installation Guide ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../DataStreaming/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/INSTALLATION.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA617.png" alt="RA 617 Installation" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h1 id="zig-installation-guide">Zig Installation Guide</h1>
+<p>This guide explains how to install Zig 0.15.2 to build the boostdas project.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Windows 10/11 (x64)</li>
+<li>Internet connection</li>
+<li>PowerShell 5.1 or later</li>
+</ul>
+<h2 id="required-version">Required Version</h2>
+<p>This project requires <strong>Zig version 0.15.2</strong> exactly. Other versions may not work.</p>
+<h2 id="method-1-manual-download-recommended">Method 1: Manual Download (Recommended)</h2>
+<h3 id="step-1-download-zig">Step 1: Download Zig</h3>
+<p><strong>Option A: Manual download</strong></p>
+<ol>
+<li><p>Visit the official Zig downloads page:</p>
+<pre><code>https://ziglang.org/download/
+</code></pre>
+</li>
+<li><p>Download the Windows x64 version for 0.15.2:</p>
+<ul>
+<li><strong>ZIP file (recommended)</strong>: <code>zig-x86_64-windows-0.15.2.zip</code></li>
+<li>Direct URL: <a href="https://ziglang.org/download/0.15.2/zig-x86_64-windows-0.15.2.zip">https://ziglang.org/download/0.15.2/zig-x86_64-windows-0.15.2.zip</a></li>
+<li>Size: approximately 88 MB</li>
+</ul>
+</li>
+</ol>
+<p><strong>Option B: Automatic download via PowerShell</strong></p>
+<p>Open PowerShell in the project folder and run:</p>
+<pre><code class="lang-powershell">$url = &quot;https://ziglang.org/download/0.15.2/zig-x86_64-windows-0.15.2.zip&quot;
+$output = &quot;$PWD\zig.zip&quot;
+Invoke-WebRequest -Uri $url -OutFile $output -UseBasicParsing
+Write-Host &quot;✓ Downloaded: $([math]::Round((Get-Item $output).Length / 1MB, 2)) MB&quot;
+Expand-Archive -Path $output -DestinationPath $PWD -Force
+Remove-Item $output
+Write-Host &quot;✓ Extraction complete&quot;
+</code></pre>
+<h3 id="step-2-extract-the-archive">Step 2: Extract the Archive</h3>
+<p>The extraction will create a folder named <code>zig-x86_64-windows-0.15.2</code></p>
+<p>Recommended locations:</p>
+<ul>
+<li><p><strong>Option A</strong>: In the project folder<br>
+<code>C:\Users\bonneval\source\repos\boostdas\zig-x86_64-windows-0.15.2\</code></p>
+</li>
+<li><p><strong>Option B</strong>: System-wide location<br>
+<code>C:\Program Files\zig-x86_64-windows-0.15.2\</code></p>
+</li>
+</ul>
+<h3 id="step-3-add-zig-to-path">Step 3: Add Zig to PATH</h3>
+<p><strong>Temporary Method (current PowerShell session only):</strong></p>
+<p>If Zig is in the project folder:</p>
+<pre><code class="lang-powershell">$env:PATH = &quot;$PWD\zig-x86_64-windows-0.15.2;$env:PATH&quot;
+</code></pre>
+<p>For another location:</p>
+<pre><code class="lang-powershell">$env:PATH = &quot;C:\path\to\zig-x86_64-windows-0.15.2;$env:PATH&quot;
+</code></pre>
+<p><strong>Permanent Method (recommended):</strong></p>
+<ol>
+<li><p>Open System Properties:</p>
+<ul>
+<li>Right-click &quot;This PC&quot; → Properties</li>
+<li>Advanced system settings</li>
+<li>Environment Variables</li>
+</ul>
+</li>
+<li><p>Edit the <code>Path</code> variable:</p>
+<ul>
+<li>Under &quot;System variables&quot; or &quot;User variables&quot;</li>
+<li>Click &quot;Edit&quot;</li>
+<li>Add the path: <code>C:\Program Files\zig-x86_64-windows-0.15.2</code> (or your chosen location)</li>
+<li>Click OK</li>
+</ul>
+</li>
+<li><p><strong>Important</strong>: Restart PowerShell to apply changes</p>
+</li>
+</ol>
+<h3 id="step-4-verify-installation">Step 4: Verify Installation</h3>
+<p>Open a new PowerShell terminal and run:</p>
+<pre><code class="lang-powershell">zig version
+</code></pre>
+<p><strong>Expected output:</strong></p>
+<pre><code>0.15.2
+</code></pre>
+<p>If the command fails with &quot;zig: The term 'zig' is not recognized&quot;, verify that:</p>
+<ul>
+<li>The PATH was correctly configured</li>
+<li>You restarted PowerShell after modifying the PATH</li>
+</ul>
+<h2 id="method-2-local-usage-without-path">Method 2: Local Usage (without PATH)</h2>
+<p>If you prefer not to modify the PATH, you can use Zig directly:</p>
+<pre><code class="lang-powershell"># Check version
+.\zig-x86_64-windows-0.15.2\zig.exe version
+
+# Build the project
+.\zig-x86_64-windows-0.15.2\zig.exe build
+</code></pre>
+<h2 id="method-3-package-managers-alternative">Method 3: Package Managers (Alternative)</h2>
+<p>⚠️ <strong>Warning</strong>: Package managers may not have the exact version 0.15.2.</p>
+<p><strong>Chocolatey</strong> (if installed):</p>
+<pre><code class="lang-powershell">choco install zig --version=0.15.2
+</code></pre>
+<p><strong>Scoop</strong> (if installed):</p>
+<pre><code class="lang-powershell">scoop install zig@0.15.2
+</code></pre>
+<p>After installation via package manager, verify the version:</p>
+<pre><code class="lang-powershell">zig version
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="issue-zig-the-term-zig-is-not-recognized">Issue: &quot;zig: The term 'zig' is not recognized&quot;</h3>
+<p><strong>Cause</strong>: Zig is not in the PATH.</p>
+<p><strong>Solution</strong>:</p>
+<ul>
+<li>Verify you added the correct path to PATH</li>
+<li>Restart PowerShell after modifying PATH</li>
+<li>Or use the full path: <code>C:\path\to\zig\zig.exe version</code></li>
+</ul>
+<h3 id="issue-wrong-version-displayed">Issue: Wrong version displayed</h3>
+<p><strong>Cause</strong>: Another version of Zig is installed on the system.</p>
+<p><strong>Solution</strong>:</p>
+<ul>
+<li>Check the order of paths in PATH</li>
+<li>Place the path to Zig 0.15.2 first</li>
+<li>Or uninstall other Zig versions</li>
+</ul>
+<h3 id="issue-download-fails-or-0-byte-file">Issue: Download fails or 0 byte file</h3>
+<p><strong>Cause</strong>: Incorrect URL or version unavailable.</p>
+<p><strong>Solution</strong>:</p>
+<ul>
+<li><strong>Correct URL</strong>: <code>https://ziglang.org/download/0.15.2/zig-x86_64-windows-0.15.2.zip</code></li>
+<li>⚠️ Note: The order is <code>zig-x86_64-windows-</code> not <code>zig-windows-x86_64-</code></li>
+<li>Try downloading manually via browser if PowerShell fails</li>
+<li>Check your Internet connection and firewall</li>
+</ul>
+<p><strong>Alternative</strong>: Use the full PowerShell script in the &quot;Step 1&quot; section</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Once Zig is installed and verified, consult the <a href="README.html">README.md</a> for:</p>
+<ul>
+<li>Building the project</li>
+<li>Running the application</li>
+<li>Compilation options</li>
+</ul>
+<hr>
+<p><strong>Last Updated</strong>: February 4, 2026<br>
+<strong>Required Zig Version</strong>: 0.15.2<br>
+<strong>Tested On</strong>: Windows 11 x64</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/INSTALLATION.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>C++ DAS Listener Implementation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="C++ DAS Listener Implementation ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0478/index.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA_0478_Header.png" alt="RA 478 Overview" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h1 id="c-das-listener-implementation">C++ DAS Listener Implementation</h1>
+<h4 id="reference--ra-478">Reference : RA 478</h4>
+<p>Welcome to the documentation for <strong>RA_0478 DAS Listener in C++</strong>.<br>
+This reference architecture demonstrates how to build a Data Analytics Solution (DAS) listener in C++ that receives messages from a test program and processes them in real-time.</p>
+<h2 id="general-technical-info">General Technical Info</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Language</td>
+<td>C++</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>C++17 or later</td>
+</tr>
+<tr>
+<td>Build System</td>
+<td>CMake 3.14+</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>Windows, Linux</td>
+</tr>
+<tr>
+<td>IGXL</td>
+<td>&gt; 10.30.10</td>
+</tr>
+<tr>
+<td>MST</td>
+<td>&gt; 2016C</td>
+</tr>
+<tr>
+<td>IDE</td>
+<td>Visual Studio / Visual Studio Code / CLion</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-features">Key Features</h2>
+<ul>
+<li>Real-time HTTP message reception</li>
+<li>Event-driven architecture with callbacks for connection, disconnection, errors, and new messages</li>
+<li>Structured message model including cell ID, message name, URL, payload, and timestamp</li>
+<li>Thread-safe implementation using C++17 features</li>
+<li>Message subscription filtering</li>
+<li>Cross-platform compatibility (Windows, Linux)</li>
+<li>Minimal dependencies</li>
+</ul>
+<h2 id="architecture-overview">Architecture Overview</h2>
+<p>The DAS acts as a lightweight HTTP server that receives messages from a test cell. Each message is parsed, validated, and dispatched through an event callback system. This architecture enables adaptive test flows such as <strong>limit adjustment</strong>, <strong>test enable/disable</strong>, and <strong>bin updates</strong> to be handled asynchronously.</p>
+<p>The implementation uses modern C++ practices including:</p>
+<ul>
+<li>RAII (Resource Acquisition Is Initialization) for automatic resource management</li>
+<li>Smart pointers for memory safety</li>
+<li>Lambda functions for flexible event handling</li>
+<li>PImpl idiom for implementation hiding and ABI stability</li>
+</ul>
+<hr>
+<h2 id="example-getting-started">Example: Getting Started</h2>
+<p>Here's a quick example of how to instantiate and use the <code>DASMessageListener</code> class:</p>
+<pre><code class="lang-cpp">#include &quot;DASMessageListener.h&quot;
+#include &lt;iostream&gt;
+
+using namespace Teradyne::Archimedes::DAS;
+
+int main() {
+    std::cout &lt;&lt; &quot;Hello, Welcome to my C++ DAS!&quot; &lt;&lt; std::endl;
+
+    // Create the listener with your DAS URL
+    DASMessageListener listener(&quot;http://localhost:3000/tems/&quot;);
+
+    // Register event callbacks
+    listener.onConnected([]() {
+        std::cout &lt;&lt; &quot;Connected to DAS.&quot; &lt;&lt; std::endl;
+    });
+
+    listener.onDisconnected([]() {
+        std::cout &lt;&lt; &quot;Disconnected.&quot; &lt;&lt; std::endl;
+    });
+
+    listener.onError([](const std::string&amp; error) {
+        std::cerr &lt;&lt; &quot;Error: &quot; &lt;&lt; error &lt;&lt; std::endl;
+    });
+
+    listener.onNewMessage([](const std::string&amp; cellId, const AMPMessage&amp; message) {
+        std::cout &lt;&lt; &quot;New message from &quot; &lt;&lt; cellId 
+                  &lt;&lt; &quot;: &quot; &lt;&lt; message.messageName &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;Payload: &quot; &lt;&lt; message.payload &lt;&lt; std::endl;
+    });
+
+    // Optional: Subscribe to specific message types
+    listener.subscribeToMessages({&quot;TEST_START&quot;, &quot;TEST_END&quot;, &quot;TEST_DATA&quot;});
+
+    // Start the listener
+    if (listener.start()) {
+        std::cout &lt;&lt; &quot;Listener is running...&quot; &lt;&lt; std::endl;
+        // Keep the application running
+        while (listener.isRunning()) {
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+<hr>
+<h2 id="building-the-project">Building the Project</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>C++ compiler with C++17 support (GCC 7+, Clang 5+, MSVC 2017+)</li>
+<li>CMake 3.14 or later</li>
+</ul>
+<h3 id="build-instructions">Build Instructions</h3>
+<pre><code class="lang-bash"># Navigate to the source directory
+cd source/DASListener
+
+# Create build directory
+mkdir build &amp;&amp; cd build
+
+# Configure with CMake
+cmake ..
+
+# Build the project
+cmake --build .
+
+# Run the example application
+./DASListenerExample
+</code></pre>
+<p>For detailed build instructions and manual compilation options, see the README file included in the <a href="file-table.html">source download</a>.</p>
+<hr>
+<h2 id="message-structure">Message Structure</h2>
+<p>The <code>AMPMessage</code> struct contains all relevant information about a received message:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cellId</code></td>
+<td><code>std::string</code></td>
+<td>Test cell identifier</td>
+</tr>
+<tr>
+<td><code>messageName</code></td>
+<td><code>std::string</code></td>
+<td>AMP message type (e.g., TEST_START, TEST_END)</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td><code>std::string</code></td>
+<td>Full URL of the HTTP request</td>
+</tr>
+<tr>
+<td><code>payload</code></td>
+<td><code>std::string</code></td>
+<td>JSON payload containing test data</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td><code>std::string</code></td>
+<td>ISO 8601 formatted timestamp</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="event-callbacks">Event Callbacks</h2>
+<p>The DAS listener supports four types of event callbacks:</p>
+<ol>
+<li><strong>Connected</strong> - Triggered when the listener successfully starts</li>
+<li><strong>Disconnected</strong> - Triggered when the listener stops</li>
+<li><strong>Error</strong> - Triggered when an error occurs during operation</li>
+<li><strong>NewMessage</strong> - Triggered when a new AMP message is received</li>
+</ol>
+<p>All callbacks are optional and can be registered using the <code>on*</code> methods.</p>
+<hr>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="message-filtering">Message Filtering</h3>
+<p>You can filter which messages to process by subscribing to specific message names:</p>
+<pre><code class="lang-cpp">std::vector&lt;std::string&gt; messages = {
+    &quot;TEST_START&quot;,
+    &quot;TEST_END&quot;,
+    &quot;TEST_DATA&quot;,
+    &quot;BIN_UPDATE&quot;
+};
+listener.subscribeToMessages(messages);
+</code></pre>
+<p>If no subscriptions are set, all messages will be processed.</p>
+<h3 id="thread-safety">Thread Safety</h3>
+<p>The DAS listener implementation is thread-safe. Event callbacks are invoked from the listener's internal thread, so be mindful of synchronization if you access shared data from callbacks.</p>
+<hr>
+<h2 id="integration-with-production-systems">Integration with Production Systems</h2>
+<p>This implementation provides a foundation for DAS listener functionality. For production deployments, consider:</p>
+<ul>
+<li>Integrating with established HTTP libraries like <a href="https://github.com/yhirose/cpp-httplib">cpp-httplib</a>, <a href="https://www.boost.org/doc/libs/release/libs/beast/">Boost.Beast</a>, or <a href="https://pocoproject.org/">POCO</a></li>
+<li>Adding SSL/TLS support for secure communication (see <a href="../RA_0474/index.html">RA 474</a> for HTTPS guidance)</li>
+<li>Implementing robust error recovery and logging</li>
+<li>Adding metrics and monitoring capabilities</li>
+<li>Implementing graceful shutdown mechanisms</li>
+</ul>
+<hr>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="file-table.html">Download Source Code</a></li>
+<li>Build Instructions (included in source download)</li>
+</ul>
+<hr>
+<h2 id="related-reference-architectures">Related Reference Architectures</h2>
+<ul>
+<li><a href="../RA_0468/index.html">RA 468: C# DAS Listener</a> - .NET implementation</li>
+<li><a href="../RA_0473/overview.html">RA 473: PowerShell DAS Listener</a> - PowerShell implementation</li>
+<li><a href="../RA_0466/index.html">RA 466: Python DAS Listener</a> - Python implementation</li>
+<li><a href="../RA_0474/index.html">RA 474: HTTPS Management</a> - Secure communications</li>
+</ul>
+<hr>
+<p><em>This documentation is part of the Teradyne Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0478/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

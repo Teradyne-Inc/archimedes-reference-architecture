@@ -1,0 +1,42 @@
+classDiagram
+    class DASMessageListener {
+        +Start()
+        +Stop()
+        +Dispose()
+        +SubscribeToMessages()
+        +Connected
+        +Disconnected
+        +Error
+        +NewMessage
+    }
+
+    class AMPMessageProcessor {
+        +ProcessRequest()
+        +NewMessage
+    }
+
+    class AMPMessageModel {
+        +MessageName
+        +TestCellID
+        +Message
+        +FormattedMessage
+        +IsInitialization
+    }
+
+    class AMPEvents {
+        +NewMessageDlg
+    }
+
+    class AMPMessageManager {
+        +Subscribe()
+        +UnsubscribeAll()
+        +UpdateListToMatchAvailableMessages()
+        +ExtractMessageListFromInitMessage()
+        +ToJson()
+    }
+
+    DASMessageListener --> AMPMessageProcessor
+    AMPMessageProcessor --> AMPMessageModel
+    DASMessageListener --> AMPMessageManager
+    AMPMessageProcessor --> AMPMessageManager
+    DASMessageListener --> AMPEvents

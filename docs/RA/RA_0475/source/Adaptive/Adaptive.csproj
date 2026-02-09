@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		
+
+	
+
+	
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Include="Assets\AdaptiveIcon.ico" />
+	</ItemGroup>
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<!-- Packaged assets -->
+		<None Include="Assets/AdaptiveIcon.png" Pack="true" PackagePath="Assets/" />
+		<None Include="Assets/mermaid.png" Pack="true" PackagePath="Assets/" />
+		<None Include="README.md" Pack="true" PackagePath="/">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+	  <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
+	</ItemGroup>
+
+	
+
+</Project>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>UltraEdge Hyper-V - Installation Overview </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="UltraEdge Hyper-V - Installation Overview ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../UltraEdge/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0477/hyperv-overview.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/readme.jpg" alt="RA 477 - Hyper-V Installation Overview" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h1 id="ultraedge-hyper-v---installation-overview">UltraEdge Hyper-V - Installation Overview</h1>
+<p>This page provides a visual overview of the UltraEdge simulator installation process using Microsoft Hyper-V.</p>
+<hr>
+<h2 id="high-level-installation-process">High-Level Installation Process</h2>
+<p>The following diagram shows the main phases of the installation. Click on any phase to jump to detailed steps.</p>
+<div id="installation-overview"></div>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#ECF0F1','primaryTextColor':'#2C3E50','primaryBorderColor':'#34495E','lineColor':'#3498DB','secondaryColor':'#E8F6F3','tertiaryColor':'#FEF9E7'}}}%%
+flowchart LR
+    Start([Start]) --> Phase1[Prerequisites]
+    Phase1 --> Phase2[Network Setup]
+    Phase2 --> Phase3[VM Creation]
+    Phase3 --> Phase4[Security Configuration]
+    Phase4 --> Phase5[OS Installation]
+    Phase5 --> Done([Complete])
+    
+    click Phase1 "#prerequisites-detail" "View Prerequisites Details"
+    click Phase2 "#network-setup-detail" "View Network Setup Details"
+    click Phase3 "#vm-creation-detail" "View VM Creation Details"
+    click Phase4 "#security-configuration-detail" "View Security Configuration Details"
+    click Phase5 "#os-installation-detail" "View OS Installation Details"
+    
+    style Start fill:#3498DB,stroke:#2C3E50,stroke-width:2px,color:#fff
+    style Done fill:#27AE60,stroke:#1E8449,stroke-width:2px,color:#fff
+    style Phase1 fill:#E74C3C,stroke:#C0392B,stroke-width:2px,color:#fff
+    style Phase2 fill:#F39C12,stroke:#D68910,stroke-width:2px,color:#fff
+    style Phase3 fill:#9B59B6,stroke:#7D3C98,stroke-width:2px,color:#fff
+    style Phase4 fill:#E67E22,stroke:#CA6F1E,stroke-width:2px,color:#fff
+    style Phase5 fill:#16A085,stroke:#138D75,stroke-width:2px,color:#fff
+</pre>
+<blockquote>
+<p><strong>TIP:</strong> Click on any phase in the diagram above to jump to detailed steps for that phase.</p>
+</blockquote>
+<hr>
+<h2 id="prerequisites-detail">Prerequisites Detail</h2>
+<div id="prerequisites-detail"></div>
+<p>This phase ensures your system has everything needed to begin the installation.</p>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#ECF0F1','primaryTextColor':'#2C3E50','primaryBorderColor':'#34495E','lineColor':'#E74C3C','secondaryColor':'#FADBD8','tertiaryColor':'#FEF9E7'}}}%%
+flowchart TD
+    Start([Start Prerequisites]) --> Download[Download UltraEdge ISO<br>from eKnowledge]
+    Download --> CheckHyperV{Hyper-V<br>Enabled?}
+    CheckHyperV -->|No| EnableHyperV[Enable Hyper-V Feature]
+    CheckHyperV -->|Yes| CheckNested
+    EnableHyperV --> Reboot[Reboot System]
+    Reboot --> CheckNested{Nested<br>VM?}
+    CheckNested -->|Yes| ExposeVirt[Enable Virtualization Extensions]
+    CheckNested -->|No| Done
+    ExposeVirt --> Done([Prerequisites Complete])
+    
+    style Start fill:#E74C3C,stroke:#C0392B,stroke-width:2px,color:#fff
+    style Done fill:#27AE60,stroke:#1E8449,stroke-width:2px,color:#fff
+    style CheckHyperV fill:#F39C12,stroke:#D68910,stroke-width:2px
+    style CheckNested fill:#F39C12,stroke:#D68910,stroke-width:2px
+</pre>
+<p><strong>Key Steps:</strong></p>
+<ul>
+<li>Download the UltraEdge ISO file from eKnowledge (approximately 2GB uncompressed)</li>
+<li>Enable Hyper-V feature in Windows if not already enabled</li>
+<li>Reboot system after enabling Hyper-V</li>
+<li>If using nested VMs, enable virtualization extensions on the host VM</li>
+</ul>
+<p><a href="#installation-overview">↑ Back to overview</a></p>
+<hr>
+<h2 id="network-setup-detail">Network Setup Detail</h2>
+<div id="network-setup-detail"></div>
+<p>This phase configures the virtual network for the UltraEdge VM.</p>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#ECF0F1','primaryTextColor':'#2C3E50','primaryBorderColor':'#34495E','lineColor':'#F39C12','secondaryColor':'#FEF5E7','tertiaryColor':'#FEF9E7'}}}%%
+flowchart TD
+    Start([Start Network Setup]) --> CreateSwitch[Create Internal Virtual Switch]
+    CreateSwitch --> NameSwitch[Name the Switch<br>e.g., UltraEdge]
+    NameSwitch --> OpenNetwork[Open Network and Sharing Center]
+    OpenNetwork --> Properties[Open Adapter Properties]
+    Properties --> ConfigIP[Configure IPv4 Settings]
+    ConfigIP --> SetIP[Set IP: 10.100.100.126<br>Subnet: 255.255.255.0]
+    SetIP --> Done([Network Setup Complete])
+    
+    style Start fill:#F39C12,stroke:#D68910,stroke-width:2px,color:#fff
+    style Done fill:#27AE60,stroke:#1E8449,stroke-width:2px,color:#fff
+</pre>
+<p><strong>Key Steps:</strong></p>
+<ul>
+<li>Create a new Internal Virtual Switch in Hyper-V Manager</li>
+<li>Name it appropriately (e.g., &quot;UltraEdge&quot;)</li>
+<li>Configure the network adapter with static IP: 10.100.100.126/24</li>
+</ul>
+<p><a href="#installation-overview">↑ Back to overview</a></p>
+<hr>
+<h2 id="vm-creation-detail">VM Creation Detail</h2>
+<div id="vm-creation-detail"></div>
+<p>This phase creates and configures the virtual machine using the Hyper-V wizard.</p>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#ECF0F1','primaryTextColor':'#2C3E50','primaryBorderColor':'#34495E','lineColor':'#9B59B6','secondaryColor':'#F4ECF7','tertiaryColor':'#FEF9E7'}}}%%
+flowchart TD
+    Start([Start VM Creation]) --> NewVM[Create New Virtual Machine]
+    NewVM --> VMName[Specify VM Name]
+    VMName --> Gen2[Select Generation 2<br>UEFI Required]
+    Gen2 --> Memory[Assign Memory<br>Minimum 4096MB]
+    Memory --> Network[Connect to Virtual Switch]
+    Network --> VHD[Create Virtual Hard Disk<br>Size: 20GB]
+    VHD --> ISO[Mount UltraEdge ISO File]
+    ISO --> Done([VM Creation Complete])
+    
+    style Start fill:#9B59B6,stroke:#7D3C98,stroke-width:2px,color:#fff
+    style Done fill:#27AE60,stroke:#1E8449,stroke-width:2px,color:#fff
+    style Gen2 fill:#E74C3C,stroke:#C0392B,stroke-width:2px,color:#fff
+</pre>
+<p><strong>Key Steps:</strong></p>
+<ul>
+<li>Launch the New Virtual Machine wizard in Hyper-V Manager</li>
+<li>Name your virtual machine</li>
+<li><strong>Important:</strong> Select Generation 2 (required for UEFI boot)</li>
+<li>Allocate at least 4096MB of memory</li>
+<li>Connect to the previously created virtual switch</li>
+<li>Create a 20GB virtual hard disk</li>
+<li>Attach the UltraEdge ISO file</li>
+</ul>
+<p><a href="#installation-overview">↑ Back to overview</a></p>
+<hr>
+<h2 id="security-configuration-detail">Security Configuration Detail</h2>
+<div id="security-configuration-detail"></div>
+<p>This phase configures essential security settings before the first boot.</p>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#ECF0F1','primaryTextColor':'#2C3E50','primaryBorderColor':'#34495E','lineColor':'#E67E22','secondaryColor':'#FEF5E7','tertiaryColor':'#FEF9E7'}}}%%
+flowchart TD
+    Start([Start Security Configuration]) --> Settings[Open VM Settings]
+    Settings --> Security[Navigate to Security Section]
+    Security --> SecureBoot[Enable Secure Boot]
+    SecureBoot --> Template[Set Template to<br>Microsoft UEFI Certificate Authority]
+    Template --> TPM[Enable Trusted Platform Module]
+    TPM --> Done([Security Configuration Complete])
+    
+    style Start fill:#E67E22,stroke:#CA6F1E,stroke-width:2px,color:#fff
+    style Done fill:#27AE60,stroke:#1E8449,stroke-width:2px,color:#fff
+    style Template fill:#E74C3C,stroke:#C0392B,stroke-width:2px,color:#fff
+</pre>
+<p><strong>Key Steps:</strong></p>
+<ul>
+<li>Open the VM settings</li>
+<li>Navigate to Security under Hardware</li>
+<li>Ensure Secure Boot is enabled</li>
+<li><strong>Critical:</strong> Change template from &quot;Microsoft Windows&quot; to &quot;Microsoft UEFI Certificate Authority&quot; for Linux</li>
+<li>Enable Trusted Platform Module (TPM) for secure connections</li>
+</ul>
+<p><a href="#installation-overview">↑ Back to overview</a></p>
+<hr>
+<h2 id="os-installation-detail">OS Installation Detail</h2>
+<div id="os-installation-detail"></div>
+<p>This phase installs and configures the UltraEdge Linux operating system.</p>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#ECF0F1','primaryTextColor':'#2C3E50','primaryBorderColor':'#34495E','lineColor':'#16A085','secondaryColor':'#E8F8F5','tertiaryColor':'#FEF9E7'}}}%%
+flowchart TD
+    Start([Start OS Installation]) --> FirstBoot[Start Virtual Machine]
+    FirstBoot --> SelectInstall[Select Install Option<br>Development with Network Config]
+    SelectInstall --> NetConfig[Configure Network]
+    NetConfig --> SetIP[Set IP: 10.100.100.1<br>Subnet: 10.100.100.0/24]
+    SetIP --> Continue[Continue Installation]
+    Continue --> Complete[Installation Completes]
+    Complete --> Eject[Eject ISO File]
+    Eject --> Reboot[Reboot VM]
+    Reboot --> Done([OS Installation Complete])
+    
+    style Start fill:#16A085,stroke:#138D75,stroke-width:2px,color:#fff
+    style Done fill:#27AE60,stroke:#1E8449,stroke-width:2px,color:#fff
+</pre>
+<p><strong>Key Steps:</strong></p>
+<ul>
+<li>Start the virtual machine for the first time</li>
+<li>Select &quot;Install UltraEdge Instrument: Development with Network Config&quot;</li>
+<li>Configure network interface (eth0) with manual IPv4 settings</li>
+<li>Set IP address to 10.100.100.1 with subnet 10.100.100.0/24</li>
+<li>Complete the installation process</li>
+<li>Eject the ISO file before reboot</li>
+<li>Reboot into the installed system</li>
+</ul>
+<p><a href="#installation-overview">↑ Back to overview</a></p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<p>Ready to begin? Follow the detailed step-by-step guides:</p>
+<ul>
+<li><a href="Overview.html">Overview</a> - Introduction to Hyper-V for UltraEdge</li>
+<li><a href="hyperv.html">Hyper-V Activation</a> - Enable Hyper-V feature on Windows</li>
+<li><a href="nestedvms.html">Nested VMs</a> - Enable virtualization for VMs inside VMs</li>
+<li><a href="installation.html">Installation Guide</a> - Complete installation instructions</li>
+</ul>
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0477/hyperv-overview.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

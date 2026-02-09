@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../DataStreaming/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0466/index.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/header466.png" alt="RA 466 Overview" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h2 id="how-to-implement-a-das-in-python-for-ue">How to implement a DAS in Python for UE</h2>
+<h4 id="reference--ra-466">Reference : RA 466</h4>
+<hr>
+<h3 id="description">Description</h3>
+<p>This Reference Architecture describes how to create an AMP DAS in Python for the UltraEdge.</p>
+<h3 id="general-technical-info">General Technical Info</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Language</td>
+<td>Python</td>
+</tr>
+<tr>
+<td>Framework</td>
+<td>3.11</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>IGXL</td>
+<td>10.60.02</td>
+</tr>
+</tbody>
+</table>
+<h3 id="overview">Overview</h3>
+<p>Creating an AMP DAS for the UltraEdge is simple but requires a few steps.<br>
+First of all, an AMP DAS is an HTTP server. Using Python, there exists many solutions to create an HTTP server.<br>
+The standard solution is to use <code>httplib2</code>. This package is already available on the UltraEdge.<br>
+Another interesting solution is to use <a href="https://flask.palletsprojects.com/"><code>Flask</code></a>.<br>
+Of course, any HTTP server of your choosing can be used.</p>
+<p>In this reference architecture, we show how:</p>
+<ul>
+<li>to create an AMP DAS using Flask</li>
+<li>to bundle it in a Docker</li>
+<li>to read data from a FIFO</li>
+<li>to read files from the UltraEdge even if they are generated in the Docker</li>
+</ul>
+<h4 id="architecture-overview">Architecture Overview</h4>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#E8F4F8','primaryTextColor':'#000000','primaryBorderColor':'#0078d4','lineColor':'#0078d4','secondaryColor':'#F0F9E8','tertiaryColor':'#FFF4E6'}}}%%
+graph TB
+    subgraph TesterPC["Tester PC"]
+        AMP[AMP Service]
+        TP[Test Program<br>IGXL]
+    end
+    
+    subgraph UltraEdge["UltraEdge PC"]
+        subgraph Docker["Docker Container"]
+            PyDAS[Python DAS<br>Flask Server]
+            LogFiles[Log Files]
+        end
+        FIFO[FIFO]
+        SharedFolder[Shared Folder<br>RAM Disk]
+    end
+    
+    AMP -->|HTTP POST<br>TEST_START, TEST_END, TEST_DATA| PyDAS
+    PyDAS -->|HTTP 200 OK<br>MESSAGE_LIST| AMP
+    PyDAS -->|Write log filename<br>every 10 TEST_END| FIFO
+    PyDAS -->|Write logs| LogFiles
+    LogFiles -.->|Shared volume| SharedFolder
+    TP -->|Read FIFO| FIFO
+    TP -->|Download & Delete| SharedFolder
+    
+    style TesterPC fill:#E8F4F8,stroke:#0078d4,stroke-width:2px
+    style UltraEdge fill:#F0F9E8,stroke:#16a34a,stroke-width:2px
+    style Docker fill:#FFF4E6,stroke:#f59e0b,stroke-width:2px
+</pre>
+<h4 id="sample-application">Sample application</h4>
+<p>For this reference architecture, we create a DAS in Python running on the UltraEdge. This DAS logs the following information:</p>
+<ul>
+<li><code>TEST_START</code>: site number and starting status</li>
+<li><code>TEST_END</code>: site number, binning, pass/fail, part id</li>
+<li><code>TEST_DATA</code>: results, limits, pass/fail</li>
+</ul>
+<p>The log filename is computed using a simple touchdowns counter.<br>
+In addition, every 10 TEST_END message, the current log filename is sent to a FIFO and a new log filename is computed and used.</p>
+<p>On the tester host, the test program will attempt to <strong>read the FIFO</strong> at each end of test (in the <code>OnProgramEnded</code> interpose function).<br>
+If a log filename can be read, the test program will <strong>download</strong> this file from the UltraEdge PC to display its contents in the ProgramOutput.
+It will also remotely <strong>delete</strong> this log file.</p>
+<h4 id="data-flow-sequence">Data Flow Sequence</h4>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#E8F4F8','primaryTextColor':'#000000','primaryBorderColor':'#0078d4','lineColor':'#0078d4'}}}%%
+sequenceDiagram
+    participant TP as Test Program
+    participant AMP as AMP
+    participant PyDAS as Python DAS<br>(Docker)
+    participant FIFO as FIFO
+    participant Logs as Log Files
+    
+    Note over TP,Logs: Test Execution Begins
+    AMP->>PyDAS: POST TEST_START
+    PyDAS->>Logs: Log site number and status
+    PyDAS-->>AMP: 200 OK + MESSAGE_LIST
+    
+    AMP->>PyDAS: POST TEST_DATA
+    PyDAS->>Logs: Log results, limits, pass/fail
+    PyDAS-->>AMP: 200 OK + MESSAGE_LIST
+    
+    AMP->>PyDAS: POST TEST_END (count: 1-9)
+    PyDAS->>Logs: Log binning, part ID
+    PyDAS-->>AMP: 200 OK + MESSAGE_LIST
+    
+    Note over PyDAS: After 10 TEST_END messages
+    AMP->>PyDAS: POST TEST_END (count: 10)
+    PyDAS->>Logs: Log binning, part ID
+    PyDAS->>FIFO: Write log filename
+    PyDAS->>Logs: Create new log file
+    PyDAS-->>AMP: 200 OK + MESSAGE_LIST
+    
+    Note over TP,Logs: OnProgramEnded Interpose
+    TP->>FIFO: Read log filename
+    FIFO-->>TP: Return filename
+    TP->>Logs: Download log file
+    Logs-->>TP: File contents
+    TP->>TP: Display in ProgramOutput
+    TP->>Logs: Delete log file
+</pre>
+<h3 id="creating-an-amp-das-with-flask">Creating an AMP DAS with Flask</h3>
+<p><code>Flask</code> defines a simple HTTP server and uses Python decorators to handle HTTP messages.</p>
+<blockquote>
+<p>Note that <code>Flask</code> alone is <strong>not</strong> recommended for production.<br>
+However, it can be wrapped within tools such as <code>Waitress</code> to provide a robust solution.<br>
+See <a href="https://flask.palletsprojects.com/en/stable/deploying/">https://flask.palletsprojects.com/en/stable/deploying/</a> for more information.</p>
+</blockquote>
+<p>An AMP URL is structured as follows:<br>
+<code>http://{server}:{port}/{DAS name}/{parameters}</code></p>
+<ul>
+<li><code>server</code>, <code>port</code>, and <code>DAS name</code> correspond to the DAS definition in the <code>AMP</code> configuration on the tester. See more details in the next chapter.</li>
+<li>The contents of <code>parameters</code> will vary according to the AMP message.</li>
+</ul>
+<h5 id="example">Example</h5>
+<p><code>http://10.100.100.1:5001/PyDAS/TEST_CELL/UFLEXPLUS1/LOT/LOT123/SUBLOT/42/TEST_START</code></p>
+<p>Here, <code>http://10.100.100.1:5001/PyDAS/</code> is the DAS defined in AMP.<br>
+In addition, we can see 4 parameters: TEST_CELL, LOT, SUBLOT, message name.
+<code>TEST_CELL</code>, <code>LOT</code>, <code>SUBLOT</code> act as keywords in the URL and the value following the keywords correspond to that keyword.</p>
+<ul>
+<li><code>UFLEXPLUS1</code> is the <code>TEST_CELL</code> hostname of the tester PC.</li>
+<li><code>LOT123</code> is the current <code>LOT</code></li>
+<li><code>42</code> is the current <code>SUBLOT</code></li>
+<li><code>TEST_START</code> is the AMP message.</li>
+</ul>
+<h3 id="setting-up-a-das-with-the-amp-software">Setting up a DAS with the AMP software</h3>
+<p>To setup a DAS for AMP on the tester PC, the following command must be used in an Administrator command line: <code>ampshell -das add /n {DAS name} /u {DAS URL}</code><br>
+For example: <code>ampshell -das add /n PyDAS /u http://10.100.100.1:5001/PyDAS/</code></p>
+<blockquote>
+<p>Note that the <code>enable_das.bat</code> script is provided in the <code>source</code> folder to run this command for you.</p>
+</blockquote>
+<h3 id="starting-a-flask-server">Starting a Flask server</h3>
+<p>To run a Flask server, the following is required:</p>
+<ul>
+<li>Import Flask: <code>from flask import Flask</code></li>
+<li>Create a Flask object: <code>app = Flask(__name__)</code></li>
+<li>Start the server using a chosen port: <code>app.run(host='0.0.0.0', port=5001)</code>, the IP address 0.0.0.0 binds to the local host fo the UltraEdge and makes the server accessible from the tester PC.</li>
+</ul>
+<h3 id="using-the-flask-route-decorator">Using the Flask <code>route</code> decorator</h3>
+<p>Flask defines a decorator <code>route</code> to simplify the management of specific URLs. In the case of AMP, this may come handy to manage each message.<br>
+For example, a function to manage TEST_DATA messages can be created and the Flask server automatically calls this function for each AMP TEST_DATA message received.\</p>
+<blockquote>
+<p>Note that the <code>POST</code> method must be used for all AMP messages.</p>
+</blockquote>
+<pre><code class="lang-python">@app.route('/PyDAS/TEST_CELL/UFLEXPLUS1/LOT/LOT123/SUBLOT/42/TEST_DATA', methods=['POST'])
+def handle_TEST_DATA():
+  ...
+</code></pre>
+<p>There is one obvious limitation to this solution: the code must be updated for each tester PC, each lot and each sublot.<br>
+Fortunately, Flask allows placeholders in the URL string that are mapped to a function parameter, so the code can be updated as follows:</p>
+<pre><code class="lang-python">@app.route('/PyDAS/TEST_CELL/&lt;string:cellhost&gt;/LOT/&lt;string:lotid&gt;/SUBLOT/&lt;string:sublotid&gt;/TEST_DATA', methods=['POST'])
+def handle_TEST_DATA(cellhost, lotid, sublotid):
+  ...
+</code></pre>
+<p>Reusing our example, when the DAS receives the TEST_DATA message from AMP, the function <code>handle_TEST_DATA</code> is called with:</p>
+<ul>
+<li><code>cellhost</code> = <code>UFLEXPLUS1</code></li>
+<li><code>lotid</code> = <code>LOT123</code></li>
+<li><code>sublotid</code> = <code>42</code></li>
+</ul>
+<h3 id="bundling-the-application-in-a-docker">Bundling the application in a Docker</h3>
+<p>Since the UltraEdge is not accessible at all, installing new applications is not possible. Fortunately, using Docker containers is the solution to implement applications as we see fit.</p>
+<p>In the <code>source</code> folder, a <code>Dockerfile</code> and a script to create a Docker package are provided.<br>
+See also, the <a href="../RA_0448/index.html">RA 448</a> on creating a Docker file.</p>
+<h3 id="reading-data-and-file-from-the-ultraedge">Reading data and file from the UltraEdge</h3>
+<p>The UltraEdge library available on the tester provides an API to read and write FIFOs defined on the UltraEdge PC.<br>
+In this example, the test program attempts to read the FIFO at each end of test and the AMP Python DAS writes to this FIFO every 10 <code>TEST_END</code> message.<br>
+The information written to the FIFO is the name of a log file to copy from the UltraEdge to the tester PC.</p>
+<p>There is one piece missing: the application runs inside a Docker container and the log file is written inside this container. How can we copy this file?<br>
+The UltraEdge software automatically creates a shared folder between the UltraEdge RAM disk filesystem and any Docker container. Any file written to the folder within the Docker container will be visible on the UltraEdge RAM disk folder in the current session.</p>
+<h4 id="log-file-management-logic">Log File Management Logic</h4>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFF4E6','primaryTextColor':'#000000','primaryBorderColor':'#f59e0b','lineColor':'#f59e0b'}}}%%
+flowchart TD
+    Start([Receive TEST_END]) --> Count{Check<br>Message Count}
+    Count -->|Count < 10| LogData[Log test data to<br>current file]
+    Count -->|Count = 10| LogData10[Log test data to<br>current file]
+    LogData --> Increment[Increment counter]
+    Increment --> End([Done])
+    
+    LogData10 --> WriteFilename[Write filename<br>to FIFO]
+    WriteFilename --> NewFile[Create new log file<br>Increment touchdowns]
+    NewFile --> ResetCounter[Reset counter to 0]
+    ResetCounter --> End
+    
+    style Start fill:#E8F4F8,stroke:#0078d4,stroke-width:2px
+    style End fill:#E8F4F8,stroke:#0078d4,stroke-width:2px
+    style Count fill:#FFF4E6,stroke:#f59e0b,stroke-width:2px
+    style WriteFilename fill:#F0F9E8,stroke:#16a34a,stroke-width:2px
+    style NewFile fill:#F0F9E8,stroke:#16a34a,stroke-width:2px
+</pre>
+<h3 id="test-program">Test program</h3>
+<p>In this sample, the test program sends the application to the UltraEdge and accesses the data required to display information.</p>
+<p>In the test program, a module was created to take care of UltraEdge communication.<br>
+An initialization function (called <code>UE_Start</code>) is called after validation and does the following:</p>
+<ol>
+<li>Connects to the UltraEdge</li>
+<li>Starts a session</li>
+<li>Sets the FIFO up</li>
+<li>Sends the Docker file to the UltraEdge</li>
+<li>Tells the UltraEdge to load the Docker image</li>
+<li>Tells the UltraEdge to run a Docker container</li>
+</ol>
+<p>Upon exiting IGXL, a function called <code>UE_Stop</code> (called in <code>OnProgramClose</code>) performs cleanup operations:</p>
+<ol>
+<li>Terminates the application</li>
+<li>Closes the FIFO</li>
+<li>Ends the session</li>
+<li>Disconnect from the UltraEdge</li>
+</ol>
+<p>An additional function <code>GetAndDisplayLogFile</code> is invoked from the <code>OnProgramEnded</code> interpose function.</p>
+<ol>
+<li>Attempts to read data from the FIFO. If there is nothing to read, stop there.</li>
+<li>If the FIFO contains a string, this is the filename to get from the UltraEdge.</li>
+<li>Copy the file from the UltraEdge.</li>
+<li>Delete the file from the UltraEdge.</li>
+<li>Read the contents of the file.</li>
+<li>Display the contents to the ProgramOutput.</li>
+</ol>
+<h2 id="source-code">Source code</h2>
+<p>The API reference for the Python code can be found <a href="pydas.html">here</a></p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pydas.py</code></td>
+<td>Python DAS running in a Docker on the UltraEdge</td>
+</tr>
+<tr>
+<td><code>uetrial.igxl</code></td>
+<td>Test Program</td>
+</tr>
+<tr>
+<td><code>SimulatedConfig.txt</code></td>
+<td>IGXL configuration file to simulate the test program channelmap</td>
+</tr>
+<tr>
+<td><code>Dockerfile</code></td>
+<td>Docker description file</td>
+</tr>
+<tr>
+<td><code>makedocker.sh</code></td>
+<td>Shell script to create the Docker package</td>
+</tr>
+<tr>
+<td><code>enable_das.bat</code></td>
+<td>Support script to add the DAS to AMP</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0466/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+.copy-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 0.8em;
+  padding: 4px 8px;
+  cursor: pointer;
+  border: none;
+  background: #0078d4;
+  color: white;
+  border-radius: 4px;
+  z-index: 10;
+}

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Compilation Guide </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Compilation Guide ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../DataStreaming/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/COMPILATION.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA617.png" alt="RA 617 Compilation" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h1 id="compilation-guide">Compilation Guide</h1>
+<p>This guide covers building the boostdas project using the Zig build system.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Zig 0.15.2 installed (see <a href="INSTALLATION.html">INSTALLATION.md</a>)</li>
+<li>Internet connection (for first build to fetch dependencies)</li>
+<li>Windows 10/11 with PowerShell</li>
+</ul>
+<h2 id="first-time-setup">First-Time Setup</h2>
+<h3 id="1-create-required-directories">1. Create Required Directories</h3>
+<p>On first build, you may encounter a temporary directory error. Create it manually:</p>
+<pre><code class="lang-powershell">New-Item -ItemType Directory -Path &quot;$env:LOCALAPPDATA\zig\tmp&quot; -Force
+</code></pre>
+<h3 id="2-fetch-dependencies">2. Fetch Dependencies</h3>
+<p>The build system will automatically download Boost libraries on first build. Optionally, you can fetch dependencies explicitly:</p>
+<pre><code class="lang-powershell">zig build --fetch
+</code></pre>
+<h2 id="basic-build-commands">Basic Build Commands</h2>
+<h3 id="default-debug-build">Default Debug Build</h3>
+<pre><code class="lang-powershell">zig build
+</code></pre>
+<p><strong>Output Location</strong>: <code>zig-out\x86_64-windows-gnu\Debug\cppdas.exe</code><br>
+<strong>Size</strong>: ~5.5 MB (Debug build includes symbols)</p>
+<h3 id="build-and-run">Build and Run</h3>
+<pre><code class="lang-powershell">zig build run
+</code></pre>
+<p>This builds the project and immediately runs the executable.</p>
+<h3 id="list-available-build-steps">List Available Build Steps</h3>
+<pre><code class="lang-powershell">zig build --list-steps
+</code></pre>
+<p>Available steps:</p>
+<ul>
+<li><code>install</code> (default) - Build and copy artifacts</li>
+<li><code>run</code> - Build and run the application</li>
+<li><code>docs</code> - Build Doxygen documentation</li>
+<li><code>uninstall</code> - Remove build artifacts</li>
+</ul>
+<h2 id="optimization-levels">Optimization Levels</h2>
+<p>Use <code>-Doptimize</code> to control optimization:</p>
+<h3 id="releasesmall-smallest-binary">ReleaseSmall (Smallest Binary)</h3>
+<pre><code class="lang-powershell">zig build -Doptimize=ReleaseSmall
+</code></pre>
+<p><strong>Output</strong>: <code>zig-out\x86_64-windows-gnu\ReleaseSmall\cppdas.exe</code><br>
+<strong>Size</strong>: ~740 KB</p>
+<h3 id="releasefast-maximum-performance">ReleaseFast (Maximum Performance)</h3>
+<pre><code class="lang-powershell">zig build -Doptimize=ReleaseFast
+</code></pre>
+<h3 id="releasesafe-optimized-with-safety-checks">ReleaseSafe (Optimized with Safety Checks)</h3>
+<pre><code class="lang-powershell">zig build -Doptimize=ReleaseSafe
+</code></pre>
+<h3 id="debug-default-with-symbols">Debug (Default, with Symbols)</h3>
+<pre><code class="lang-powershell">zig build -Doptimize=Debug
+</code></pre>
+<h2 id="compile-time-feature-flags">Compile-Time Feature Flags</h2>
+<p>The project supports conditional compilation to exclude functionality:</p>
+<h3 id="disable-logging">Disable Logging</h3>
+<p>Removes all logging code at compile-time:</p>
+<pre><code class="lang-powershell">zig build -Dnologs
+</code></pre>
+<p><strong>Benefits</strong>: Smaller binary, better performance</p>
+<h3 id="generate-compilation-database">Generate Compilation Database</h3>
+<p>For IDE integration (code completion, navigation):</p>
+<pre><code class="lang-powershell">zig build -Dcompiledb
+</code></pre>
+<p>This creates <code>compile_commands.json</code> in the project root.</p>
+<h2 id="combined-build-examples">Combined Build Examples</h2>
+<h3 id="development-build-with-compilation-database">Development Build with Compilation Database</h3>
+<pre><code class="lang-powershell">zig build -Dcompiledb=true
+</code></pre>
+<h2 id="cross-compilation">Cross-Compilation</h2>
+<h3 id="linux-dynamic-linking">Linux (Dynamic Linking)</h3>
+<pre><code class="lang-powershell">zig build -Dtarget=x86_64-linux-gnu -Doptimize=ReleaseFast
+</code></pre>
+<p><strong>Output</strong>: <code>zig-out\x86_64-linux-gnu\ReleaseFast\cppdas</code></p>
+<h3 id="linux-static-linking-with-musl">Linux (Static Linking with musl)</h3>
+<pre><code class="lang-powershell">zig build -Dtarget=x86_64-linux-musl -Doptimize=ReleaseSmall
+</code></pre>
+<p>This creates a completely standalone binary with no external dependencies.</p>
+<h2 id="build-output-structure">Build Output Structure</h2>
+<p>Build artifacts are organized by architecture, OS, ABI, and optimization level:</p>
+<pre><code class="lang-mermaid">graph TD
+    A[zig-out/] --&gt; B[x86_64-windows-gnu/]
+    A --&gt; C[x86_64-linux-gnu/]
+    
+    B --&gt; B1[Debug/]
+    B1 --&gt; B1A[cppdas.exe]
+    B1 --&gt; B1B[cppdas.pdb]
+    
+    B --&gt; B2[ReleaseSmall/]
+    B2 --&gt; B2A[cppdas.exe]
+    
+    B --&gt; B3[ReleaseFast/]
+    B3 --&gt; B3A[cppdas.exe]
+    
+    B --&gt; B4[ReleaseSafe/]
+    B4 --&gt; B4A[cppdas.exe]
+    
+    C --&gt; C1[ReleaseFast/]
+    C1 --&gt; C1A[cppdas]
+    
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style C fill:#fff4e1
+    style B1 fill:#ffe8e8
+    style B2 fill:#e8ffe8
+    style B3 fill:#e8ffe8
+    style B4 fill:#e8ffe8
+    style C1 fill:#e8ffe8
+</code></pre>
+<h2 id="running-the-application">Running the Application</h2>
+<h3 id="run-with-default-arguments">Run with Default Arguments</h3>
+<pre><code class="lang-powershell">.\zig-out\x86_64-windows-gnu\Debug\cppdas.exe
+</code></pre>
+<h3 id="run-with-custom-log-paths">Run with Custom Log Paths</h3>
+<pre><code class="lang-powershell">zig build run -- -dasLog myDas.log -rebinLog myRebin.log
+</code></pre>
+<p><strong>Note</strong>: The <code>--</code> separates build arguments from runtime arguments.</p>
+<h3 id="show-runtime-help">Show Runtime Help</h3>
+<pre><code class="lang-powershell">zig build run -- -h
+</code></pre>
+<p>Or directly:</p>
+<pre><code class="lang-powershell">.\zig-out\x86_64-windows-gnu\Debug\cppdas.exe -h
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Usage: cppdas [-dasLog [file_name]] [-rebinLog [file_name]]
+</code></pre>
+<h2 id="cleaning-build-artifacts">Cleaning Build Artifacts</h2>
+<h3 id="remove-build-outputs">Remove Build Outputs</h3>
+<pre><code class="lang-powershell">Remove-Item -Recurse -Force zig-out
+</code></pre>
+<h3 id="remove-cache-forces-complete-rebuild">Remove Cache (Forces Complete Rebuild)</h3>
+<pre><code class="lang-powershell">Remove-Item -Recurse -Force zig-cache
+Remove-Item -Recurse -Force .zig-cache
+</code></pre>
+<h3 id="clean-all-build-artifacts">Clean All Build Artifacts</h3>
+<pre><code class="lang-powershell">Remove-Item -Recurse -Force zig-out, zig-cache, .zig-cache
+</code></pre>
+<h2 id="advanced-build-options">Advanced Build Options</h2>
+<h3 id="verbose-build-output">Verbose Build Output</h3>
+<p>See all commands being executed:</p>
+<pre><code class="lang-powershell">zig build --verbose
+</code></pre>
+<h3 id="parallel-build-jobs">Parallel Build Jobs</h3>
+<p>Control CPU usage (default uses all cores):</p>
+<pre><code class="lang-powershell">zig build -j4
+</code></pre>
+<h3 id="build-summary">Build Summary</h3>
+<p>Control what's printed:</p>
+<pre><code class="lang-powershell">zig build --summary all      # Show everything
+zig build --summary failures # Show only failures (default)
+zig build --summary none     # No summary
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="issue-unable-to-walk-temporary-directory">Issue: &quot;unable to walk temporary directory&quot;</h3>
+<p><strong>Cause</strong>: Zig temp directory doesn't exist.</p>
+<p><strong>Solution</strong>:</p>
+<pre><code class="lang-powershell">New-Item -ItemType Directory -Path &quot;$env:LOCALAPPDATA\zig\tmp&quot; -Force
+</code></pre>
+<h3 id="issue-build-fails-with-boost-errors-on-first-build">Issue: Build fails with Boost errors on first build</h3>
+<p><strong>Cause</strong>: Network issues downloading dependencies.</p>
+<p><strong>Solution</strong>:</p>
+<ul>
+<li>Check Internet connection</li>
+<li>Try explicit fetch: <code>zig build --fetch</code></li>
+<li>Check firewall settings</li>
+</ul>
+<h3 id="issue-filenotfound-errors-during-build">Issue: &quot;FileNotFound&quot; errors during build</h3>
+<p><strong>Cause</strong>: Incomplete dependency fetch.</p>
+<p><strong>Solution</strong>:</p>
+<pre><code class="lang-powershell"># Clean and rebuild
+Remove-Item -Recurse -Force .zig-cache, zig-cache
+zig build --fetch
+zig build
+</code></pre>
+<h3 id="issue-binary-size-larger-than-expected">Issue: Binary size larger than expected</h3>
+<p><strong>Cause</strong>: Debug build or features not disabled.</p>
+<p><strong>Solution</strong>:</p>
+<pre><code class="lang-powershell"># Build smallest possible binary
+zig build -Doptimize=ReleaseSmall -Dnologs=true
+</code></pre>
+<h3 id="issue-linker-errors-on-windows">Issue: Linker errors on Windows</h3>
+<p><strong>Cause</strong>: Missing system libraries.</p>
+<p><strong>Solution</strong>: The build automatically links <code>Ws2_32</code> on Windows. If errors persist:</p>
+<ul>
+<li>Ensure you're using the correct target for your system</li>
+<li>Try rebuilding from clean state</li>
+</ul>
+<h2 id="build-performance-tips">Build Performance Tips</h2>
+<ol>
+<li><strong>Use incremental builds</strong>: Zig caches build artifacts automatically</li>
+<li><strong>First build is slow</strong>: Dependencies are downloaded and compiled</li>
+<li><strong>Subsequent builds are fast</strong>: Only changed files are recompiled</li>
+<li><strong>Parallel compilation</strong>: Zig uses all CPU cores by default</li>
+<li><strong>Cross-compilation is fast</strong>: No additional toolchains needed</li>
+</ol>
+<h2 id="ide-integration">IDE Integration</h2>
+<h3 id="generate-compile_commandsjson">Generate compile_commands.json</h3>
+<pre><code class="lang-powershell">zig build -Dcompiledb=true
+</code></pre>
+<p>This enables:</p>
+<ul>
+<li>Code completion in VS Code (with C/C++ extension)</li>
+<li>Jump to definition</li>
+<li>Error checking in IDE</li>
+<li>Symbol navigation</li>
+</ul>
+<h3 id="recommended-vs-code-extensions">Recommended VS Code Extensions</h3>
+<ul>
+<li>C/C++ (Microsoft)</li>
+<li>clangd (alternative to C/C++)</li>
+<li>Zig Language (for build.zig syntax highlighting)</li>
+</ul>
+<h2 id="binary-size-comparison">Binary Size Comparison</h2>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Size</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debug (default)</td>
+<td>~5.5 MB</td>
+<td>Includes debug symbols (.pdb)</td>
+</tr>
+<tr>
+<td>ReleaseSmall</td>
+<td>~740 KB</td>
+<td>Optimized for size</td>
+</tr>
+<tr>
+<td>ReleaseSmall + -Dnologs</td>
+<td>~700 KB</td>
+<td>Further optimized</td>
+</tr>
+<tr>
+<td>ReleaseFast</td>
+<td>~800 KB</td>
+<td>Optimized for speed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li>See <a href="README.html">README.md</a> for application usage</li>
+<li>See <a href="INSTALLATION.html">INSTALLATION.md</a> for Zig installation</li>
+<li>Run <code>zig build -h</code> for all build options</li>
+<li>Run <code>zig build run -- -h</code> for runtime options</li>
+</ul>
+<hr>
+<p><strong>Last Updated</strong>: February 4, 2026<br>
+<strong>Zig Version</strong>: 0.15.2<br>
+<strong>Tested On</strong>: Windows 11 x64</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/COMPILATION.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

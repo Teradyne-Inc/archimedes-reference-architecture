@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Use Cases </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Use Cases ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/UseCases/index.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="use-cases">Use Cases</h1>
+
+<div class="hero-section">
+  <div class="hero-content">
+    <h2 class="hero-subtitle">Real-World Use Cases</h2>
+    <p class="hero-description">
+      Browse practical implementations and scenarios that show how Archimedes enables faster insights and action.
+    </p>
+  </div>
+</div>
+<div class="card-grid">
+  <div class="card">
+    <div class="card-icon">🎬</div>
+    <h3><a href="Video_RA_0451.html">Adaptive Test with UltraEdge</a></h3>
+    <p>Watch a comprehensive video demonstration of how Adaptive Test can be implemented with UltraEdge technology to create intelligent, self-optimizing test programs.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon">🎬</div>
+    <h3><a href="Video_RA_0476.html">REbin Application based on GDBN Algorithm</a></h3>
+    <p>Watch a comprehensive video demonstration of how Rebin Application  can be implemented with the GDBN technology.</p>
+  </div>
+</div>
+<style>
+/* ===== Base (light) ===== */
+:root {
+  --td-blue: #23579F;          /* Teradyne blue */
+  --surface: #ffffff;
+  --surface-elev: #ffffff;
+  --border: #e1e8ed;
+  --text: #2c3e50;
+  --muted: #5d6d7e;
+  --shadow: 0 2px 6px rgba(0,0,0,0.05);
+  --shadow-hover: 0 6px 16px rgba(0,0,0,0.10);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin: 60px 0;
+}
+
+.card {
+  background: var(--surface-elev);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(0,0,0,0.08);
+}
+
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 15px;
+  color: var(--td-blue);
+}
+
+.card h3 {
+  font-size: 18px;
+  margin: 10px 0;
+  color: var(--text);
+}
+
+.card h3 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card h3 a:hover {
+  color: var(--td-blue);
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ===== Dark mode (auto) ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #0f141a;
+    --surface-elev: #121820;
+    --border: #2a3441;
+    --text: #e6edf3;
+    --muted: #9fb0c3;
+    --shadow: 0 2px 6px rgba(0,0,0,0.35);
+    --shadow-hover: 0 10px 24px rgba(0,0,0,0.45);
+  }
+
+  .card { background: var(--surface-elev); border-color: var(--border); }
+  .card:hover { border-color: #3a4656; }
+  .card h3 a:hover { color: #6aa0ff; } /* slight brightening on hover */
+}
+
+/* ===== Dark mode (manuel via attribut) =====
+   Si tu as un switch qui pose <html data-theme="dark"> */
+[data-theme="dark"] {
+  --surface: #0f141a;
+  --surface-elev: #121820;
+  --border: #2a3441;
+  --text: #e6edf3;
+  --muted: #9fb0c3;
+  --shadow: 0 2px 6px rgba(0,0,0,0.35);
+  --shadow-hover: 0 10px 24px rgba(0,0,0,0.45);
+}
+
+@media (max-width: 768px) {
+  .card-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/UseCases/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

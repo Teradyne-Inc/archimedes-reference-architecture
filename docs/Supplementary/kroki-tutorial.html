@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Kroki Tutorial - Creating Diagrams with Text </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Kroki Tutorial - Creating Diagrams with Text ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/Supplementary/kroki-tutorial.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="kroki-tutorial---creating-diagrams-with-text">Kroki Tutorial - Creating Diagrams with Text</h1>
+
+<p>Kroki is a service that generates diagrams from text code. It supports many diagram formats.</p>
+<h2 id="-what-is-kroki">🎯 What is Kroki?</h2>
+<p>Kroki unifies multiple diagram tools into a single API. Instead of installing PlantUML, Mermaid, GraphViz separately, Kroki manages them all.</p>
+<h2 id="-supported-formats">📚 Supported Formats</h2>
+<ul>
+<li><strong>Mermaid</strong> - Flow diagrams, sequences, Gantt charts</li>
+<li><strong>PlantUML</strong> - UML and sequence diagrams</li>
+<li><strong>GraphViz</strong> - Graphs and relationships</li>
+<li><strong>Excalidraw</strong> - Hand-drawn style diagrams</li>
+<li><strong>BlockDiag</strong> - Simple block diagrams</li>
+<li>And many more...</li>
+</ul>
+<h2 id="basic-usage">Basic Usage</h2>
+<h3 id="method-1-direct-url-markdown">Method 1: Direct URL (Markdown)</h3>
+<pre><code class="lang-markdown">![Architecture](https://kroki.io/mermaid/svg/eNpljzEOwjAMRfc9xQ-sVUoneoCuXbgBg5tYNCJNlDhDufuGlkpInPX9_P8tDwhp2xqYLHwxBZ5wE5VnXQxD2RJGV1wJjRNCqpj5xKvUvqJn0bmPMz7cqONKxnvxnj5tYh_9aTDl-4FnMSCXCxrHMkZ7j6v6bD4AkqMu8g==)
+</code></pre>
+<h3 id="method-2-http-api">Method 2: HTTP API</h3>
+<pre><code class="lang-bash"># Create a Mermaid diagram
+echo &quot;graph TD; A--&gt;B; A--&gt;C; B--&gt;D; C--&gt;D&quot; | \
+  curl -X POST https://kroki.io/mermaid/svg --data-binary @-
+</code></pre>
+<h3 id="method-3-in-docfx-via-mermaid-extension">Method 3: In DocFX (via Mermaid extension)</h3>
+<p>DocFX directly supports Mermaid with the Markdig extension:</p>
+<pre class="mermaid">
+graph TD
+    A[Client] -->|Send request| B(Server)
+    B --> C{Processing}
+    C -->|Success| D[Response 200]
+    C -->|Error| E[Response 500]
+</pre>
+<h2 id="-practical-examples">📊 Practical Examples</h2>
+<h3 id="example-1-sequence-diagram-mermaid">Example 1: Sequence Diagram (Mermaid)</h3>
+<pre class="mermaid">
+sequenceDiagram
+    participant TP as Test Program
+    participant DAS as DAS Listener
+    participant DB as Database
+    
+    TP->>DAS: HTTP POST /message
+    DAS->>DAS: Parse Message
+    DAS->>DB: Store Data
+    DB-->>DAS: Confirmation
+    DAS-->>TP: HTTP 200 OK
+</pre>
+<blockquote>
+<p>Tip: You can also render this diagram via Kroki by encoding the Mermaid code in a URL, but since Mermaid is now rendered client-side, there's no need to insert a remote image.</p>
+</blockquote>
+<h3 id="example-2-architecture-plantuml">Example 2: Architecture (PlantUML)</h3>
+<p>For PlantUML diagrams, you can use Kroki to render them. Here's an example:</p>
+<pre><code class="lang-text">@startuml
+!define RECTANGLE class
+
+package &quot;Archimedes System&quot; {
+    [Test Cell] as TC
+    [DAS Listener] as DAS
+    [Database] as DB
+    [Web UI] as WEB
+}
+
+TC --&gt; DAS : HTTP Messages
+DAS --&gt; DB : Store Data
+WEB --&gt; DB : Query Data
+@enduml
+</code></pre>
+<p><strong>Kroki URL to render this diagram:</strong></p>
+<pre><code>https://kroki.io/plantuml/svg/eNpLzkksLlZwVKhWqOZSUFDQtVNw8w9yVgguSUzOzsxTs1JQciwoyEkFCjoVpOfnpCqU5uXnFCv45-XnldgqaAIAhXwUiQ==
+</code></pre>
+<p>You can embed the generated SVG in your documentation.</p>
+<h3 id="example-3-state-diagram-mermaid">Example 3: State Diagram (Mermaid)</h3>
+<pre class="mermaid">
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Testing : Start Test
+    Testing --> Binning : Test Complete
+    Binning --> Idle : Results Sent
+    Testing --> Error : Failure
+    Error --> Idle : Reset
+</pre>
+<h3 id="example-4-gantt-chart-mermaid">Example 4: Gantt Chart (Mermaid)</h3>
+<pre class="mermaid">
+gantt
+    title RA Development Planning
+    dateFormat  YYYY-MM-DD
+    section Phase 1
+    RA_0468           :done, ra468, 2024-01-01, 30d
+    RA_0475           :done, ra475, 2024-02-01, 30d
+    section Phase 2
+    RA_0478           :active, ra478, 2024-03-01, 20d
+    Documentation     :crit, after ra478, 10d
+</pre>
+<h3 id="example-5-class-diagram-mermaid">Example 5: Class Diagram (Mermaid)</h3>
+<p>Create UML class diagrams directly in your documentation:</p>
+<pre class="mermaid">
+classDiagram
+    class DASListener {
+        -string baseUrl
+        -int port
+        +Start()
+        +Stop()
+        +OnNewMessage(AMPMessage msg)
+    }
+    
+    class AMPMessage {
+        +string cellId
+        +string messageName
+        +string payload
+        +DateTime timestamp
+    }
+    
+    class MessageProcessor {
+        +ProcessMessage(AMPMessage msg)
+        +ValidateMessage(AMPMessage msg)
+    }
+    
+    DASListener --> AMPMessage : receives
+    DASListener --> MessageProcessor : uses
+    MessageProcessor --> AMPMessage : processes
+</pre>
+<p><strong>Alternative with PlantUML via Kroki:</strong></p>
+<p>For more complex UML diagrams, use PlantUML via Kroki:</p>
+<pre><code class="lang-text">@startuml
+class DASListener {
+  - baseUrl: string
+  - port: int
+  + Start()
+  + Stop()
+}
+
+class AMPMessage {
+  + cellId: string
+  + payload: string
+}
+
+DASListener --&gt; AMPMessage
+@enduml
+</code></pre>
+<p>Then generate the URL: <code>https://kroki.io/plantuml/svg/[encoded_code]</code></p>
+<h3 id="example-6-mind-map---archimedes-ecosystem-mermaid">Example 6: Mind Map - Archimedes Ecosystem (Mermaid)</h3>
+<p>Visualize complex system architectures and relationships with mind maps:</p>
+<pre class="mermaid">
+mindmap
+  root((Archimedes<br>Testing Platform))
+    Test Execution
+      Test Programs
+        IG-XL
+        UltraFlex
+        J750
+      UltraEdge
+        Real-time Capture
+        AMP Messages
+        Binning Logic
+      Test Cells
+        Production Lines
+        Lab Setups
+        R&D Environments
+    Data Pipeline
+      DAS Listener
+        HTTP Endpoints
+        Message Parsing
+        Validation
+      Message Queue
+        RabbitMQ
+        Kafka
+        Azure Service Bus
+      Data Storage
+        SQL Database
+        Time Series DB
+        Blob Storage
+    Analytics & Insights
+      Real-time Dashboard
+        Test Metrics
+        Yield Analysis
+        Failure Trends
+      Reporting
+        Daily Reports
+        Custom Queries
+        Data Export
+      Machine Learning
+        Predictive Maintenance
+        Pattern Recognition
+        Anomaly Detection
+    Infrastructure
+      Cloud Services
+        Azure Functions
+        Container Apps
+        API Management
+      DevOps
+        CI/CD Pipelines
+        Docker Registry
+        Kubernetes
+      Security
+        Authentication
+        Authorization
+        Encryption
+</pre>
+<p><strong>Alternative Simple Mind Map:</strong></p>
+<pre><code class="lang-python"># Use Python's wordcloud library for tag cloud visualization
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+
+text = &quot;&quot;&quot;
+Archimedes Testing UltraEdge DAS Listener
+Docker Microservices REST API Automation
+TestProgram Binning DataStreaming Messages
+&quot;&quot;&quot;
+
+wordcloud = WordCloud(width=800, height=400,
+                     background_color='white',
+                     colormap='Blues').generate(text)
+
+plt.figure(figsize=(10, 5))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.savefig('archimedes_wordcloud.png')
+</code></pre>
+<h3 id="example-7-pie-chart--er-diagram-mermaid">Example 7: Pie Chart &amp; ER Diagram (Mermaid)</h3>
+<p>Pie charts are perfect for showing proportions:</p>
+<pre class="mermaid">
+pie title Test Results Distribution
+    "Pass" : 85
+    "Fail" : 10
+    "Skip" : 5
+</pre>
+<p><strong>Entity Relationship Diagram:</strong></p>
+<pre class="mermaid">
+erDiagram
+    TEST_PROGRAM ||--o{ TEST_RESULT : generates
+    TEST_RESULT ||--|| DEVICE : tests
+    DEVICE }|--|| LOT : "belongs to"
+    
+    TEST_PROGRAM {
+        string name
+        string version
+        datetime created
+    }
+    
+    TEST_RESULT {
+        int id
+        string status
+        float value
+        datetime timestamp
+    }
+    
+    DEVICE {
+        string serial_number
+        string bin
+    }
+    
+    LOT {
+        string lot_id
+        int quantity
+    }
+</pre>
+<blockquote>
+<p><strong>Note</strong>: For hand-drawn style diagrams, use <a href="https://excalidraw.com">Excalidraw.com</a> to create your diagrams visually, then export them as PNG/SVG to include in your documentation.</p>
+</blockquote>
+<h2 id="-integration-in-your-project">🔧 Integration in Your Project</h2>
+<h3 id="option-1-use-mermaid-directly-in-docfx">Option 1: Use Mermaid directly in DocFX</h3>
+<p>Your <code>docfx.json</code> already has Markdig configured, which natively supports Mermaid!</p>
+<h3 id="option-2-generate-static-images-with-kroki">Option 2: Generate static images with Kroki</h3>
+<pre><code class="lang-python">import requests
+import base64
+
+def create_kroki_diagram(code, diagram_type='mermaid', format='svg'):
+    url = f&quot;https://kroki.io/{diagram_type}/{format}&quot;
+    response = requests.post(url, data=code.encode('utf-8'))
+    return response.content
+
+# Example
+mermaid_code = &quot;&quot;&quot;
+graph LR
+    A[Test] --&gt; B[DAS]
+    B --&gt; C[Database]
+&quot;&quot;&quot;
+
+svg = create_kroki_diagram(mermaid_code)
+with open('diagram.svg', 'wb') as f:
+    f.write(svg)
+</code></pre>
+<h3 id="option-3-encoded-url-for-markdown">Option 3: Encoded URL for Markdown</h3>
+<pre><code class="lang-python">import base64
+import zlib
+
+def encode_kroki_url(code, diagram_type='mermaid'):
+    compressed = zlib.compress(code.encode('utf-8'), 9)
+    encoded = base64.urlsafe_b64encode(compressed).decode('ascii')
+    return f&quot;https://kroki.io/{diagram_type}/svg/{encoded}&quot;
+
+# Usage
+code = &quot;graph TD; A--&gt;B;&quot;
+url = encode_kroki_url(code)
+print(f&quot;![Diagram]({url})&quot;)
+</code></pre>
+<h2 id="-resources">📖 Resources</h2>
+<ul>
+<li><strong>Official documentation</strong>: <a href="https://kroki.io">https://kroki.io</a></li>
+<li><strong>Mermaid Live Editor</strong>: <a href="https://mermaid.live">https://mermaid.live</a></li>
+<li><strong>PlantUML Guide</strong>: <a href="https://plantuml.com">https://plantuml.com</a></li>
+<li><strong>Your project already uses Mermaid</strong>: Check in <code>docfx.json</code> (markdig is configured)</li>
+</ul>
+<h2 id="-tips">💡 Tips</h2>
+<ol>
+<li><strong>Mermaid is already integrated</strong> in DocFX via Markdig - use it directly!</li>
+<li><strong>Kroki is useful</strong> for formats not supported by Mermaid (PlantUML, GraphViz, etc.)</li>
+<li><strong>Version your diagrams</strong> as text, not as images</li>
+<li><strong>Test online</strong> before integrating: <a href="https://mermaid.live">https://mermaid.live</a> or <a href="https://kroki.io">https://kroki.io</a></li>
+</ol>
+<h2 id="-complete-example-for-archimedes">🎨 Complete Example for Archimedes</h2>
+<pre class="mermaid">
+graph TB
+    subgraph "Test Cell"
+        TP[Test Program]
+        UE[UltraEdge]
+    end
+    
+    subgraph "Backend Services"
+        DAS[DAS Listener]
+        DB[(Database)]
+        API[REST API]
+    end
+    
+    subgraph "Frontend"
+        WEB[Web Dashboard]
+        MOBILE[Mobile App]
+    end
+    
+    TP -->|AMP Messages| UE
+    UE -->|HTTP POST| DAS
+    DAS -->|Store| DB
+    API -->|Query| DB
+    WEB -->|REST| API
+    MOBILE -->|REST| API
+    
+    style TP fill:#e1f5ff
+    style DAS fill:#ffe1e1
+    style DB fill:#e1ffe1
+</pre>
+<hr>
+<p><strong>Ready to create your first diagrams?</strong> Start with Mermaid directly in your Markdown files!</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/Supplementary/kroki-tutorial.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

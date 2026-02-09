@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>RA_0617 - BoostDAS Source Code </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="RA_0617 - BoostDAS Source Code ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/source/readme.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="ra_0617---boostdas-source-code">RA_0617 - BoostDAS Source Code</h1>
+
+<h2 id="overview">Overview</h2>
+<p>This directory contains the complete source code for the BoostDAS project - a high-performance Data Analytics Solution (DAS) implementation in C++23 using the Boost libraries.</p>
+<h2 id="project-structure">Project Structure</h2>
+<pre><code class="lang-mermaid">graph TD
+    A[RA_0617/] --&gt; B[build.zig&lt;br/&gt;Zig build system configuration]
+    A --&gt; C[build.zig.zon&lt;br/&gt;Dependency management - Boost]
+    A --&gt; D[src/]
+    D --&gt; D1[main.cpp&lt;br/&gt;Main DAS implementation]
+    D --&gt; D2[CMakeLists.txt&lt;br/&gt;Legacy CMake - not used]
+    A --&gt; E[doc_server/]
+    E --&gt; E1[main.zig]
+    A --&gt; F[cleandb/]
+    F --&gt; F1[main.zig]
+    A --&gt; G[zig-out/&lt;br/&gt;Build output directory - generated]
+    
+    style A fill:#e1f5ff
+    style D fill:#fff4e1
+    style E fill:#fff4e1
+    style F fill:#fff4e1
+    style G fill:#e8f5e8
+</code></pre>
+<h2 id="technology-stack">Technology Stack</h2>
+<ul>
+<li><strong>Language</strong>: C++23</li>
+<li><strong>Libraries</strong>:
+<ul>
+<li>Boost.Beast (HTTP server)</li>
+<li>Boost.ASIO (Async I/O)</li>
+<li>Boost.JSON (JSON parsing)</li>
+</ul>
+</li>
+<li><strong>Build System</strong>: Zig 0.15.2</li>
+<li><strong>Target Platforms</strong>: Windows, Linux (x86_64)</li>
+</ul>
+<h2 id="key-features">Key Features</h2>
+<h3 id="high-performance">High Performance</h3>
+<ul>
+<li>Native C++ implementation</li>
+<li>Optimized builds as small as 600KB</li>
+<li>No runtime dependencies (musl builds)</li>
+<li>Compile-time feature toggling</li>
+</ul>
+<h3 id="cross-platform">Cross-Platform</h3>
+<ul>
+<li>Build for Windows and Linux from any machine</li>
+<li>Static linking support for standalone deployment</li>
+<li>Target ARM architectures (experimental)</li>
+</ul>
+<h3 id="flexible-configuration">Flexible Configuration</h3>
+<ul>
+<li>Compile-time flags (<code>-Dnologs</code>)</li>
+<li>Runtime configuration (URL, log path)</li>
+<li>Multiple optimization levels</li>
+</ul>
+<h2 id="building-the-project">Building the Project</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Zig 0.15.2 installed</li>
+<li>Internet connection (first build only, for dependencies)</li>
+</ul>
+<h3 id="basic-build">Basic Build</h3>
+<pre><code class="lang-sh">zig build
+</code></pre>
+<h3 id="optimized-release-build">Optimized Release Build</h3>
+<pre><code class="lang-sh">zig build -Doptimize=ReleaseSmall
+</code></pre>
+<h3 id="cross-compile-for-linux">Cross-Compile for Linux</h3>
+<pre><code class="lang-sh">zig build -Dtarget=x86_64-linux-musl -Doptimize=ReleaseSmall
+</code></pre>
+<h3 id="build-options">Build Options</h3>
+<p><strong>Optimization Levels:</strong></p>
+<ul>
+<li><code>Debug</code> (default) - ~5.5 MB with symbols</li>
+<li><code>ReleaseSmall</code> - ~740 KB, optimized for size</li>
+<li><code>ReleaseFast</code> - Optimized for speed</li>
+<li><code>ReleaseSafe</code> - Optimized with safety checks</li>
+</ul>
+<p><strong>Feature Flags:</strong></p>
+<ul>
+<li><code>-Dnologs</code> - Disable all logging (smaller binary, better performance)</li>
+</ul>
+<p><strong>Target Platforms:</strong></p>
+<ul>
+<li><code>x86_64-windows-gnu</code> (default on Windows)</li>
+<li><code>x86_64-linux-gnu</code> (dynamic linking)</li>
+<li><code>x86_64-linux-musl</code> (static linking, standalone)</li>
+</ul>
+<h2 id="running-the-das">Running the DAS</h2>
+<h3 id="default-configuration">Default Configuration</h3>
+<pre><code class="lang-sh">zig build run
+</code></pre>
+<ul>
+<li>URL: <code>http://localhost:4242/cppdas/</code></li>
+<li>Log: <code>DasLog.log</code></li>
+</ul>
+<h3 id="custom-configuration">Custom Configuration</h3>
+<pre><code class="lang-sh">zig build run -- -dasUrl &quot;http://localhost:8080/mydas/&quot; -dasLog custom.log
+</code></pre>
+<h3 id="direct-execution">Direct Execution</h3>
+<pre><code class="lang-sh">./zig-out/x86_64-windows-gnu/Debug/cppdas.exe
+</code></pre>
+<h2 id="runtime-options">Runtime Options</h2>
+<ul>
+<li><code>-h</code> or <code>--help</code> - Display help</li>
+<li><code>-dasUrl [url]</code> - Set DAS URL with port and path</li>
+<li><code>-dasLog [file]</code> - Set log file path</li>
+</ul>
+<p><strong>To stop the DAS</strong>: Type 'Q' in the terminal</p>
+<h2 id="documentation">Documentation</h2>
+<p>Build and serve the documentation:</p>
+<pre><code class="lang-sh">zig build docs
+</code></pre>
+<h2 id="files-included">Files Included</h2>
+<ul>
+<li><strong>build.zig</strong> - Complete build configuration with cross-compilation</li>
+<li><strong>build.zig.zon</strong> - Boost dependency specifications</li>
+<li><strong>src/main.cpp</strong> - DAS implementation with Boost.Beast HTTP server</li>
+<li><strong>Dockerfile</strong> - Container deployment configuration</li>
+<li><strong>docker-compose.yml</strong> - Multi-container orchestration</li>
+<li><strong>Doxyfile</strong> - API documentation generator config</li>
+<li><strong>.gitignore</strong> - Version control exclusions</li>
+</ul>
+<h2 id="documentation-files">Documentation Files</h2>
+<ul>
+<li><strong>INSTALLATION.md</strong> - Step-by-step setup guide</li>
+<li><strong>COMPILATION.md</strong> - Comprehensive build instructions</li>
+<li><strong>IMPLEMENTATION_GUIDE.md</strong> - Developer customization guide</li>
+<li><strong>DOCKER.md</strong> - Container deployment guide</li>
+<li><strong>ZIG_OVERVIEW.md</strong> - Introduction to Zig build system</li>
+</ul>
+<h2 id="development-workflow">Development Workflow</h2>
+<ol>
+<li><p><strong>First Time Setup</strong></p>
+<pre><code class="lang-sh"># Create temporary directory (Windows)
+New-Item -ItemType Directory -Path &quot;$env:LOCALAPPDATA\zig\tmp&quot; -Force
+
+# Fetch dependencies
+zig build --fetch
+</code></pre>
+</li>
+<li><p><strong>Development</strong></p>
+<pre><code class="lang-sh"># Build and test
+zig build run
+
+# Make changes to src/main.cpp
+# Rebuild automatically
+zig build run
+</code></pre>
+</li>
+<li><p><strong>Release</strong></p>
+<pre><code class="lang-sh"># Create optimized Windows build
+zig build -Doptimize=ReleaseSmall
+
+# Create Linux deployment
+zig build -Dtarget=x86_64-linux-musl -Doptimize=ReleaseSmall -Dnologs
+</code></pre>
+</li>
+</ol>
+<h2 id="deployment">Deployment</h2>
+<h3 id="windows">Windows</h3>
+<ul>
+<li>Copy executable from <code>zig-out/x86_64-windows-gnu/ReleaseSmall/cppdas.exe</code></li>
+<li>No dependencies required</li>
+<li>Run with desired command-line arguments</li>
+</ul>
+<h3 id="linux-ultraedge">Linux (UltraEdge)</h3>
+<ul>
+<li>Build with <code>-Dtarget=x86_64-linux-musl</code></li>
+<li>Transfer executable to target machine</li>
+<li>Set executable permissions: <code>chmod +x cppdas</code></li>
+<li>Run with configuration options</li>
+</ul>
+<h3 id="docker">Docker</h3>
+<pre><code class="lang-sh">docker-compose up -d
+</code></pre>
+<h2 id="performance-benchmarks">Performance Benchmarks</h2>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Binary Size</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debug</td>
+<td>~5.5 MB</td>
+<td>Full symbols for debugging</td>
+</tr>
+<tr>
+<td>ReleaseSmall</td>
+<td>~740 KB</td>
+<td>Size optimized</td>
+</tr>
+<tr>
+<td>ReleaseSmall -Dnologs</td>
+<td>~600 KB</td>
+<td>Minimal footprint</td>
+</tr>
+<tr>
+<td>ReleaseFast</td>
+<td>~1.2 MB</td>
+<td>Speed optimized</td>
+</tr>
+</tbody>
+</table>
+<h2 id="support-and-contributions">Support and Contributions</h2>
+<p>For questions or issues:</p>
+<ol>
+<li>Check documentation files (INSTALLATION.md, COMPILATION.md)</li>
+<li>Review build output with <code>zig build -h</code></li>
+<li>Examine build configuration in build.zig</li>
+</ol>
+<h2 id="license">License</h2>
+<p>Part of the Teradyne Archimedes Reference Architecture series.</p>
+<hr>
+<p><strong>Version</strong>: 1.0<br>
+<strong>Last Updated</strong>: February 2026<br>
+<strong>Zig Version</strong>: 0.15.2<br>
+<strong>C++ Standard</strong>: C++23<br>
+<strong>Boost Version</strong>: Latest (auto-fetched by Zig)</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/source/readme.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

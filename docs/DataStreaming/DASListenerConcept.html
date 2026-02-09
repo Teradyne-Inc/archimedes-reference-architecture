@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/DataStreaming/DASListenerConcept.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/DAtaStreaming_Overview.png" alt="DAS Overview" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h2 id="what-is-a-das-listener">What Is a DAS Listener?</h2>
+<p>The <strong>DAS Listener</strong> is a REST-based server component used in the <strong>Data Analytics Solution (DAS)</strong> architecture. It is responsible for <strong>receiving, validating, and responding to commands</strong> from external systems — such as test programs, orchestration frameworks, or monitoring tools.</p>
+<hr>
+<h3 id="understanding-rest">Understanding REST</h3>
+<p><strong>REST</strong> (Representational State Transfer) is a way for programs to communicate over the web using simple HTTP requests. A client sends a message (usually in <strong>JSON</strong> format) to a specific URL (an &quot;endpoint&quot;), and the server replies with a result.</p>
+<p>The communication pattern:</p>
+<ul>
+<li>The URL is the endpoint address</li>
+<li>The JSON payload contains the data</li>
+<li>The server responds with confirmation or error information</li>
+</ul>
+<hr>
+<h3 id="-rest-communication-in-das">🔌 REST Communication in DAS</h3>
+<p>All DAS communication happens via <strong>HTTP POST</strong> requests using one of the following URL formats:</p>
+<h4 id="accepted-url-patterns">Accepted URL Patterns</h4>
+<ol>
+<li><p><strong>Basic Command:</strong></p>
+<pre><code>&lt;dasURL&gt;/TESTCELL/&lt;hostname&gt;/&lt;messagename&gt;
+</code></pre>
+</li>
+<li><p><strong>With Lot Context:</strong></p>
+<pre><code>&lt;dasURL&gt;/TESTCELL/&lt;hostname&gt;/LOTID/&lt;lotid&gt;/&lt;messagename&gt;
+</code></pre>
+</li>
+<li><p><strong>With Lot and Sublot Context:</strong></p>
+<pre><code>&lt;dasURL&gt;/TESTCELL/&lt;hostname&gt;/LOTID/&lt;lotid&gt;/SUBLOT/&lt;sublotid&gt;/&lt;messagename&gt;
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>Each message name corresponds to a command (e.g., <code>INITIALIZATION</code>, <code>TEST_START</code>, <code>STATUS</code>).</p>
+</blockquote>
+<hr>
+<h3 id="-required-json-payload-fields">⏱ Required JSON Payload Fields</h3>
+<p>All messages <strong>must</strong> include at least:</p>
+<ul>
+<li><code>&quot;TIME_STAMP&quot;</code>: an ISO 8601 UTC timestamp.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="lang-json">{
+  &quot;TIME_STAMP&quot;: &quot;2025-06-30T09:15:00Z&quot;
+}
+</code></pre>
+<hr>
+<h3 id="initialization-phase">Initialization Phase</h3>
+<p>The <strong>first message</strong> sent by any test cell must be <code>INITIALIZATION</code>.<br>
+If this is missing or another command is sent first, the DAS Listener will reject the message with an error (<code>403</code> or <code>500</code>).</p>
+<p>This message must also include a list of messages the test cell plans to send (aka the <strong>subscription list</strong>).</p>
+<h4 id="example-of-subscribed-messages">Example of Subscribed Messages</h4>
+<pre><code class="lang-json">[
+  &quot;STATUS&quot;, &quot;INITIALIZATION&quot;, &quot;LICENSE&quot;, &quot;T_STATUS&quot;, &quot;SHUTDOWN&quot;, &quot;HALT&quot;, &quot;ALARM&quot;, &quot;LOCATION&quot;, &quot;USER_ACCOUNT&quot;,
+  &quot;DTR&quot;, &quot;IGXL_DATA&quot;, &quot;MST_DATA&quot;, &quot;QUALITY_MONITOR_DATA&quot;, &quot;TEST_END&quot;, &quot;TESTER_OS&quot;, &quot;TEST_PROGRAM_LOAD&quot;,
+  &quot;TEST_START&quot;, &quot;CONFIGURATION&quot;, &quot;BINNAME&quot;, &quot;RESULTFILE&quot;, &quot;LOT_END&quot;, &quot;LOT_START&quot;, &quot;SUBLOT_END&quot;, &quot;SUBLOT_START&quot;,
+  &quot;PERIPHERAL&quot;, &quot;MAINTENANCE&quot;, &quot;MAINTENANCE_DATA&quot;, &quot;CZ_DATA_POINT&quot;, &quot;CZ_END&quot;, &quot;CZ_SETUP&quot;, &quot;CZ_START&quot;,
+  &quot;CZ_START_POINT&quot;, &quot;CZ_SUMMARY&quot;, &quot;TEST_DATA&quot;, &quot;ADAPTIVE_CHANGE&quot;, &quot;PRE_TEST_END&quot;
+]
+</code></pre>
+<p>The server will <strong>echo back</strong> this list in each response as confirmation.</p>
+<hr>
+<h3 id="message-categories-and-url-types">Message Categories and URL Types</h3>
+<h4 id="type-1-common-messages">Type 1: Common Messages</h4>
+<p><strong>URL Pattern:</strong> <code>&lt;dasURL&gt;/TESTCELL/&lt;hostname&gt;/&lt;messagename&gt;</code></p>
+<h5 id="system--configuration">System &amp; Configuration</h5>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#E8F4F8','primaryTextColor':'#000000','primaryBorderColor':'#0078d4','lineColor':'#0078d4','secondaryColor':'#D1E7FF','tertiaryColor':'#FFF9E6'}}}%%
+mindmap
+  root((System & Configuration))
+    System Control
+      STATUS
+      INITIALIZATION
+      SHUTDOWN
+      HALT
+    Configuration
+      LICENSE
+      CONFIGURATION
+      TEST_PROGRAM_LOAD
+      TESTER_OS
+    User and Location
+      USER_ACCOUNT
+      LOCATION
+      ALARM
+</pre>
+<h5 id="data-collection--monitoring">Data Collection &amp; Monitoring</h5>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#E8F4F8','primaryTextColor':'#000000','primaryBorderColor':'#0078d4','lineColor':'#0078d4','secondaryColor':'#E8F9F0','tertiaryColor':'#FFE8E8'}}}%%
+mindmap
+  root((Data Collection & Monitoring))
+    IG-XL Data
+      IGXL_DATA
+      QUALITY_MONITOR_DATA
+    MST Data
+      MST_DATA
+    Test Results
+      BINNAME
+      RESULTFILE
+    Monitoring
+      T_STATUS
+      PERIPHERAL
+    Maintenance
+      MAINTENANCE
+      MAINTENANCE_DATA
+</pre>
+<h4 id="type-2-lot-context">Type 2: Lot Context</h4>
+<p><strong>URL Pattern:</strong> <code>&lt;dasURL&gt;/TESTCELL/&lt;hostname&gt;/LOTID/&lt;lotid&gt;/&lt;messagename&gt;</code></p>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#F0F9E8','primaryTextColor':'#000000','primaryBorderColor':'#16a34a','lineColor':'#16a34a','secondaryColor':'#ffffff','tertiaryColor':'#ffffff'}}}%%
+mindmap
+  root((TESTCELL/hostname/LOTID/lotid/messagename))
+    LOT_START
+    LOT_END
+</pre>
+<h4 id="type-3-test--sublot-context">Type 3: Test &amp; Sublot Context</h4>
+<p><strong>URL Pattern:</strong> <code>&lt;dasURL&gt;/TESTCELL/&lt;hostname&gt;/LOTID/&lt;lotid&gt;/SUBLOT/&lt;sublotid&gt;/&lt;messagename&gt;</code></p>
+<pre class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFF4E6','primaryTextColor':'#000000','primaryBorderColor':'#f59e0b','lineColor':'#f59e0b','secondaryColor':'#ffffff','tertiaryColor':'#ffffff'}}}%%
+mindmap
+  root((TESTCELL/hostname/LOTID/lotid/SUBLOT/sublotid/messagename))
+    Test Results
+      TEST_START
+      TEST_END
+      TEST_DATA
+      DTR
+    Sublot Management
+      SUBLOT_START
+      SUBLOT_END
+    Test Program Behavior
+      PRE_TEST_END
+      ADAPTIVE_CHANGE
+    Characterization
+      CZ_SETUP
+      CZ_START
+      CZ_END
+      CZ_DATA_POINT
+      CZ_START_POINT
+      CZ_SUMMARY
+</pre>
+<hr>
+<h3 id="message-lifecycle">Message Lifecycle</h3>
+<ol>
+<li>Client sends <code>INITIALIZATION</code> message → DAS Listener returns <code>200 OK</code> + subscription list.</li>
+<li>Client sends follow-up messages (e.g., <code>STATUS</code>, <code>TEST_START</code>) → Server echoes back subscription list.</li>
+<li>If a message is invalid or not expected → Server replies with appropriate error.</li>
+</ol>
+<hr>
+<h3 id="http-behavior">HTTP Behavior</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Purpose</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td>Send message</td>
+<td>✅ Only method supported</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td>❌ Not allowed</td>
+<td>Will return <code>400 Bad Request</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="common-http-responses">Common HTTP Responses</h4>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>200</code></td>
+<td>Success – message processed</td>
+</tr>
+<tr>
+<td><code>400</code></td>
+<td>Bad Request – invalid format or method</td>
+</tr>
+<tr>
+<td><code>403</code></td>
+<td>Forbidden – not initialized</td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td>Internal Server Error – unexpected</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/DataStreaming/DASListenerConcept.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

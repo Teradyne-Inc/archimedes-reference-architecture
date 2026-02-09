@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>How to Send an Adaptive Command </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="How to Send an Adaptive Command ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0475/how-to-use.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA_0475_Header.png" alt="RA 473 Overview" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h1 id="how-to-send-an-adaptive-command">How to Send an Adaptive Command</h1>
+<p>This guide explains how to use an interactive C# console application to manage Adaptive Test commands using the <code>Teradyne.FA.DIA.DAS.Adaptive</code> library.</p>
+<h2 id="key-features">Key Features</h2>
+<ul>
+<li>Clear previously issued adaptive commands (excluding enable words)</li>
+<li>Enable or disable individual test steps</li>
+<li>Enable or disable enable words</li>
+<li>Update test limits (low/high)</li>
+<li>Menu-driven interface for rapid experimentation</li>
+</ul>
+<blockquote>
+<p><strong>Important:</strong> The following examples send only one command per function. However, it is possible to combine multiple requests into a single command.</p>
+</blockquote>
+<hr>
+<h2 id="initialization-phase">Initialization Phase</h2>
+<p>Before sending any command, you must:</p>
+<ul>
+<li>Specify the origin of the command using a DAS identifier (<code>dasId</code>).</li>
+<li>Establish communication with the RabbitMQ server.
+In the example below, the Adaptive Test runs on <code>localhost</code>.</li>
+</ul>
+<pre><code class="lang-csharp">public string dasId = &quot;http://127.0.0.1:3000/tems&quot;;
+public AdaptiveCommunication adaptivecomm = new AdaptiveCommunication(&quot;127.0.0.1&quot;);
+</code></pre>
+<hr>
+<h2 id="clear-command">Clear Command</h2>
+<p>The <code>ClearAdaptiveCommand</code> function resets all previously issued adaptive test actions—except enable word modifications.</p>
+<pre><code class="lang-csharp">public void ClearAdaptiveCommand()
+{
+    AdaptiveCommand adaptiveCommand = new AdaptiveCommand(dasId);
+    adaptiveCommand.addAction(adaptiveCommand.createClearAction());
+    string rsp = adaptivecomm.SendAction(adaptiveCommand);
+    Console.WriteLine(&quot;Clear command Response = &quot; + rsp);
+}
+</code></pre>
+<hr>
+<h2 id="enable-test">Enable Test</h2>
+<p>This command enables a test using its name. (It is also possible to use the test number.)</p>
+<pre><code class="lang-csharp">public void EnableTest(string name)
+{
+    AdaptiveCommand adaptiveCommand = new AdaptiveCommand(dasId);
+    adaptiveCommand.addAction(adaptiveCommand.createTestStepAction(TestStepActionType.ENABLE, new List&lt;string&gt;() { name }));
+    string rsp = adaptivecomm.SendAction(adaptiveCommand);
+    Console.WriteLine($&quot;Enable Test {name} command Response = &quot; + rsp);
+}
+</code></pre>
+<hr>
+<h2 id="disable-test">Disable Test</h2>
+<p>Similar to the enable function, but disables the specified test. You can also disable multiple tests at once by providing multiple names or test numbers.</p>
+<pre><code class="lang-csharp">public void DisableTest(string name)
+{
+    AdaptiveCommand adaptiveCommand = new AdaptiveCommand(dasId);
+    adaptiveCommand.addAction(adaptiveCommand.createTestStepAction(TestStepActionType.DISABLE, new List&lt;string&gt;() { name }));
+    string rsp = adaptivecomm.SendAction(adaptiveCommand);
+    Console.WriteLine($&quot;Disable Test {name} command Response = &quot; + rsp);
+}
+</code></pre>
+<hr>
+<h2 id="enable-word-management">Enable Word Management</h2>
+<p>This function allows enabling or disabling one or more enable words.</p>
+<pre><code class="lang-csharp">public void EnableWord(string name, bool status)
+{
+    AdaptiveCommand adaptiveCommand = new AdaptiveCommand(dasId);
+    adaptiveCommand.addAction(adaptiveCommand.createEnableWordAction(
+        status ? EnableWordActionType.ENABLE : EnableWordActionType.DISABLE,
+        new List&lt;string&gt;() { name }));
+    string rsp = adaptivecomm.SendAction(adaptiveCommand);
+    Console.WriteLine($&quot;Enable Word {name} = {status} command Response = &quot; + rsp);
+}
+</code></pre>
+<hr>
+<h2 id="limits-management">Limits Management</h2>
+<p>This function changes the limit values for a test using its name or number. Both <code>low limit</code> and <code>high limit</code> must be specified.</p>
+<pre><code class="lang-csharp">public void SetNewLimit(string name, double lowlimit, double highlimit)
+{
+    AdaptiveCommand adaptiveCommand = new AdaptiveCommand(dasId);
+    adaptiveCommand.addAction(adaptiveCommand.createLimitsAction(
+        TestStepActionType.UPDATE_LIMITS,
+        new List&lt;string&gt;() { name },
+        new Limits() { HI_LIMIT = highlimit, LO_LIMIT = lowlimit, LIMIT_NAMES = new List&lt;string&gt;() { name } }));
+    string rsp = adaptivecomm.SendAction(adaptiveCommand);
+    Console.WriteLine($&quot;Set New Limit for Test {name} - Low: {lowlimit}, High: {highlimit} | Response = &quot; + rsp);
+}
+</code></pre>
+<hr>
+<h2 id="close">Close</h2>
+<p>To cleanly terminate the connection with the RabbitMQ server, call the <code>Close</code> method:</p>
+<pre><code class="lang-csharp">public void Close()
+{
+    adaptivecomm.Close();
+    Console.WriteLine(&quot;Communication Closed&quot;);
+}
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0475/how-to-use.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

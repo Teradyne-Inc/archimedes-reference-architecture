@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Docker on WSL - Post-Installation Configuration </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Docker on WSL - Post-Installation Configuration ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../UltraEdge/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0448/wsl-docker-configuration.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA_0448_Header.png" alt="RA 448 - Docker Configuration on WSL" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h1 id="docker-on-wsl---post-installation-configuration">Docker on WSL - Post-Installation Configuration</h1>
+<p>This guide covers optional configurations to improve your Docker on WSL experience.</p>
+<hr>
+<h2 id="enable-docker-without-sudo">Enable Docker Without sudo</h2>
+<p>To run Docker commands without <code>sudo</code>, add your user to the <code>docker</code> group:</p>
+<pre><code class="lang-bash">sudo usermod -aG docker $USER
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>You must <strong>log out and log back in</strong> (or restart WSL) for the group changes to take effect.</p>
+</div>
+<p>Verify the change by closing and reopening WSL terminal, then run:</p>
+<pre><code class="lang-bash">docker run hello-world
+</code></pre>
+<hr>
+<h2 id="auto-start-docker-on-wsl-startup">Auto-Start Docker on WSL Startup</h2>
+<p>Choose one of the following methods to automatically start Docker when WSL launches.</p>
+<h3 id="option-1-auto-start-with-bashrc-all-wsl-versions">Option 1: Auto-start with .bashrc (All WSL versions)</h3>
+<p>Add this to your <code>~/.bashrc</code>:</p>
+<pre><code class="lang-bash"># Start Docker daemon if not running
+if ! pgrep -x dockerd &gt; /dev/null; then
+    echo &quot;Starting Docker...&quot;
+    sudo dockerd &gt; /dev/null 2&gt;&amp;1 &amp;
+    sleep 2
+fi
+</code></pre>
+<p>Apply the changes:</p>
+<pre><code class="lang-bash">echo '
+# Start Docker daemon if not running
+if ! pgrep -x dockerd &gt; /dev/null; then
+    echo &quot;Starting Docker...&quot;
+    sudo dockerd &gt; /dev/null 2&gt;&amp;1 &amp;
+    sleep 2
+fi' &gt;&gt; ~/.bashrc
+</code></pre>
+<pre><code class="lang-bash">source ~/.bashrc
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You may need to configure passwordless sudo for dockerd. See below.</p>
+</div>
+<h3 id="option-2-using-systemd-ubuntu-2204-only">Option 2: Using systemd (Ubuntu 22.04+ only)</h3>
+<p>If you enabled systemd in Step 6, Docker will start automatically. No additional configuration needed!</p>
+<p>If your WSL distribution supports systemd:</p>
+<ol>
+<li>Edit <code>/etc/wsl.conf</code>:</li>
+</ol>
+<pre><code class="lang-bash">sudo nano /etc/wsl.conf
+</code></pre>
+<ol start="2">
+<li>Add the following:</li>
+</ol>
+<pre><code class="lang-ini">[boot]
+systemd=true
+</code></pre>
+<ol start="3">
+<li>Restart WSL:</li>
+</ol>
+<pre><code class="lang-powershell">wsl --shutdown
+</code></pre>
+<pre><code class="lang-powershell">wsl
+</code></pre>
+<ol start="4">
+<li>Enable Docker to start automatically:</li>
+</ol>
+<pre><code class="lang-bash">sudo systemctl enable docker
+</code></pre>
+<pre><code class="lang-bash">sudo systemctl start docker
+</code></pre>
+<hr>
+<h2 id="configure-passwordless-sudo-for-docker">Configure Passwordless sudo for Docker</h2>
+<p>To avoid entering your password when starting Docker:</p>
+<pre><code class="lang-bash">echo &quot;$USER ALL=(ALL) NOPASSWD: /usr/bin/dockerd&quot; | sudo tee /etc/sudoers.d/dockerd
+</code></pre>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>This allows running <code>dockerd</code> without a password. Only do this on trusted systems.</p>
+</div>
+<hr>
+<h2 id="testing-your-docker-installation">Testing Your Docker Installation</h2>
+<h3 id="run-a-simple-container">Run a Simple Container</h3>
+<pre><code class="lang-bash">docker run -d -p 8080:80 nginx
+</code></pre>
+<p>Access it from your Windows browser at: <code>http://localhost:8080</code></p>
+<h3 id="build-a-test-image">Build a Test Image</h3>
+<p>Create a simple Dockerfile:</p>
+<pre><code class="lang-bash">mkdir ~/docker-test
+</code></pre>
+<pre><code class="lang-bash">cd ~/docker-test
+</code></pre>
+<pre><code class="lang-bash">nano Dockerfile
+</code></pre>
+<p>Add the following content:</p>
+<pre><code class="lang-dockerfile">FROM ubuntu:22.04
+RUN apt-get update &amp;&amp; apt-get install -y curl
+CMD [&quot;echo&quot;, &quot;Docker on WSL is working!&quot;]
+</code></pre>
+<p>Build and run:</p>
+<pre><code class="lang-bash">docker build -t test-image .
+</code></pre>
+<pre><code class="lang-bash">docker run test-image
+</code></pre>
+<hr>
+<h2 id="useful-docker-commands">Useful Docker Commands</h2>
+<pre><code class="lang-bash"># Check Docker version
+docker --version
+
+# List running containers
+docker ps
+
+# List all containers (including stopped)
+docker ps -a
+
+# List images
+docker images
+
+# Stop a container
+docker stop &lt;container_id&gt;
+
+# Remove a container
+docker rm &lt;container_id&gt;
+
+# Remove an image
+docker rmi &lt;image_id&gt;
+
+# View Docker logs
+docker logs &lt;container_id&gt;
+
+# Execute command in running container
+docker exec -it &lt;container_id&gt; /bin/bash
+</code></pre>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><a href="wsl-docker-troubleshooting.html">Troubleshooting Docker on WSL</a></li>
+<li>Learn how to <a href="advanced.html">create Dockerfiles</a></li>
+<li>Explore <a href="https://docs.docker.com/compose/">Docker Compose</a> for multi-container applications</li>
+<li>Read about <a href="https://docs.docker.com/develop/dev-best-practices/">Docker best practices</a></li>
+</ul>
+<hr>
+<h2 id="additional-resources">Additional Resources</h2>
+<ul>
+<li><a href="https://docs.docker.com/">Official Docker Documentation</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL Documentation</a></li>
+<li><a href="https://docs.docker.com/desktop/wsl/">Docker on WSL 2 Best Practices</a></li>
+</ul>
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0448/wsl-docker-configuration.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

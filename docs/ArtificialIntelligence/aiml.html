@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/ArtificialIntelligence/aiml.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<h2 id="concepts-in-artificial-intelligence">Concepts in Artificial Intelligence</h2>
+<p>The goal of this page is to define and explain common terms associated within the field of artificial intelligence (AI) and more specifically machine learning (ML). As Figure 1, below, shows AI is a broad field which contains multiple sub-fields such as machine learning.</p>
+<p style="margin: 0; padding: 0;">
+  <img src="media/AI_Field.png" alt="AI Overview" style="width: 55%; height: auto; object-fit: cover;">
+</p>
+<h3 id="artificial-intelligence-ai">Artificial Intelligence (AI)</h3>
+<p>The concept of artificial intelligence or &quot;AI&quot; was developed around the 1950s and can be concisely defined as <strong>the effort to automate intellectual tasks normally performed by humans</strong>.<sup>[1]</sup> AI is the general field that encompasses machine learning and deep learning. However, AI is not limited to learning methods, but extends to hardcoded rules as well, this approach is known as <em>symbolic AI</em> and was the dominant paradigm from 1950s until about the 1980s.<sup>[1]</sup></p>
+<h3 id="machine-learning-ml">Machine Learning (ML)</h3>
+<p>Machine learning, a branch of AI, arises from a general set of questions such as &quot;could a computer go beyond what we <em>order</em> it to perform and learn on its own to perform?&quot; Essentially, instead of inputting rules and data to generate an answer, ML achieves to take in as an input data and answers to generate rules, which can in turn be applied to new data.<sup>[1]</sup> Thus, a ML system is trained instead if programmed. ML began to flourish in the 1990s, but really took off as the main field within AI as larger dataset and faster hardware became available.</p>
+<h3 id="deep-learning-dl">Deep Learning (DL)</h3>
+<p>DL is a sub-field within ML, which learns data representations by emphasising learning about that data over successive layers of increasingly meaningful representations.<sup>[1]</sup></p>
+<h3 id="mlops">MLOps</h3>
+<p>Machine learning operations refers to a set of practices that help in the development, refrainment, and deployment of ML models. Machine learning generally begins with data curation and preparation whereby data may originate at multiple, varying sources within an organization or from a customer. Data is reviewed, aggregated, cleaned and feature engineered. An exploratory phase may be involved, which requires experimentation with various model architectures and types, leading to multiple model versions, data versions, and experiment tracking recording the specific of the hyperparameter details along with the specific data and model characteristics. After experimentation, models are refined and optimized in order to address a set of business or research problems. MLOps implementations help to systemically and simultaneously manage the development and release of the ML models as code and data changes. An optimal MLOps system treats ML assets (data, experiments, code) similar to other continuous integration and deliver environments. The deployment of models ought to be standardized with the ability to run alongside the applications and services that are normally consumed in release process.</p>
+<h3 id="references">References</h3>
+<p><a id="1">[1]</a> Chollet, Francois. Deep Learning with Python (2018).</p>
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/ArtificialIntelligence/aiml.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/DataStreaming/DasListener.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/DASListenerRA.png" alt="DAS Overview" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h2 id="das-listener-reference-architectures">DAS Listener Reference Architectures</h2>
+<p>The <strong>Data Analytics Solution (DAS)</strong> is a key component used to listen to and process structured data transmitted from external systems such as test programs, diagnostic tools, or orchestration services.</p>
+<p>In a typical test flow, the DAS Listener acts as an intermediary between a data-emitting process (e.g., AMP, IG-XL, or a Python test harness) and a backend that stores, analyzes, or routes this information further.<br>
+Its primary responsibility is to <strong>receive, deserialize, log, and optionally respond to data messages</strong>, often formatted in JSON.</p>
+<h3 id="purpose-of-the-das">Purpose of the DAS</h3>
+<p>DAS Listeners are generally used to:</p>
+<ul>
+<li>Receive <strong>real-time structured data</strong> (commonly JSON)</li>
+<li>Parse incoming data and validate schemas</li>
+<li>Route messages to local logs, databases, message queues, or cloud endpoints</li>
+<li>Trigger application logic based on received content</li>
+</ul>
+<p>This architecture decouples the data emission logic from data handling, enabling greater flexibility, scalability, and language independence.</p>
+<p>For each implementation, we provide:</p>
+<ul>
+<li>Source code and architecture overview</li>
+<li>Setup instructions and dependencies</li>
+<li>Examples of test data and logging behavior</li>
+</ul>
+<h3 id="available-das-implementations">Available DAS Implementations</h3>
+<p>The following implementations demonstrate how to build and use a DAS Listener in different programming environments.<br>
+Each link points to a dedicated RA (Reference Architecture) detailing the architecture, code structure, and setup instructions.</p>
+<h3 id="das-implementation-accross-languages">DAS Implementation accross Languages</h3>
+<style>
+  .card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+  }
+
+  .card {
+    width: 230px;
+    text-align: center;
+    font-family: sans-serif;
+    border: 1px solid #ddd;        
+    border-radius: 8px;            
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.05); 
+    padding: 10px;
+    background-color: white;
+  }
+
+  .card img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-size: 14px;
+  }
+</style>
+<div class="card-grid">
+    <div class="card">
+        <a href="../RA/RA_0468/index.html">
+            <img src="../media/languages/CS.png" alt="C#">
+            <div class="card-title">C#</div>
+        </a>
+    </div>
+     <div class="card">
+        <a href="../RA/RA_0617/index.html">
+            <img src="../media/languages/C%2B%2B.png" alt="C++">
+            <div class="card-title">C++</div>
+        </a>
+    </div>
+     <div class="card">
+        <a href="../ComingSoon/index.html">
+            <img src="../media/languages/java.png" alt="Java">
+            <div class="card-title">Java - Coming Soon</div>
+        </a>
+    </div>
+     <div class="card">
+        <a href="../RA/RA_0473/overview.html">
+            <img src="../media/languages/powershell.png" alt="PowerShell">
+            <div class="card-title">PowerShell</div>
+        </a>
+    </div>
+     <div class="card">
+        <a href="../RA/RA_0466/index.html">
+            <img src="../media/languages/python.png" alt="python">
+            <div class="card-title">Python</div>
+        </a>
+    </div>
+</div>    
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/DataStreaming/DasListener.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

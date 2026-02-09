@@ -1,0 +1,10 @@
+id: Example
+language: CSharp
+name:
+  Default: Example
+qualifiedName:
+  Default: Example
+type: Assembly
+modifiers: {}
+items: []
+references: {}

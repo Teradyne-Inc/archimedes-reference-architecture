@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>How to send a Docker file to the UltraEdge from a C# Application </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="How to send a Docker file to the UltraEdge from a C# Application ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../UltraEdge/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0449/index.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA_0449_Header.png" alt="RA 449 Overview" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h1 id="how-to-send-a-docker-file-to-the-ultraedge-from-a-c-application">How to send a Docker file to the UltraEdge from a C# Application</h1>
+<h4 id="reference--ra-449">Reference : RA 449</h4>
+<hr>
+<h2 id="description">Description</h2>
+<p>This Reference Architecture describes how to send a Docker file to the UltraEdge from a C# application.</p>
+<p>While this operation is usually demonstrated from an IGXL test program, it can also be performed from a separate standalone application.<br>
+Any language can be used to implement such an application. We show here how to do this using C#.</p>
+<p>Several code samples are provided according to the following scenarios:</p>
+<ul>
+<li>Encrypted or non-encrypted docker files</li>
+<li>.Net Framework 4.8 or .Net 8</li>
+</ul>
+<h2 id="general-technical-info">General Technical Info</h2>
+<ul>
+<li><strong>Language:</strong> C# - .Net Framework 4.8 and .Net 8</li>
+<li><strong>Environment:</strong> Windows</li>
+</ul>
+<h2 id="general-sequence">General sequence</h2>
+<p>The following sequence can be used to deploy a non-encrypted docker file to the UltraEdge:</p>
+<ul>
+<li>Connect</li>
+<li>Start a session with no session tag (the parameter is an empty string)</li>
+<li>Send the docker file to the UltraEdge</li>
+<li>Load the docker image</li>
+<li>Execute the container</li>
+</ul>
+<p>To manage an encrypted docker file, the sequence is slightly modified:</p>
+<ul>
+<li>Connect</li>
+<li>Start a session with no session tag (the parameter is an empty string)</li>
+<li>Send the encrypted docker file and additional key file to the UltraEdge</li>
+<li>Decrypt the docker file</li>
+<li>Load the docker image</li>
+<li>Execute the container</li>
+</ul>
+<h2 id="function-to-load-and-run-a-docker">Function to load and run a docker</h2>
+<p>The following code sample provides a method to copy a docker file to the UltraEdge, load the docker image and run the container.<br>
+Here is a description of the parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerfilepath</code></td>
+<td>Full path of the docker file to send to the UltraEdge</td>
+</tr>
+<tr>
+<td><code>imagename</code></td>
+<td>Docker image name used in the code. It may be different from the actual image name loaded in the UltraEdge.</td>
+</tr>
+<tr>
+<td><code>appname</code></td>
+<td>Application name used in the code. Any name can be chosen.</td>
+</tr>
+<tr>
+<td><code>portMapping</code></td>
+<td>Mapping from docker network port to the UltraEdge network port. These are valid for applications working inbound (for example a socket server) and outbound (a client).</td>
+</tr>
+<tr>
+<td><code>dockerCommandLine</code></td>
+<td>Main application to run in the docker container.</td>
+</tr>
+<tr>
+<td><code>workingDir</code></td>
+<td>Parent folder of an <code>exec</code> subfolder automatically mounted to exchange files between the docker and the UltraEdge RAM disk. May be an empty string (in which case, the <code>exec</code> subfolder will be created in <code>/app</code> on the docker filesystem)</td>
+</tr>
+<tr>
+<td><code>session_tag</code></td>
+<td>Used for encryption. This is the tag name specified when the private key was installed.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">public void LoadDockerFile(
+    string dockerfilepath, string imagename, string appname,
+    string portMapping, string dockerCommandLine, string workingDir, string session_tag = &quot;&quot;)
+{
+    string dockerfilename = new FileInfo(dockerfilepath).Name;
+
+    // Connect to the UltraEdge
+    UE.Connect();
+    printError(&quot;Connect&quot;);
+
+    // Start a session
+    UE.SecureSession.Start(session_tag);
+    printError(&quot;Start session&quot;);
+
+    if (String.IsNullOrEmpty(session_tag))
+    {
+        // Send Docker file
+        UE.WriteFile(dockerfilepath, dockerfilename);
+        printError(&quot;Write docker file&quot;);
+    }
+    else
+    {
+        // Send Docker encrypted files
+        UE.WriteFile(dockerfilepath + &quot;.enc&quot;, dockerfilename + &quot;.enc&quot;);
+        printError(&quot;Write docker encrypted file&quot;);
+        UE.WriteFile(dockerfilepath + &quot;.key.enc&quot;, dockerfilename + &quot;.key.enc&quot;);
+        printError(&quot;Write encryption key file&quot;);
+
+        // Decrypt the docker file
+        UE.DecryptFile(dockerfilename + &quot;.enc&quot;);
+        printError(&quot;Docker file decryption&quot;);
+    }
+
+    // Load docker image
+    UE.LoadDockerImage(imagename, dockerfilename);
+    printError(&quot;Load docker image&quot;);
+
+    // Run docker container
+    UE.Application(appname).RunDockerContainer(workingDir, dockerCommandLine, imagename, portMapping);
+    printError(&quot;Run docker container&quot;);
+}
+</code></pre>
+<h2 id="net-environments">.Net environments</h2>
+<p>In this reference architecture, two sample projects are provided: .Net Framework 4.8 and .Net 8.
+As can be observed in the sample source code provided, the same .cs files are used for both environments.
+There are however slight differences between .Net Framework 4.8 and .Net 8.</p>
+<p>Here are the important points to setup a C# project to work with the UltraEdge library.</p>
+<ol>
+<li>The C# project must target x64</li>
+<li>A reference to <code>UltraEdge.dll</code> must be added</li>
+<li>The <code>UEProxy.cs</code> takes care of resolving the DLL references.</li>
+<li><strong>.Net 8 only</strong>: the NuGet package <code>System.Configuration.ConfigurationManager</code> must be installed. This package was integrated to .Net Framework but has been removed by .Net.</li>
+<li><strong>.Net 8 only</strong>: when calling <code>Disconnect()</code>, make sure to catch the <code>PlatformNotSupportedException</code> exception to avoid crashing the application. This is due to the use of <code>Thread.Abort()</code> which only supported on .Net Framework applications.</li>
+</ol>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0449/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

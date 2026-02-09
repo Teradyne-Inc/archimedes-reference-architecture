@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Installing Docker on WSL (Windows Subsystem for Linux) </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Installing Docker on WSL (Windows Subsystem for Linux) ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../UltraEdge/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0448/wsl-docker-install.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA_0448_Header.png" alt="RA 448 - Docker Installation on WSL" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h1 id="installing-docker-on-wsl-windows-subsystem-for-linux">Installing Docker on WSL (Windows Subsystem for Linux)</h1>
+<p>This guide provides step-by-step instructions for installing Docker on WSL without using Docker Desktop.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Before starting, review the <a href="wsl-docker-overview.html">Installation Overview</a> to see the complete installation flow.</p>
+</div>
+<hr>
+<h2 id="prerequisites">Prerequisites</h2>
+<h3 id="1-install-wsl-2">1. Install WSL 2</h3>
+<p>First, ensure WSL 2 is installed and configured on your Windows system.</p>
+<pre><code class="lang-powershell"># Install WSL with Ubuntu (latest LTS version - recommended)
+wsl --install
+
+# Or install a specific Ubuntu version if needed
+wsl --install -d Ubuntu-22.04
+wsl --install -d Ubuntu-24.04
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Using <code>wsl --install</code> without specifying a distribution installs Ubuntu (latest LTS) by default, which is recommended for most users.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You may need to restart your computer after installing WSL.</p>
+</div>
+<h3 id="2-verify-wsl-version">2. Verify WSL Version</h3>
+<p>Ensure you're using WSL 2 (not WSL 1):</p>
+<pre><code class="lang-powershell">wsl --list --verbose
+</code></pre>
+<p>If your distribution is running WSL 1, upgrade it:</p>
+<pre><code class="lang-powershell"># Replace 'Ubuntu' with your distribution name if different
+wsl --set-version Ubuntu 2
+</code></pre>
+<h3 id="3-set-wsl-2-as-default">3. Set WSL 2 as Default</h3>
+<pre><code class="lang-powershell">wsl --set-default-version 2
+</code></pre>
+<hr>
+<h2 id="installing-docker-on-wsl">Installing Docker on WSL</h2>
+<p>Once WSL 2 is ready, open your WSL terminal (e.g., Ubuntu) and follow these steps:</p>
+<h3 id="step-1-update-package-index">Step 1: Update Package Index</h3>
+<pre><code class="lang-bash">sudo apt update
+</code></pre>
+<pre><code class="lang-bash">sudo apt upgrade -y
+</code></pre>
+<h3 id="step-2-install-required-dependencies">Step 2: Install Required Dependencies</h3>
+<pre><code class="lang-bash">sudo apt install -y \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+</code></pre>
+<h3 id="step-3-add-dockers-official-gpg-key">Step 3: Add Docker's Official GPG Key</h3>
+<pre><code class="lang-bash">sudo mkdir -p /etc/apt/keyrings
+</code></pre>
+<pre><code class="lang-bash">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+</code></pre>
+<h3 id="step-4-set-up-the-docker-repository">Step 4: Set Up the Docker Repository</h3>
+<pre><code class="lang-bash">echo \
+  &quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable&quot; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</code></pre>
+<h3 id="step-5-install-docker-engine">Step 5: Install Docker Engine</h3>
+<pre><code class="lang-bash">sudo apt update
+</code></pre>
+<pre><code class="lang-bash">sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Wait for the installation to complete. You should see &quot;Processing triggers&quot; and no error messages. If you see errors about packages not being available, verify Step 4 was completed correctly.</p>
+</div>
+<p><strong>Verify the installation:</strong></p>
+<p>Check if dockerd is installed:</p>
+<pre><code class="lang-bash">which dockerd
+</code></pre>
+<p>Should output: <code>/usr/bin/dockerd</code></p>
+<p>Check Docker version:</p>
+<pre><code class="lang-bash">docker --version
+</code></pre>
+<p>Should output something like: <code>Docker version 24.x.x, build xxxxx</code></p>
+<h3 id="step-6-start-docker-service">Step 6: Start Docker Service</h3>
+<p>WSL doesn't use systemd by default, so we need to start Docker manually.</p>
+<p><strong>Option A: Start Docker manually (works on all WSL versions)</strong></p>
+<pre><code class="lang-bash">sudo dockerd &amp;
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The <code>&amp;</code> runs Docker in the background. You'll see some startup logs, press Enter to get your prompt back.</p>
+</div>
+<p><strong>Option B: Enable systemd (Ubuntu 22.04+ only)</strong></p>
+<p>If you're using Ubuntu 22.04 or later, you can enable systemd:</p>
+<ol>
+<li>Edit the WSL configuration:</li>
+</ol>
+<pre><code class="lang-bash">sudo nano /etc/wsl.conf
+</code></pre>
+<ol start="2">
+<li>Add the following content:</li>
+</ol>
+<pre><code class="lang-ini">[boot]
+systemd=true
+</code></pre>
+<ol start="3">
+<li>Save the file (Ctrl+X, Y, Enter) and exit WSL:</li>
+</ol>
+<pre><code class="lang-bash">exit
+</code></pre>
+<ol start="4">
+<li>Shutdown WSL from Windows PowerShell:</li>
+</ol>
+<pre><code class="lang-powershell">wsl --shutdown
+</code></pre>
+<ol start="5">
+<li>Restart WSL:</li>
+</ol>
+<pre><code class="lang-bash">wsl
+</code></pre>
+<ol start="6">
+<li>Start Docker:</li>
+</ol>
+<pre><code class="lang-bash">sudo systemctl start docker
+</code></pre>
+<pre><code class="lang-bash">sudo systemctl enable docker
+</code></pre>
+<h3 id="step-7-add-user-to-docker-group">Step 7: Add User to Docker Group</h3>
+<p>First, verify the docker group exists (it should be created automatically):</p>
+<pre><code class="lang-bash">getent group docker
+</code></pre>
+<p>If the group doesn't exist, create it:</p>
+<pre><code class="lang-bash">sudo groupadd docker
+</code></pre>
+<p>Add your user to the docker group:</p>
+<pre><code class="lang-bash">sudo usermod -aG docker $USER
+</code></pre>
+<p>Log out and back in for the changes to take effect:</p>
+<pre><code class="lang-bash">exit
+</code></pre>
+<p>Then reopen WSL and restart Docker (use Option A or B from Step 6).</p>
+<h3 id="step-8-verify-docker-installation">Step 8: Verify Docker Installation</h3>
+<p>Wait a few seconds for Docker to start, then verify it's working:</p>
+<pre><code class="lang-bash">docker run hello-world
+</code></pre>
+<p>If successful, you should see &quot;Hello from Docker!&quot; message.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>If using Option A (manual start), you need to run <code>sudo dockerd &amp;</code> each time you start WSL. See the <a href="wsl-docker-configuration.html">Configuration Guide</a> for auto-start options.</p>
+</div>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><a href="wsl-docker-configuration.html">Configure Docker on WSL</a> - Auto-start, passwordless sudo, and testing</li>
+<li><a href="wsl-docker-troubleshooting.html">Troubleshooting Docker on WSL</a> - Common issues and solutions</li>
+<li>Learn how to <a href="advanced.html">create Dockerfiles</a></li>
+<li>Explore <a href="https://docs.docker.com/compose/">Docker Compose</a> for multi-container applications</li>
+</ul>
+<hr>
+<h2 id="additional-resources">Additional Resources</h2>
+<ul>
+<li><a href="https://docs.docker.com/engine/install/ubuntu/">Official Docker Installation Page</a></li>
+<li><a href="https://docs.docker.com/">Official Docker Documentation</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL Documentation</a></li>
+<li><a href="https://docs.docker.com/desktop/wsl/">Docker on WSL 2 Best Practices</a></li>
+<li><a href="wsl-docker-overview.html">Overview of Docker Installation</a></li>
+</ul>
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+<hr>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0448/wsl-docker-install.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

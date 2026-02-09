@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Encrypting any file (including a Docker) for UltraEdge </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Encrypting any file (including a Docker) for UltraEdge ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../UltraEdge/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0458/index.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/header458.png" alt="RA 458 Overview" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h1 id="encrypting-any-file-including-a-docker-for-ultraedge">Encrypting any file (including a Docker) for UltraEdge</h1>
+<h4 id="reference--ra-458">Reference : RA 458</h4>
+<!-- 
+- [Description](#description)
+- [General Technical Info](#general-technical-info)
+- [Windows Subsystem for Linux](#windows-subsystem-for-linux)
+- [Create the RSA key pair](#create-the-rsa-key-pair)
+- [Install a private key](#install-a-private-key)
+  - [Powershell](#install-a-private-key-with-powershell)
+  - [VBA](#install-a-private-key-with-vba)
+  - [C#](#install-a-private-key-with-c)
+- [Encrypt files](#encrypt-files)
+
+-->
+<hr>
+<h2 id="description">Description</h2>
+<!-- ([back](#ra-458-encrypting-any-file-including-a-docker-for-ultraedge)) -->
+<p>This Reference Architecture describes how to use the encryption scripts provided by the UltraEdge tester installer.<br>
+Sample code is also provided to show how to install private keys on the UltraEdge PC.<br>
+The encryption example works with any file including Docker .tar.gz files.</p>
+<hr>
+<h2 id="general-technical-info">General Technical Info</h2>
+<!-- ([back](#ra-458-encrypting-any-file-including-a-docker-for-ultraedge)) -->
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shell</td>
+<td>Bash</td>
+</tr>
+<tr>
+<td>Linux</td>
+<td>WSL (Windows Subsystem for Linux</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="windows-subsystem-for-linux">Windows Subsystem for Linux</h2>
+<!-- ([back](#ra-458-encrypting-any-file-including-a-docker-for-ultraedge)) -->
+<p>The encryption scripts provided with the UltraEdge software use the Unix shell <strong>bash</strong> syntax.
+To execute these scripts, a Linux environment is recommended through either a full Linux installation or using the WSL feature provided by Windows 10/11.
+We will use WSL in this tutorial since Teradyne testers typically use the Windows operating system.</p>
+<p>Note that this tutorial does <strong>not</strong> explain how to install WSL. It is thus highly recommended to visit <a href="https://learn.microsoft.com/en-us/windows/wsl/install">https://learn.microsoft.com/en-us/windows/wsl/install</a>.</p>
+<hr>
+<h2 id="create-the-rsa-key-pair">Create the RSA key pair</h2>
+<!-- ([back](#ra-458-encrypting-any-file-including-a-docker-for-ultraedge)) -->
+<p>The UltraEdge environment uses the RSA cryptosystem. For information about RSA cryptography, please refer to <a href="https://en.wikipedia.org/wiki/RSA_cryptosystem">https://en.wikipedia.org/wiki/RSA_cryptosystem</a></p>
+<blockquote>
+<p>As an alternative, you can also use <strong>IG-Secure</strong> from the <a href="https://eknowledge.teradyne.com/wps/portal/eknowledge/my/semiconductor_test/msdisplay/oasis/!ut/p/z1/lZFNU8IwEIZ_CweOnd1-0eaYkU4LQ0VFlObSSb8gapPSRpB_b0SvoO5td9_dvHkWGGyASX4QW66FkvzN5Bmb5EFsz-x4hYvwduXjPcXJPEyccJY48AQMWFeKCrKmxpAHgW9xUhSW51elRRriWsQtfeI6dUUq70tdSt3pHWRD3YpSyeq91KrPdT3oMZpKr_JBmGyMig9igOffLDDTxgtB0cyzsyRGjJNwiYvl9G6KNHp4pHQS2ena-RFc2ZEZD8FFD8Q8chD1EdZS9a2htvonlARhfrZw5ZfmEk6f3qRbs5nrnSVko2Dzjcj0xMt-z6iBq6SuPzRs_ki3a9vQPVmvTRq5HitORzoafQIO2Fvp/dz/d5/L2dBISEvZ0FBIS9nQSEh/">Teradyne OASIS Toolset</a>. More information here: <a href="https://myinfo-support.teradyne.com/documentation/r/IG-Secure/Oasis_4.5">https://myinfo-support.teradyne.com/documentation/r/IG-Secure/Oasis_4.5</a></p>
+</blockquote>
+<p>The first step is to create public-private key pair files.
+To do so, the UltraEdge software provides a shell script. Here are the instructions on how to generate those files using WSL.</p>
+<ul>
+<li><p>Start WSL</p>
+</li>
+<li><p>Navigate to the destination folder where the key files should be generated.</p>
+</li>
+<li><p>Execute the following command:</p>
+<p><code>/mnt/c/Program\ Files\ \(x86\)/Teradyne/UltraEdge/Docs/gen_keys.sh my_secret_keys</code>
+where <code>my_secret_keys</code> is a chosen name for the files (it can be replaced by any name).</p>
+</li>
+</ul>
+<p>The shell will display the following messages:</p>
+<pre><code class="lang-bash">  Utility version:
+  OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)
+  Generating RSA key pair --&gt; rsa_pair.pem
+  Extracting public key --&gt; my_secret_keys_pub.pem
+  writing RSA key
+  Extracting private key --&gt; my_secret_keys_priv.pem
+  writing RSA key
+  Removing RSA key pair --&gt; rsa_pair.pem
+  Done
+</code></pre>
+<p>As a result, two files are generated:</p>
+<ul>
+<li>the public key file (<code>my_secret_keys_pub.pem</code>) that can be used to encrypt any file.</li>
+<li>the private key file (<code>my_secret_keys_priv.pem</code>) that is secret and should not be distributed. It must be installed once and for all on the UltraEdge.</li>
+</ul>
+<hr>
+<h2 id="install-a-private-key">Install a private key</h2>
+<!-- ([back](#ra-458-encrypting-any-file-including-a-docker-for-ultraedge)) -->
+<p>As explained previously, the private key is not meant to be distributed. It must be installed once and for all on the UltraEdge system.<br>
+To be retrieved when decrypting files, the private key must also be associated to a <em>TAG</em>.</p>
+<p>To help with all this, the UltraEdge software provides the <code>UltraEdge.dll</code> library. Using this library makes it easy to install a private key file with a few lines of code.<br>
+The following code samples show how to do this using Powershell, VBA, or C#. The code can be adapted to fit other languages if needed.<br>
+The algorithm is straightforward:</p>
+<ul>
+<li>Import the DLL</li>
+<li>Connect to the UltraEdge</li>
+<li>Start a session</li>
+<li>Copy the key file</li>
+<li>Store the key into the TPM on the UltraEdge and associate it with a <em>TAG</em>.</li>
+<li>End the session</li>
+<li>Disconnect from the UltraEdge</li>
+</ul>
+<blockquote>
+<p><em>IMPORTANT</em> Note that the following code assumes that the private key file is named <code>my_secret_keys_priv.pem</code> and the tag is named <code>DECRYPT_KEY</code>.</p>
+</blockquote>
+<h3 id="install-a-private-key-with-powershell">Install a private key with powershell</h3>
+<!-- ([back](#ra-458-encrypting-any-file-including-a-docker-for-ultraedge)) -->
+<pre><code class="lang-powershell"># Add a reference to the UltraEdge DLL to use the UltraEdge object
+Add-Type -LiteralPath &quot;C:\Program Files (x86)\Teradyne\UltraEdge\UltraEdge.dll&quot;
+
+# Create an instance of the UltraEdge object
+$UE = New-Object Teradyne.Igxl.Utilities.UltraEdge
+
+# Key File and Tag name
+$private_key = &quot;my_secret_keys_priv.pem&quot;
+$tag = &quot;DECRYPT_KEY&quot;
+
+# Connect to the UltraEdge
+$status = $UE.Connect()
+
+# Start a session
+$status = $UE.SecureSession.Start(&quot;&quot;)
+
+# Transfer Private Key File
+$private_key_path = (Get-Location).path + &quot;\&quot; + $private_key
+$UE.WriteFile($private_key_path, $private_key)
+
+# Install the key in the UltraEdge TPM, associating the name &quot;DECRYPT_KEY&quot; for later decryption 
+$UE.StoreKey($private_key, $tag, &quot;&quot;, &quot;&quot;)
+
+# End session - ramdisk is removed deleting the key file
+$UE.SecureSession.End()
+
+# Disconnect from the UltraEdge
+$UE.Disconnect()
+</code></pre>
+<h3 id="install-a-private-key-with-vba">Install a private key with VBA</h3>
+<!-- ([back](#ra-458-encrypting-any-file-including-a-docker-for-ultraedge)) -->
+<p>This code can be run from a test program or a simple Excel file.</p>
+<p>A reference to <code>C:\Program Files (x86)\Teradyne\UltraEdge\UltraEdge.tlb</code> must be added to the VBAProject using the Tools-&gt;Reference menu or the &quot;References&quot; sheet in IGXL.</p>
+<pre><code class="lang-vb">Option Explicit
+
+Public Const PRIVATE_KEY_FILE As String = &quot;my_secret_keys_priv.pem&quot;
+Public Const SESSION_TAG As String = &quot;DECRYPT_KEY&quot;
+
+Public UE As New UltraEdge.UltraEdge
+
+Public Sub InstallKey()
+    ' Connect to the UltraEdge
+    UE.Connect
+
+    ' Start a session
+    UE.SecureSession.Start &quot;&quot;
+
+    ' Transfer Private Key File
+    UE.WriteFile PRIVATE_KEY_FILE, PRIVATE_KEY_FILE
+
+    ' Install the key in the UltraEdge TPM, associating the name &quot;DECRYPT_KEY&quot; for later decryption
+    UE.StoreKey PRIVATE_KEY_FILE, SESSION_TAG, &quot;&quot;, &quot;&quot;
+
+    ' End session - ramdisk is removed deleting the key file
+    UE.SecureSession.End
+
+    ' Disconnect from the UltraEdge
+    UE.Disconnect
+End Sub
+</code></pre>
+<h3 id="install-a-private-key-with-c">Install a private key with C#</h3>
+<!-- ([back](#ra-458-encrypting-any-file-including-a-docker-for-ultraedge)) -->
+<p>A reference to <code>C:\Program Files (x86)\Teradyne\UltraEdge\UltraEdge.dll</code> must be added to the project.</p>
+<blockquote>
+<p><strong>IMPORTANT</strong>: make sure the <code>Copy Local</code> option is set to <code>False</code></p>
+</blockquote>
+<pre><code class="lang-cs">public class UETools
+{        
+    private const String UE_DLL = @&quot;C:\Program Files (x86)\Teradyne\UltraEdge\UltraEdge.dll&quot;;
+    private const String PRIVATE_KEY_FILE = &quot;my_secret_keys_priv.pem&quot;;
+    private const String SESSION_TAG = &quot;DECRYPT_KEY&quot;;
+
+    // Handle to the UltraEdge object
+    private UltraEdge UE { get; set; }
+
+    // Singleton
+    private static UETools _instance;
+    private UETools()
+    {
+        UE = new UltraEdge();
+    }
+
+    /// &lt;summary&gt;
+    /// Factory including the AppDomain resolution for the UltraEdge DLL
+    /// &lt;/summary&gt;
+    public static UETools GetInstance()
+    {
+        if (_instance == null)
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+            _instance = new UETools();
+        }
+        return _instance;
+    }
+
+    /// &lt;summary&gt;
+    /// AppDomain resolution for the UltraEdge DLL
+    /// &lt;/summary&gt;
+    private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+    {
+        Assembly a = null;
+        if (args.Name.Contains(&quot;UltraEdge&quot;))
+            a = Assembly.LoadFrom(UE_DLL);
+        return a;
+    }
+
+    /// &lt;summary&gt;
+    /// Install a private key file in the TPM of the UltraEdge
+    /// &lt;/summary&gt;
+    public void InstallPrivateKey()
+    {
+        // Initialize the UE object
+        UltraEdge UE = new UltraEdge();
+
+        // Connect to the UltraEdge
+        UE.Connect();
+
+        // Start a session
+        UE.SecureSession.Start(&quot;&quot;);
+
+        // Transfer Private Key File
+        UE.WriteFile(PRIVATE_KEY_FILE, PRIVATE_KEY_FILE);
+
+        // Install the key in the UltraEdge TPM, associating the name &quot;DECRYPT_KEY&quot; for later decryption 
+        UE.StoreKey(PRIVATE_KEY_FILE, SESSION_TAG, &quot;&quot;, &quot;&quot;);
+
+        // End session - ramdisk is removed deleting the key file
+        UE.SecureSession.End();
+
+        // Disconnect from the UE
+        UE.Disconnect();
+    }
+}
+</code></pre>
+<hr>
+<h2 id="encrypt-files">Encrypt files</h2>
+<!-- ([back](#ra-458-encrypting-any-file-including-a-docker-for-ultraedge))-->
+<p>Now that the RSA public/private key pair is generated and the private key is installed on the UltraEdge, files can be encrypted and sent to the UltraEdge.</p>
+<p>Any file can be encrypted: python code (<code>.py</code>), archives (<code>.zip</code>), docker files (<code>.tar.gz</code>), or even simple text files (<code>.txt</code>).</p>
+<p>To do so, use the script provided by the UltraEdge software.</p>
+<ul>
+<li><p>Start WSL</p>
+</li>
+<li><p>Navigate to the folder where the file to encrypt is located.</p>
+</li>
+<li><p>Execute the following command:</p>
+<p><code>/mnt/c/Program\ Files\ \(x86\)/Teradyne/UltraEdge/Docs/encrypt.sh my_file my_secret_keys_pub.pem</code></p>
+<p>where <code>my_file</code> is the file to encrypt and <code>my_secret_keys_pub.pem</code> is the encryption key.</p>
+</li>
+</ul>
+<p>The shell will display the following messages: (the 'deprecated' message can be ignored)</p>
+<pre><code class="lang-bash">Utility version:
+OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)
+Generating encryption key --&gt; gen_keys.sh.key
+Encrypting source file --&gt; gen_keys.sh.enc
+Encrypting key file --&gt; gen_keys.sh.key.enc
+The command rsautl was deprecated in version 3.0. Use 'pkeyutl' instead.
+Removing key file --&gt; gen_keys.sh.key
+Done
+</code></pre>
+<p>As a result, two files are generated:</p>
+<ul>
+<li><code>my_file.enc</code> which is the encrypted file.</li>
+<li><code>my_file.key.enc</code> which is required to decrypt the file on the UltraEdge. It will be combined with the private key already installed to decrypt the encrypted file.</li>
+</ul>
+<pre><code>This is it.
+The encrypted file and additional key file will be both used to deploy an application to the UltraEdge.
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0458/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

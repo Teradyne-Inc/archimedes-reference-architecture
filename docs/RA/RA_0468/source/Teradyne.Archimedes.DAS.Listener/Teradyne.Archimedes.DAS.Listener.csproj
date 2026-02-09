@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageId>Teradyne.Archimedes.DAS.Listener</PackageId>
+		<Version>5.0.0</Version>
+		<Authors>Teradyne</Authors>
+		<Company>Teradyne</Company>
+		<Description>DAS Message Listener library for processing AMP messages in the Teradyne  environment.</Description>
+		<RepositoryUrl>https://github.teradyne.com/SEMITEST-SEG/DIA_CommonLibrary.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Copyright>Copyright © Teradyne 2025</Copyright>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SignAssembly>False</SignAssembly>
+		<ApplicationIcon>Assets\DASIcon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Serilog" Version="4.2.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<None Include="Assets/DASIcon.png" Pack="true" PackagePath="Assets/" />
+		<None Include="README.md" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+
+</Project>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionListModels xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Title>Failed Tests AMP example</Title>
+  <Instructions>
+    <InstructionModel>
+      <Description>## Start the DAS
+Click on the Command button on the right.
+	  </Description>
+      <Command>C:\Demos\FAARCH-434\FailedTests.exe</Command>	  
+    </InstructionModel>
+    <InstructionModel>
+      <Description>## Load the IGXL Test Program</Description>
+      <Command>%IGXLROOT%\bin\OpenProgram.exe</Command>
+	  <Arguments>C:\Demos\FAARCH-434\FailedTestsTP.igxl</Arguments>
+    </InstructionModel>
+    <InstructionModel>
+      <Description>## Open the DataCollect Setup window.
+- IG-XL Main tab
+- Data Collect group
+- DataCollect Setup button
+	  </Description>      
+    </InstructionModel>
+    <InstructionModel>
+      <Description>## Set the Sublot ID
+- Go to the Lot Definition tab
+- Click on "More..."
+- Set the value for the "Sub Lot" field (5th field from the bottom on the right column)
+- Click OK
+- Exit from the DataCollect Setup window by clicking OK
+	  </Description>      
+    </InstructionModel>
+    <InstructionModel>
+      <Description>## Execution
+- Make sure the "Datalog On" button is enabled
+- Click on "Run" a few times
+	  </Description>      
+    </InstructionModel>
+    <InstructionModel>
+      <Description>## Closing the datalog
+- Open the DataCollect Setup window.
+- Go to the Summary Report tab
+- In the "Report" section, click on "Get Final Summary/End Lot"
+- The DAS window should show a "SubLot End" and the path of the generated data file.
+	  </Description>      
+    </InstructionModel>
+    <InstructionModel>
+      <Description>## Check the results
+- Go to C:\temp and open the generated file
+- See the data (one section per run and failed tests for each site)
+	  </Description>      
+    </InstructionModel>  </Instructions>
+</InstructionListModels>

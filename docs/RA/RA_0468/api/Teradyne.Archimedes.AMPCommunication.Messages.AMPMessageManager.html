@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class AMPMessageManager </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class AMPMessageManager ">
+      
+      <meta name="description" content="Manages AMP message subscriptions and interactions. It is mandatory to return a list of message names as a response to the INITIALIZATION message and recommended for each message.">
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../DataStreaming/toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/new/main/apiSpec/new?filename=Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager.md&amp;value=---%0Auid%3A%20Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager">
+
+
+
+  <h1 id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager" class="text-break">
+Class AMPMessageManager  <a class="header-action link-secondary" title="View source" href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0468/source/Teradyne.Archimedes.DAS.Listener/Messages/AMPMessageManager.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Teradyne.html">Teradyne</a>.<a class="xref" href="Teradyne.Archimedes.html">Archimedes</a>.<a class="xref" href="Teradyne.Archimedes.AMPCommunication.html">AMPCommunication</a>.<a class="xref" href="Teradyne.Archimedes.AMPCommunication.Messages.html">Messages</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Teradyne.Archimedes.DAS.Listener.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Manages AMP message subscriptions and interactions.
+It is mandatory to return a list of message names as a response to the INITIALIZATION message
+and recommended for each message.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class AMPMessageManager</code></pre>
+  </div>
+
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">AMPMessageManager</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_MessageList_" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.MessageList*"></a>
+
+  <h3 id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_MessageList" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.MessageList">
+  MessageList
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0468/source/Teradyne.Archimedes.DAS.Listener/Messages/AMPMessageManager.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Current list of subscribed messages.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HashSet&lt;string&gt; MessageList { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_ExtractMessageListFromInitMessage_" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.ExtractMessageListFromInitMessage*"></a>
+
+  <h3 id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_ExtractMessageListFromInitMessage_Teradyne_Archimedes_AMPCommunication_Models_AMPMessageModel_" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.ExtractMessageListFromInitMessage(Teradyne.Archimedes.AMPCommunication.Models.AMPMessageModel)">
+  ExtractMessageListFromInitMessage(AMPMessageModel)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0468/source/Teradyne.Archimedes.DAS.Listener/Messages/AMPMessageManager.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Extracts the message list from an INITIALIZATION message.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ExtractMessageListFromInitMessage(AMPMessageModel message)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>message</code> <a class="xref" href="Teradyne.Archimedes.AMPCommunication.Models.AMPMessageModel.html">AMPMessageModel</a></dt>
+    <dd><p>The INITIALIZATION message model.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_Subscribe_" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.Subscribe*"></a>
+
+  <h3 id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_Subscribe_System_Collections_Generic_IEnumerable_System_String__" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.Subscribe(System.Collections.Generic.IEnumerable{System.String})">
+  Subscribe(IEnumerable&lt;string&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0468/source/Teradyne.Archimedes.DAS.Listener/Messages/AMPMessageManager.cs/#L91"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Subscribes to multiple message names.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Subscribe(IEnumerable&lt;string&gt; messageNames)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>messageNames</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd><p>A collection of message names to subscribe to.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_Subscribe_" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.Subscribe*"></a>
+
+  <h3 id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_Subscribe_System_String_" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.Subscribe(System.String)">
+  Subscribe(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0468/source/Teradyne.Archimedes.DAS.Listener/Messages/AMPMessageManager.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Subscribes to a single message name if it is valid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Subscribe(string messageName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>messageName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the message to subscribe to.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if subscribed, false if already present or invalid.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_SubscribeAll_" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.SubscribeAll*"></a>
+
+  <h3 id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_SubscribeAll" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.SubscribeAll">
+  SubscribeAll()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0468/source/Teradyne.Archimedes.DAS.Listener/Messages/AMPMessageManager.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Subscribes to all predefined AMP messages.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SubscribeAll()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_ToJson_" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.ToJson*"></a>
+
+  <h3 id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_ToJson" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.ToJson">
+  ToJson()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0468/source/Teradyne.Archimedes.DAS.Listener/Messages/AMPMessageManager.cs/#L133"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Serializes the message list into a JSON string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ToJson()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>A JSON string containing the MESSAGE_LIST.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_UnsubscribeAll_" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.UnsubscribeAll*"></a>
+
+  <h3 id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_UnsubscribeAll" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.UnsubscribeAll">
+  UnsubscribeAll()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0468/source/Teradyne.Archimedes.DAS.Listener/Messages/AMPMessageManager.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears the current message subscription list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UnsubscribeAll()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_UpdateListToMatchAvailableMessages_" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.UpdateListToMatchAvailableMessages*"></a>
+
+  <h3 id="Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_UpdateListToMatchAvailableMessages_Teradyne_Archimedes_AMPCommunication_Messages_AMPMessageManager_" data-uid="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.UpdateListToMatchAvailableMessages(Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager)">
+  UpdateListToMatchAvailableMessages(AMPMessageManager)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0468/source/Teradyne.Archimedes.DAS.Listener/Messages/AMPMessageManager.cs/#L123"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Intersects the message list with another manager's list.
+Only shared messages are kept.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateListToMatchAvailableMessages(AMPMessageManager available)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>available</code> <a class="xref" href="Teradyne.Archimedes.AMPCommunication.Messages.AMPMessageManager.html">AMPMessageManager</a></dt>
+    <dd><p>Manager with the available message list.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0468/source/Teradyne.Archimedes.DAS.Listener/Messages/AMPMessageManager.cs/#L24" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

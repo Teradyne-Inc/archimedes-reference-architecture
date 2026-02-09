@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../DataStreaming/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0473/advanced.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA_0473_Header.png" alt="RA 473 Overview" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h2 id="advanced-details---powershell-das-listener">Advanced Details - PowerShell DAS Listener</h2>
+<h4 id="reference-ra-473">Reference RA 473</h4>
+<blockquote>
+<p><strong>Disclaimer:</strong> This code is provided for instructional purposes only. It is not optimized for production use.</p>
+</blockquote>
+<h2 id="execution-flow">Execution Flow</h2>
+<ol>
+<li>Create a queue and cancellation token.</li>
+<li>Start a consumer job to process messages.</li>
+<li>Launch the listener on the specified URL.</li>
+<li>Push each received HTTP message into the queue.</li>
+<li>Process messages via the callback.</li>
+<li>Gracefully stop with <code>$cts.Cancel()</code>.</li>
+</ol>
+<h2 id="initialization-requirement-and-error-handling">Initialization Requirement and Error Handling</h2>
+<p>The listener expects the first message to be of type <code>INITIALIZATION</code>. If it is not, the listener should return an HTTP 500 error. This ensures the proper startup sequence and helps detect misconfigured test flows early.</p>
+<hr>
+<h2 id="detailed-script-explanation">Detailed Script Explanation</h2>
+<h3 id="dasmessageps1"><code>DASMessage.ps1</code></h3>
+<p>This file defines the <code>DASMessage</code> class, which encapsulates each HTTP message the listener receives. It includes:</p>
+<ul>
+<li><code>Url</code>: the full request path</li>
+<li><code>MessageName</code>: the final segment of the URL (used as the message identifier)</li>
+<li><code>Body</code>: the parsed JSON body from the request</li>
+</ul>
+<p>This object is passed to the callback function for processing.</p>
+<hr>
+<h3 id="daslistenerps1"><code>DASListener.ps1</code></h3>
+<p>This is the core of the system and contains the listener logic:</p>
+<ol>
+<li><strong>HttpListener Setup</strong>: Initializes and starts an HTTP listener using the given URL prefix.</li>
+<li><strong>Message Reading</strong>: Waits for a client connection, reads the HTTP request body, and parses it as JSON.</li>
+<li><strong>Message Wrapping</strong>: Wraps the request in a <code>DASMessage</code> object and enqueues it into a concurrent queue.</li>
+<li><strong>Queue Processing</strong>: Processing is delegated to a separate job (see <code>how-to-use.md</code>) that dequeues and calls a callback function for each message.</li>
+<li><strong>Graceful Shutdown</strong>: Supports stopping the listener with a cancellation token.</li>
+</ol>
+<hr>
+<h3 id="callbackexampleps1"><code>CallbackExample.ps1</code></h3>
+<p>This script defines a sample callback function:</p>
+<pre><code class="lang-powershell">function MyCallback {
+    param ($msg)
+    Write-Host &quot;==== Message Received ====&quot;
+    Write-Host &quot;URL         : $($msg.Url)&quot;
+    Write-Host &quot;MessageName : $($msg.MessageName)&quot;
+    Write-Host &quot;Body        : $($msg.Body | ConvertTo-Json -Depth 5)&quot;
+    Write-Host &quot;==========================&quot;
+}
+</code></pre>
+<p>You can replace <code>MyCallback</code> with any function that accepts a <code>DASMessage</code> object. This allows flexible message handling (e.g., saving to file, reacting to <code>INITIALIZATION</code>, routing to submodules).</p>
+<hr>
+<h2 id="run-dasps1"><code>Run-DAS.ps1</code></h2>
+<p>A script named <code>Run-DAS.ps1</code> is provided to simplify usage:</p>
+<ul>
+<li>It starts the listener and a consumer.</li>
+<li>It logs and displays messages received in real-time.</li>
+<li>It stops gracefully when the user presses <code>q</code> and Enter.</li>
+</ul>
+<p>This is useful for interactive local testing without manually launching each component.</p>
+<h3 id="design-note">Design Note</h3>
+<ul>
+<li>All message processing is <strong>asynchronous</strong> and <strong>decoupled</strong> from the HTTP listener.</li>
+<li>Errors in JSON parsing are caught and do not crash the listener.</li>
+<li>Using <code>ConcurrentQueue</code> ensures thread safety.</li>
+<li>The system is <strong>modular</strong> and can be expanded with additional message handlers or logic in the callback.</li>
+</ul>
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0473/advanced.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

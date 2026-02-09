@@ -1,0 +1,85 @@
+﻿classDiagram
+
+class AdaptiveCommand {
+    + AdaptiveCommand(string, List~EnableWordAction~, List~TestStepAction~)
+    + string toJSON()
+    + bool addAction(EnableWordAction)
+    + bool addAction(TestStepAction)
+    + EnableWordAction createEnableWordAction(...)
+    + TestStepAction createTestStepAction(...)
+    + TestStepAction createClearAction()
+    + TestStepAction createLimitsAction(...)
+}
+
+class AdaptiveCommunication {
+    + bool Open()
+    + void Close()
+    + string SendAction(string)
+    + string SendAction(AdaptiveCommand)
+    + Task~string~ SendActionAsync(string)
+    + Task~string~ SendActionAsync(AdaptiveCommand)
+}
+
+class AdaptiveRequest {
+    + DateTime TIME_STAMP
+    + string DAS_IDENTIFIER
+    + AdaptiveRequestTarget TARGET
+    + List~TestStepAction~ TESTSTEP_ACTIONS
+    + List~EnableWordAction~ ENABLEWORD_ACTIONS
+}
+
+class EnableWordAction {
+    + EnableWordActionType ACTION
+    + List~string~ ENABLEWORDS
+}
+
+class TestStepAction {
+    + TestStepActionType ACTION
+    + List~string~ TESTSTEP_NAMES
+    + List~int~ TESTSTEP_NUMBERS
+    + Limits LIMITS
+}
+
+class Limits {
+    + List~string~ LIMIT_NAMES
+    + List~int~ LIMIT_NUMBERS
+    + double? LO_LIMIT
+    + double? HI_LIMIT
+    + int? LLM_SCALE
+    + int? HLM_SCALE
+}
+
+class EnableWordActionType {
+    <<enumeration>>
+    ENABLE
+    DISABLE
+}
+
+class TestStepActionType {
+    <<enumeration>>
+    ENABLE
+    DISABLE
+    UPDATE_LIMITS
+    CLEAR
+}
+
+class AdaptiveRequestTarget {
+    <<enumeration>>
+    ATE_SOFTWARE
+}
+
+AdaptiveCommand --> AdaptiveRequest
+AdaptiveCommand --> EnableWordAction
+AdaptiveCommand --> TestStepAction
+AdaptiveCommand --> Limits
+
+AdaptiveCommunication --> AdaptiveCommand
+
+AdaptiveRequest --> AdaptiveRequestTarget
+AdaptiveRequest --> TestStepAction
+AdaptiveRequest --> EnableWordAction
+
+TestStepAction --> TestStepActionType
+TestStepAction --> Limits
+
+EnableWordAction --> EnableWordActionType

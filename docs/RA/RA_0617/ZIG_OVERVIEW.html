@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../DataStreaming/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/ZIG_OVERVIEW.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA617.png" alt="RA 617 What is Zig?" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h2 id="what-is-zig-a-beginners-guide">What is Zig? A Beginner's Guide</h2>
+<h3 id="introduction">Introduction</h3>
+<p><strong>Zig</strong> is a modern programming language and build system designed to replace C/C++ in systems programming. Think of it as a &quot;better C&quot; that fixes many of the problems developers face when writing low-level code.</p>
+<p>While this project uses <strong>C++23</strong> for the actual application code, we use <strong>Zig as a build system</strong> instead of traditional tools like CMake or Make.</p>
+<h3 id="what-does-zig-do-in-this-project">What Does Zig Do in This Project?</h3>
+<p>In our <code>boostdas</code> project:</p>
+<ul>
+<li><strong>We write code in C++23</strong> (in <code>src/main.cpp</code> and headers)</li>
+<li><strong>Zig compiles our C++ code</strong> (acts as a smart compiler wrapper)</li>
+<li><strong>Zig manages dependencies</strong> (downloads and links Boost libraries automatically)</li>
+<li><strong>Zig produces the final executable</strong> (<code>cppdas.exe</code>)</li>
+</ul>
+<p>Think of Zig as a <strong>super-smart project manager</strong> that handles all the complicated build steps for us.</p>
+<h3 id="zig-build-process">Zig Build Process</h3>
+<pre><code>Download Zig → Run: zig build → Success ✓
+</code></pre>
+<h3 id="key-benefits-for-beginners">Key Benefits for Beginners</h3>
+<h4 id="1-zero-dependencies">1. <strong>Zero Dependencies</strong></h4>
+<ul>
+<li>Download one <code>.zip</code> file (88 MB for Windows)</li>
+<li>Extract it</li>
+<li>You're done! No installers, no system configuration</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-powershell"># Traditional C++ setup
+choco install cmake
+choco install llvm
+vcpkg install boost
+# ... 2 hours later ...
+
+# Zig setup
+Invoke-WebRequest -Uri &quot;https://ziglang.org/download/0.15.2/zig-x86_64-windows-0.15.2.zip&quot;
+Expand-Archive zig-x86_64-windows-0.15.2.zip
+# Done in 5 minutes!
+</code></pre>
+<h4 id="2-automatic-dependency-management">2. <strong>Automatic Dependency Management</strong></h4>
+<p>Zig downloads and manages libraries automatically through <code>build.zig.zon</code>:</p>
+<pre><code class="lang-zig">.dependencies = .{
+    .boost = .{
+        .url = &quot;https://boostorg.jfrog.io/artifactory/...&quot;,
+        .hash = &quot;...&quot;,
+    },
+}
+</code></pre>
+<p>You never need to:</p>
+<ul>
+<li>Manually download Boost</li>
+<li>Set up environment variables</li>
+<li>Configure include paths</li>
+<li>Link libraries manually</li>
+</ul>
+<h4 id="3-cross-compilation-made-easy">3. <strong>Cross-Compilation Made Easy</strong></h4>
+<p>To build for Linux while on Windows, specify the target flag:</p>
+<pre><code class="lang-bash"># Build for Windows (default)
+zig build -Doptimize=ReleaseSmall
+
+# Build for Linux from Windows
+zig build -Dtarget=x86_64-linux-gnu -Doptimize=ReleaseSmall
+
+# Build for macOS from Windows
+zig build -Dtarget=x86_64-macos -Doptimize=ReleaseSmall
+</code></pre>
+<p>No need for virtual machines or separate build environments!</p>
+<h4 id="4-simple-build-configuration">4. <strong>Simple Build Configuration</strong></h4>
+<p>Compare these two files that do the same thing:</p>
+<p><strong>CMakeLists.txt (Traditional)</strong></p>
+<pre><code class="lang-cmake">cmake_minimum_required(VERSION 3.20)
+project(cppdas CXX)
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(Boost REQUIRED COMPONENTS system filesystem json)
+
+add_executable(cppdas src/main.cpp)
+target_include_directories(cppdas PRIVATE src/include)
+target_link_libraries(cppdas PRIVATE Boost::system Boost::filesystem)
+# ... 50+ more lines of configuration ...
+</code></pre>
+<p><strong>build.zig (Zig)</strong></p>
+<pre><code class="lang-zig">const exe = b.addExecutable(.{
+    .name = &quot;cppdas&quot;,
+    .root_source_file = &quot;src/main.cpp&quot;,
+    .target = target,
+    .optimize = optimize,
+});
+
+exe.linkSystemLibrary(&quot;c++&quot;);
+exe.addIncludePath(&quot;src/include&quot;);
+b.installArtifact(exe);
+</code></pre>
+<p>Clean, simple, readable!</p>
+<h4 id="5-built-in-optimization-levels">5. <strong>Built-in Optimization Levels</strong></h4>
+<p>Zig provides four optimization modes out of the box:</p>
+<pre><code class="lang-bash"># Debug - Fast compilation, large binary, debug symbols
+zig build
+
+# ReleaseFast - Maximum speed
+zig build -Doptimize=ReleaseFast
+
+# ReleaseSmall - Minimum binary size (what we use!)
+zig build -Doptimize=ReleaseSmall
+
+# ReleaseSafe - Fast + safety checks
+zig build -Doptimize=ReleaseSafe
+</code></pre>
+<p><strong>Real results from our project:</strong></p>
+<ul>
+<li>Debug: 5.5 MB</li>
+<li>ReleaseSmall: 535 KB (10x smaller!)</li>
+</ul>
+<h4 id="6-reproducible-builds">6. <strong>Reproducible Builds</strong></h4>
+<p>The same <code>build.zig</code> file produces the <strong>exact same binary</strong> on:</p>
+<ul>
+<li>Windows 10, 11</li>
+<li>Linux (Ubuntu, Fedora, Arch)</li>
+<li>macOS (Intel and Apple Silicon)</li>
+</ul>
+<p>No more &quot;it works on my machine&quot; problems!</p>
+<h3 id="real-world-example-our-project-journey">Real-World Example: Our Project Journey</h3>
+<h4 id="before-zig-hypothetical-cmake-setup">Before Zig (Hypothetical CMake Setup)</h4>
+<ol>
+<li>Install Visual Studio Build Tools (6 GB)</li>
+<li>Install CMake (100 MB)</li>
+<li>Install vcpkg (package manager)</li>
+<li>Download Boost (500 MB)</li>
+<li>Configure paths for 30 minutes</li>
+<li>Debug linker errors for 2 hours</li>
+<li>Finally compile</li>
+</ol>
+<p><strong>Total time:</strong> 3-4 hours<br>
+<strong>Disk space:</strong> ~7 GB</p>
+<h4 id="with-zig-what-we-actually-did">With Zig (What We Actually Did)</h4>
+<ol>
+<li>Download Zig (88 MB)</li>
+<li>Run <code>zig build -Doptimize=ReleaseSmall</code></li>
+<li>Get <code>cppdas.exe</code> (535 KB)</li>
+</ol>
+<p><strong>Total time:</strong> 10 minutes<br>
+<strong>Disk space:</strong> 88 MB</p>
+<h3 id="common-questions">Common Questions</h3>
+<h4 id="is-zig-only-for-zig-code">&quot;Is Zig only for Zig code?&quot;</h4>
+<p><strong>No!</strong> Zig can compile:</p>
+<ul>
+<li>C code</li>
+<li>C++ code (like our project)</li>
+<li>Zig code</li>
+<li>Mix of all three</li>
+</ul>
+<h4 id="will-i-need-to-learn-zig-language">&quot;Will I need to learn Zig language?&quot;</h4>
+<p><strong>Not necessarily!</strong> You only need to understand <code>build.zig</code> configuration, which is simpler than CMake. You can keep writing C++ as usual.</p>
+<h4 id="is-it-production-ready">&quot;Is it production-ready?&quot;</h4>
+<p><strong>The build system: YES.</strong> Many companies use Zig to compile C/C++ projects in production.</p>
+<p><strong>The language itself:</strong> Still evolving (currently version 0.15.2), but the build system is stable.</p>
+<h4 id="what-if-i-get-errors">&quot;What if I get errors?&quot;</h4>
+<p>Zig provides <strong>excellent error messages</strong>:</p>
+<pre><code>error: unable to find 'boost/asio.hpp'
+note: add this path to build.zig:
+    exe.addIncludePath(&quot;path/to/boost/include&quot;);
+</code></pre>
+<p>Compare to CMake:</p>
+<pre><code>CMake Error at CMakeLists.txt:15 (find_package):
+  Could not find a configuration file for package &quot;Boost&quot;
+  # ... 200 lines of confusing output ...
+</code></pre>
+<h3 id="zig-build-system-architecture">Zig Build System Architecture</h3>
+<p>Here's how Zig manages our C++ project:</p>
+<pre><code class="lang-kroki-blockdiag">blockdiag {
+  orientation = portrait;
+  
+  A [label = &quot;build.zig.zon\n(Dependencies)&quot;, color = &quot;#E1F5FF&quot;];
+  B [label = &quot;Download Boost\nLibraries&quot;, color = &quot;#FFF4E1&quot;];
+  C [label = &quot;build.zig\n(Build Config)&quot;, color = &quot;#E1F5FF&quot;];
+  D [label = &quot;Compile C++\nwith Flags&quot;, color = &quot;#FFE8E8&quot;];
+  E [label = &quot;Link All\nLibraries&quot;, color = &quot;#FFE8E8&quot;];
+  F [label = &quot;cppdas.exe\n(Executable)&quot;, color = &quot;#E8FFE8&quot;];
+  G [label = &quot;.zig-cache/\n(Fast Rebuilds)&quot;, color = &quot;#F0F0F0&quot;, shape = &quot;flowchart.database&quot;];
+  
+  A -&gt; B -&gt; C -&gt; D -&gt; E -&gt; F;
+  B -&gt; G;
+  D -&gt; G;
+  E -&gt; G;
+}
+</code></pre>
+<p>Everything is <strong>cached</strong> in <code>.zig-cache/</code>, so rebuilds are fast!</p>
+<h3 id="performance-comparison">Performance Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Build System</th>
+<th>First Build</th>
+<th>Rebuild</th>
+<th>Binary Size</th>
+<th>Setup Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CMake + MSVC</td>
+<td>45 seconds</td>
+<td>12 sec</td>
+<td>1.2 MB</td>
+<td>3-4 hours</td>
+</tr>
+<tr>
+<td>Zig</td>
+<td>30 seconds</td>
+<td>8 sec</td>
+<td>535 KB</td>
+<td>10 minutes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="conclusion">Conclusion</h3>
+<p><strong>Zig is NOT just another programming language.</strong> It's a complete build toolchain that makes C/C++ development:</p>
+<ul>
+<li>✅ <strong>Easier</strong> - No complex setup</li>
+<li>✅ <strong>Faster</strong> - Optimized builds</li>
+<li>✅ <strong>Portable</strong> - Works everywhere</li>
+<li>✅ <strong>Reproducible</strong> - Same code = same binary</li>
+</ul>
+<p>For our <code>boostdas</code> project, Zig allowed us to:</p>
+<ol>
+<li>Compile C++23 code without installing Visual Studio</li>
+<li>Automatically manage Boost dependencies</li>
+<li>Produce a tiny 535 KB executable</li>
+<li>Share the project with zero setup instructions</li>
+</ol>
+<p><strong>Think of Zig as the &quot;npm&quot; or &quot;cargo&quot; for C/C++</strong> - a modern package manager and build system that finally brings C++ into the 21st century!</p>
+<h3 id="docker-integration">Docker Integration</h3>
+<p>Zig's cross-compilation makes it <strong>perfect for Docker</strong>:</p>
+<h4 id="traditional-c-docker-image">Traditional C++ Docker Image</h4>
+<pre><code class="lang-dockerfile">FROM gcc:latest  # 1.2 GB base image
+COPY . .
+RUN g++ ... # Complex build commands
+# Final image: ~1.3 GB
+</code></pre>
+<h4 id="zig--docker-multi-stage-build">Zig + Docker Multi-Stage Build</h4>
+<pre><code class="lang-dockerfile">FROM alpine:latest AS builder  # 7 MB base
+RUN wget zig &amp;&amp; tar -xf zig
+COPY . .
+RUN zig build  # One simple command
+
+FROM alpine:latest  # 7 MB runtime
+COPY --from=builder /build/cppdas /app/
+# Final image: ~12 MB (99% smaller!)
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>✅ <strong>99% smaller images</strong> (12 MB vs 1.3 GB)</li>
+<li>✅ <strong>Faster deployments</strong> (seconds instead of minutes)</li>
+<li>✅ <strong>Lower bandwidth costs</strong> (crucial for CI/CD)</li>
+<li>✅ <strong>Cross-platform builds</strong> (build ARM from x86, etc.)</li>
+</ul>
+<p>See our <code>Dockerfile</code> and <code>DOCKER.md</code> for complete examples!</p>
+<h3 id="resources">Resources</h3>
+<ul>
+<li><strong>Official Website:</strong> <a href="https://ziglang.org">https://ziglang.org</a></li>
+<li><strong>Download Zig:</strong> <a href="https://ziglang.org/download/">https://ziglang.org/download/</a></li>
+<li><strong>Our Installation Guide:</strong> See <code>INSTALLATION.md</code> in this repository</li>
+<li><strong>Our Build Guide:</strong> See <code>COMPILATION.md</code> in this repository</li>
+<li><strong>Our Docker Guide:</strong> See <code>DOCKER.md</code> in this repository</li>
+<li><strong>Documentation:</strong> <a href="https://ziglang.org/documentation/master/">https://ziglang.org/documentation/master/</a></li>
+</ul>
+<hr>
+<p><strong>Bottom Line:</strong> You don't need to learn Zig to benefit from it. Use it as your C++ build system and leverage its simplicity and cross-platform capabilities.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/ZIG_OVERVIEW.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

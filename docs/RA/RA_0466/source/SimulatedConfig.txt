@@ -1,0 +1,90 @@
+# This file was generated on 05/15/25 at 01:22:04.
+
+#SimulatedConfig.txt loaded from: C:\Program Files (x86)\Teradyne\IG-XL\10.60.02_uflx\bin\simulatedconfig.txt
+
+# In order to load this configuration information in a pre-3.64.50
+# version of IG-XL, it must be converted to the version 0 format.
+# To convert this file from version 1 to version 0:
+#	1. Make a backup of this file.
+#	2. Copy the information between the tags <TEST_HEAD TH 1> and </TEST_HEAD TH 1>,
+#	   paste it into a new file, and save that file as SimulatedConfig.txt in the current test program's directory.
+#    3. Copy the information between the tags <BACKPLANE-DIB_CABLES TH 1> and </BACKPLANE-DIB_CABLES TH 1>,
+#       paste it into a new file, and save that file as DibSlotConfig.txt in the current test program's directory.
+
+<Version>
+1
+</Version>
+
+<Configuration>
+UltraFlex
+</Configuration>
+
+<TESTER_INFO TI 1>
+TESTER SERIAL NUMBER: 
+TESTER PRODUCTION NUMBER: 
+IG-XL VERSION: 10.60.02_uflx
+IG-XL BUILD: 04.09.25.12.33
+CONFIG DATE: 05/15/25
+CONFIG TIME: 01:22:04
+</TESTER_INFO TI 1>
+
+<TEST_HEAD TH 1>
+#slot[.subslot]	Type		idprom (type serial rev company)
+
+2.0		MWMeasureHD		617-743-00 0000000 0000-A 0000
+   		MWMeasureHD		618-489-00 0000000 0000-A 0000
+   		FrontEnd1		618-558-00 0000000 0000-A 0000
+   		FrontEnd2		618-558-00 0000000 0000-A 0000
+   		FrontEnd3		618-558-00 0000000 0000-A 0000
+   		FrontEnd4		618-558-00 0000000 0000-A 0000
+   		SplitterAtten		618-617-00 0000000 0000-A 0000
+   		Receiver		617-419-00 0000000 0000-A 0000
+   		Digitizer		615-570-00 0000000 0000-A 0000
+   		PowerDistribution		615-568-00 0000000 0000-A 0000
+   		PowerBoard		617-560-00 0000000 0000-A 0000
+4.0		UltraPAC		605-743-00 0000000 0000-A 5445
+   		UltraPAC		939-420-01 0000000 0000-A 5445
+   		UltraPAC-0		939-392-00 0000000 0000-A 5445
+   		UltraPAC-1		939-392-00 0000000 0000-A 5445
+   		PowerBoard		604-207-00 0000000 0000-A 5445
+9.0		HSD-U		604-356-01 0000000 0000-A 0000
+   		HSD-U		612-073-00 0000000 0000-A 0000
+   		PowerBoard		608-808-00 0000000 0000-A 0000
+   		ChanBoard0		613-493-00 0000000 0000-A 0000
+   		ChanBoard1		613-493-00 0000000 0000-A 0000
+10.0		MWSynthHD		617-744-00 0000000 0000-A 0000
+    		MWSynthHD		618-489-00 0000000 0000-A 0000
+    		DividerModulator1		618-560-00 0000000 0000-A 0000
+    		DividerModulator2		618-560-00 0000000 0000-A 0000
+    		DividerModulator3		618-560-00 0000000 0000-A 0000
+    		AWG		615-566-00 0000000 0000-A 0000
+    		DutClock		616-673-00 0000000 0000-A 0000
+    		BaseBand		615-573-00 0000000 0000-A 0000
+    		PowerBoard		617-560-00 0000000 0000-A 0000
+11.0		HSS-10G		974-245-20 0000000 0000-A 0000
+    		HSS-10G		956-128-02 0000000 0000-A 0000
+    		PowerBoard		956-462-10 0000000 0000-A 0000
+    		ChanBoard0		956-160-10 0000000 0000-A 0000
+    		ChanBoard1		956-160-10 0000000 0000-A 0000
+14.0		HexVS		974-294-00 0000000 0000-A 0000
+    		HexVS		939-265-00 0000000 0000-A 0000
+16.0		DC-30		805-002-00 0000000 0000-A 0000
+    		DC-30		949-901-00 0000000 0000-A 0000
+21.0		VSM		974-296-00 0000000 0000-A 0000
+    		VSM		956-361-00 0000000 0000-A 0000
+24.0		SupportBoard		974-220-12 0000000 0000-A 0000
+    		SupportBoard		956-354-00 0000000 0000-A 0000
+25.0		SupportBoard		979-220-01 0000000 0000-A 0000
+    		SupportBoard		956-354-01 0000000 0000-A 0000
+62.0		DistributionBoard		956-355-00 0000000 0000-A 0000
+    		DistributionBoard		956-355-00 0000000 0000-A 0000
+63.0		DistributionBoard		956-355-00 0000000 0000-A 0000
+    		DistributionBoard		956-355-00 0000000 0000-A 0000
+</TEST_HEAD TH 1>
+
+<CABLE MWSYNTH 1>
+10.LO                       2.LO
+10.CW/ModSrc1               2.CW/ModSrc1
+10.CW/ModSrc2               2.CW/ModSrc2
+</CABLE MWSYNTH 1>
+

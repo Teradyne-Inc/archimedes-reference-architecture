@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>RA_0465 – Adaptive Test DAS Example (Source) </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="RA_0465 – Adaptive Test DAS Example (Source) ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0465/source/readme.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="ra_0465--adaptive-test-das-example-source">RA_0465 – Adaptive Test DAS Example (Source)</h1>
+
+<p>This <code>source/</code> directory contains scripts and examples for the RA_0465 architecture, demonstrating an Adaptive Test flow using a Data Analytics Solution (DAS) in the AMP ecosystem.</p>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><p><strong>AMP_adaptive_command.py</strong><br>
+Python script for issuing or preparing adaptive commands (modifying test conditions, sequences, or dynamic parameters).</p>
+</li>
+<li><p><strong>AMP_adaptive_rmqclient.py</strong><br>
+RabbitMQ (or compatible messaging) client for publishing/consuming state or adaptation messages between AMP and the execution engine. Serves as a dynamic interface for the adaptive loop.</p>
+</li>
+<li><p><strong>sample_code.py</strong><br>
+Simplified example showing how to integrate adaptive logic or call the main components. Use this as a starting point for your own extensions.</p>
+</li>
+<li><p><strong>pymd_cli.bat</strong><br>
+Batch script to facilitate running Python commands (for quick use on Windows without typing the full command). Can be used as a launcher or utility.</p>
+</li>
+<li><p><strong>RA_0465.zip</strong><br>
+Archive containing all files in this folder for download or distribution.</p>
+</li>
+</ul>
+<h2 id="purpose">Purpose</h2>
+<p>This module provides a foundation for:</p>
+<ul>
+<li>Experimenting with adaptive test strategies</li>
+<li>Demonstrating asynchronous communication (AMP/DAS messages)</li>
+<li>Extending to real-world scenarios (dynamic binning, conditional stop, parameter adjustment)</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Check your Python environment (recommended version as per the main documentation).</li>
+<li>Install any required dependencies (not listed here – see main documentation if provided).</li>
+<li>Start the messaging client (<code>AMP_adaptive_rmqclient.py</code>) if using a queue/broker.</li>
+<li>Run <code>AMP_adaptive_command.py</code> to simulate or control adjustments.</li>
+<li>Use <code>sample_code.py</code> as a template for your own adaptive rules.</li>
+</ol>
+<h2 id="recommendations">Recommendations</h2>
+<ul>
+<li>Log adaptive decisions (separate log file) for post-lot analysis.</li>
+<li>Use correlation IDs to link messages, decisions, and results.</li>
+<li>Handle network exceptions (timeouts/broker unavailability) for robustness.</li>
+</ul>
+<hr>
+<p><em>Part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0465/source/readme.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

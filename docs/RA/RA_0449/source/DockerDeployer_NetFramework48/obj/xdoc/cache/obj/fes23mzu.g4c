@@ -1,0 +1,10 @@
+id: DockerDeployerNetFramework48
+language: CSharp
+name:
+  Default: DockerDeployerNetFramework48
+qualifiedName:
+  Default: DockerDeployerNetFramework48
+type: Assembly
+modifiers: {}
+items: []
+references: {}

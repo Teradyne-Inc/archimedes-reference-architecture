@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../DataStreaming/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0473/overview.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA_0473_Header.png" alt="RA 473 Overview" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h2 id="creating-a-das-listener-in-powershell">Creating a DAS Listener in PowerShell</h2>
+<h4 id="reference-ra-473">Reference RA 473</h4>
+<h2 id="why-powershell">Why PowerShell?</h2>
+<p>PowerShell is a powerful and flexible scripting language built on the .NET platform. It is widely used for automation, system administration, and cross-platform scripting.</p>
+<p>Choosing PowerShell for implementing a DAS (Data Analytics Solution) listener provides several benefits:</p>
+<ul>
+<li><strong>Native HTTP server support</strong> via <code>HttpListener</code></li>
+<li><strong>Built-in JSON parsing and concurrent collections</strong></li>
+<li><strong>Asynchronous task execution</strong> with jobs and queues</li>
+<li><strong>Cross-platform compatibility</strong> on Windows, Linux, and macOS via PowerShell Core</li>
+</ul>
+<p>This makes PowerShell an excellent choice for building lightweight network listeners or service simulators for testing environments.</p>
+<hr>
+<h2 id="general-technical-info">General Technical Info</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Language</td>
+<td>PowerShell</td>
+</tr>
+<tr>
+<td>Framework</td>
+<td>5.1+ / Core</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>Windows, Linux, macOS</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="overview-of-the-program-structure">Overview of the Program Structure</h2>
+<p>This RA provides a simple but effective implementation of a DAS message listener using the following components:</p>
+<ul>
+<li><p><code>DASMessage.ps1</code><br>
+A class definition used to wrap incoming messages into structured objects containing the URL, the message name, and the JSON body.</p>
+</li>
+<li><p><code>DASListener.ps1</code><br>
+A function that starts a local web listener, accepts HTTP messages, and enqueues them for processing using a concurrent queue.</p>
+</li>
+<li><p><code>CallbackExample.ps1</code><br>
+A sample function to be executed whenever a message is received. It demonstrates how to handle and inspect incoming data.</p>
+</li>
+<li><p><code>Run-DAS.ps1</code></p>
+<p>A script to launch the DAS listener and message consumer interactively.<br>
+It displays messages in real-time and stops when you press <code>q</code>.<br>
+Logs are saved to <code>$env:TEMP\\das.log</code> if enabled.
+This modular architecture makes it easy to expand, reuse, and integrate into various AMP/DAS validation and testing flows.</p>
+</li>
+</ul>
+<h2 id="architectural-diagram">Architectural Diagram</h2>
+<p><a href="media/RA_473_DAS_Architecture.png"><img src="media/RA_473_DAS_Architecture_thumb.png" alt="View Architecture Diagram"></a></p>
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0473/overview.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

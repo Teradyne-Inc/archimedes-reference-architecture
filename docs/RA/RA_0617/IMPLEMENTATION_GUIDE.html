@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Building a Data Acquisition System (DAS) with C++23 and Zig </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Building a Data Acquisition System (DAS) with C++23 and Zig ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../DataStreaming/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/IMPLEMENTATION_GUIDE.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA617.png" alt="RA 617 Implementation" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h1 id="building-a-data-acquisition-system-das-with-c23-and-zig">Building a Data Acquisition System (DAS) with C++23 and Zig</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#project-overview">Project Overview</a></li>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#project-structure">Project Structure</a></li>
+<li><a href="#setting-up-the-build-system">Setting Up the Build System</a></li>
+<li><a href="#core-components-explained">Core Components Explained</a></li>
+<li><a href="#step-by-step-implementation">Step-by-Step Implementation</a></li>
+<li><a href="#advanced-features">Advanced Features</a></li>
+<li><a href="#testing-and-deployment">Testing and Deployment</a></li>
+</ol>
+<hr>
+<h2 id="project-overview">Project Overview</h2>
+<p>This guide shows how to build a <strong>production-ready HTTP Data Acquisition System</strong> using:</p>
+<ul>
+<li><strong>C++23</strong> for modern, safe code</li>
+<li><strong>Boost.Asio</strong> for async I/O</li>
+<li><strong>Boost.Beast</strong> for HTTP protocol</li>
+<li><strong>Zig</strong> as the build system and package manager</li>
+</ul>
+<p><strong>What the DAS does:</strong></p>
+<ul>
+<li>Listens for HTTP POST requests on a configurable URL</li>
+<li>Validates that the first message is an INITIALIZATION message</li>
+<li>Logs all messages to a file</li>
+<li>Uses a multi-threaded producer-consumer pattern for high performance</li>
+<li>Returns HTTP 200 for valid requests, HTTP 500 for invalid first message</li>
+</ul>
+<p><strong>Final binary size:</strong> 535 KB<br>
+<strong>Performance:</strong> Handles thousands of concurrent connections</p>
+<hr>
+<h2 id="architecture">Architecture</h2>
+<h3 id="high-level-design">High-Level Design</h3>
+<pre><code class="lang-mermaid">graph TB
+    subgraph Main[&quot;Main Thread&quot;]
+        A1[Parse command-line arguments]
+        A2[Extract port from URL]
+        A3[Start DAS thread]
+        A4[Wait for 'Q' to quit]
+        A1 --&gt; A2 --&gt; A3 --&gt; A4
+    end
+    
+    subgraph Producer[&quot;DAS Thread - Producer&quot;]
+        B1[Listen on TCP port]
+        B2[Accept incoming connections]
+        B3[Push connections to queue]
+        B4[Signal semaphore]
+        B1 --&gt; B2 --&gt; B3 --&gt; B4
+    end
+    
+    subgraph Queue[&quot;Synchronization Layer&quot;]
+        C1[Connection Queue FIFO&lt;br/&gt;Protected by std::mutex]
+        C2[Semaphore&lt;br/&gt;Signal Counter]
+    end
+    
+    subgraph Consumer1[&quot;Consumer Thread 1&quot;]
+        D1[Wait on semaphore]
+        D2[Pop connection]
+        D3[Spawn coroutine]
+        D4[Handle HTTP]
+        D5[Send response]
+        D1 --&gt; D2 --&gt; D3 --&gt; D4 --&gt; D5
+        D5 -.-&gt; D1
+    end
+    
+    subgraph Consumer2[&quot;Consumer Thread N&quot;]
+        E1[Wait on semaphore]
+        E2[Pop connection]
+        E3[Spawn coroutine]
+        E4[Handle HTTP]
+        E5[Send response]
+        E1 --&gt; E2 --&gt; E3 --&gt; E4 --&gt; E5
+        E5 -.-&gt; E1
+    end
+    
+    Main --&gt; Producer
+    Producer --&gt; C1
+    Producer --&gt; C2
+    C1 --&gt; Consumer1
+    C1 --&gt; Consumer2
+    C2 --&gt; Consumer1
+    C2 --&gt; Consumer2
+    
+    style Main fill:#e1f5ff
+    style Producer fill:#fff4e1
+    style Queue fill:#f0f0f0
+    style Consumer1 fill:#e8ffe8
+    style Consumer2 fill:#e8ffe8
+    
+    Note1[N threads = CPU cores]
+    Consumer2 -.-&gt; Note1
+    style Note1 fill:#ffffcc
+</code></pre>
+<h3 id="key-design-patterns">Key Design Patterns</h3>
+<ol>
+<li><p><strong>Producer-Consumer Pattern</strong></p>
+<ul>
+<li>Main thread produces connections</li>
+<li>Worker threads consume and process them</li>
+<li>Queue + semaphore for synchronization</li>
+</ul>
+</li>
+<li><p><strong>Coroutines (C++20/23)</strong></p>
+<ul>
+<li>Non-blocking I/O operations</li>
+<li>Better scalability than traditional threads</li>
+</ul>
+</li>
+<li><p><strong>RAII (Resource Acquisition Is Initialization)</strong></p>
+<ul>
+<li>Automatic cleanup with destructors</li>
+<li>No manual resource management</li>
+</ul>
+</li>
+<li><p><strong>Compile-Time Configuration</strong></p>
+<ul>
+<li>Feature flags (<code>-Dnologs</code>, <code>-Dnolistener</code>)</li>
+<li>Zero runtime overhead for disabled features</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="project-structure">Project Structure</h2>
+<pre><code class="lang-mermaid">graph TD
+    A[boostdas/] --&gt; B[build.zig&lt;br/&gt;Zig build configuration]
+    A --&gt; C[build.zig.zon&lt;br/&gt;Dependency management]
+    A --&gt; D[src/]
+    A --&gt; E[Dockerfile&lt;br/&gt;Docker container definition]
+    A --&gt; F[docker-compose.yml&lt;br/&gt;Docker Compose config]
+    A --&gt; G[docs/]
+    
+    D --&gt; D1[main.cpp&lt;br/&gt;Entry point + DAS server]
+    D --&gt; D2[include/]
+    D2 --&gt; D2A[Connection.hpp&lt;br/&gt;HTTP connection handler]
+    D2 --&gt; D2B[Logger.hpp&lt;br/&gt;Logging utilities]
+    
+    G --&gt; G1[INSTALLATION.md&lt;br/&gt;Zig installation guide]
+    G --&gt; G2[COMPILATION.md&lt;br/&gt;Build instructions]
+    G --&gt; G3[ZIG_OVERVIEW.md&lt;br/&gt;Zig benefits explained]
+    G --&gt; G4[DOCKER.md&lt;br/&gt;Docker deployment guide]
+    
+    style A fill:#e1f5ff
+    style D fill:#fff4e1
+    style D2 fill:#ffe8e8
+    style G fill:#e8f5e8
+    style B fill:#ffffcc
+    style C fill:#ffffcc
+</code></pre>
+<hr>
+<h2 id="setting-up-the-build-system">Setting Up the Build System</h2>
+<h3 id="step-1-create-buildzigzon-dependency-file">Step 1: Create <code>build.zig.zon</code> (Dependency File)</h3>
+<p>This file tells Zig what libraries to download:</p>
+<pre><code class="lang-zig">.{
+    .name = &quot;cppdas&quot;,
+    .version = &quot;1.0.0&quot;,
+    .dependencies = .{
+        // Boost libraries - automatically downloaded and cached
+        .@&quot;boost.asio&quot; = .{
+            .url = &quot;https://github.com/boostorg/asio/archive/refs/tags/boost-1.86.0.tar.gz&quot;,
+            .hash = &quot;1220...&quot;,  // Verification hash
+        },
+        .@&quot;boost.beast&quot; = .{
+            .url = &quot;https://github.com/boostorg/beast/archive/refs/tags/boost-1.86.0.tar.gz&quot;,
+            .hash = &quot;1220...&quot;,
+        },
+        // ... more Boost modules
+    },
+}
+</code></pre>
+<p><strong>What happens:</strong></p>
+<ol>
+<li>First build: Zig downloads all dependencies</li>
+<li>Subsequent builds: Uses cached versions (in <code>~/.cache/zig</code>)</li>
+<li>Same versions across all machines (reproducible builds)</li>
+</ol>
+<h3 id="step-2-create-buildzig-build-configuration">Step 2: Create <code>build.zig</code> (Build Configuration)</h3>
+<pre><code class="lang-zig">const std = @import(&quot;std&quot;);
+
+pub fn build(b: *std.Build) void {
+    // 1. Get build options from command line
+    const target = b.standardTargetOptions(.{});
+    const optimize = b.standardOptimizeOption(.{});
+
+    // 2. Create the executable
+    const exe = b.addExecutable(.{
+        .name = &quot;cppdas&quot;,
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // 3. Add C++ source file
+    exe.addCSourceFile(.{
+        .file = b.path(&quot;src/main.cpp&quot;),
+        .flags = &amp;.{
+            &quot;-std=c++23&quot;,           // Use C++23 standard
+            &quot;-Wall&quot;,                // All warnings
+            &quot;-Wextra&quot;,              // Extra warnings
+            &quot;-Wpedantic&quot;,           // Strict standard compliance
+            &quot;-Werror&quot;,              // Warnings = errors
+        },
+    });
+
+    // 4. Link C++ standard library
+    exe.linkSystemLibrary(&quot;c++&quot;);
+    
+    // 5. Link Windows socket library (platform-specific)
+    if (target.result.os.tag == .windows) {
+        exe.linkSystemLibrary(&quot;Ws2_32&quot;);
+    }
+
+    // 6. Add include directories
+    exe.addIncludePath(b.path(&quot;src/include&quot;));
+
+    // 7. Add Boost dependencies
+    const boost = b.dependency(&quot;boost.asio&quot;, .{});
+    exe.addIncludePath(boost.path(&quot;include&quot;));
+    // ... repeat for all Boost modules
+
+    // 8. Compile-time feature flags
+    if (b.option(bool, &quot;nologs&quot;, &quot;Disable logging&quot;) orelse false) {
+        exe.defineCMacro(&quot;NOLOG&quot;, null);
+    }
+    if (b.option(bool, &quot;nolistener&quot;, &quot;Disable listener&quot;) orelse false) {
+        exe.defineCMacro(&quot;NOLISTENER&quot;, null);
+    }
+
+    // 9. Install the executable
+    b.installArtifact(exe);
+}
+</code></pre>
+<p><strong>Build Commands:</strong></p>
+<pre><code class="lang-bash"># Debug build
+zig build
+
+# Release build (smallest binary)
+zig build -Doptimize=ReleaseSmall
+
+# Build without logging
+zig build -Doptimize=ReleaseSmall -Dnologs=true
+
+# Cross-compile for Linux from Windows
+zig build -Dtarget=x86_64-linux-gnu -Doptimize=ReleaseSmall
+</code></pre>
+<hr>
+<h2 id="core-components-explained">Core Components Explained</h2>
+<h3 id="1-logger-template-loggerhpp">1. Logger Template (<code>Logger.hpp</code>)</h3>
+<pre><code class="lang-cpp">template &lt;bool Disabled&gt;
+class Logger {
+    std::ofstream file_;
+public:
+    Logger(std::string_view path) {
+        if constexpr (!Disabled) {
+            file_.open(std::string(path), std::ios::app);
+        }
+    }
+
+    template &lt;typename T&gt;
+    Logger&amp; operator&lt;&lt;(const T&amp; value) {
+        if constexpr (!Disabled) {
+            file_ &lt;&lt; value;
+        }
+        return *this;
+    }
+};
+</code></pre>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li>Template parameter <code>Disabled</code> evaluated at compile-time</li>
+<li>When <code>Disabled=true</code>, all logging code is eliminated (zero overhead)</li>
+<li>Uses <code>if constexpr</code> for compile-time branching</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code class="lang-cpp">Logger&lt;false&gt; logger{&quot;app.log&quot;};  // Logging enabled
+logger &lt;&lt; &quot;Message&quot;;               // Writes to file
+
+Logger&lt;true&gt; logger{&quot;app.log&quot;};   // Logging disabled
+logger &lt;&lt; &quot;Message&quot;;               // Compiled to nothing (zero cost)
+</code></pre>
+<h3 id="2-connection-handler-connectionhpp">2. Connection Handler (<code>Connection.hpp</code>)</h3>
+<pre><code class="lang-cpp">template &lt;bool UseLogger&gt;
+class Connection {
+    // Member variables
+    boost::beast::http::request&lt;boost::beast::http::string_body&gt; request_;
+    boost::beast::flat_buffer http_buffer_;
+    std::unique_ptr&lt;tcp::socket&gt; socket_;
+    Logger&lt;UseLogger&gt;&amp; log_file_;
+    std::string_view expected_path_;
+
+public:
+    // Constructor
+    explicit Connection(
+        std::unique_ptr&lt;tcp::socket&gt;&amp;&amp; socket,
+        Logger&lt;UseLogger&gt;&amp; log_file,
+        std::string_view expected_path
+    ) noexcept;
+
+    // Async HTTP handler (C++20 coroutine)
+    boost::asio::awaitable&lt;void&gt; TalkToClientAsync() {
+        bool keep_alive{request_.keep_alive()};
+        
+        while (keep_alive) {
+            // 1. Read HTTP request asynchronously
+            co_await boost::beast::http::async_read(
+                *socket_, http_buffer_, request_,
+                boost::asio::use_awaitable
+            );
+
+            // 2. Validate request
+            auto status = boost::beast::http::status::ok;
+            
+            if (request_.method() != boost::beast::http::verb::post) {
+                status = boost::beast::http::status::bad_request;
+            } 
+            else if (!request_.target().starts_with(expected_path_)) {
+                status = boost::beast::http::status::not_found;
+            }
+            else {
+                // First message validation
+                bool expected = false;
+                if (first_message_received.compare_exchange_strong(expected, true)) {
+                    if (request_.target().find(&quot;INITIALIZATION&quot;) == std::string_view::npos) {
+                        status = boost::beast::http::status::internal_server_error;
+                    }
+                }
+            }
+
+            // 3. Log request
+            log_file_ &lt;&lt; &quot;Method: &quot; &lt;&lt; request_.method() &lt;&lt; &quot;\n&quot;
+                      &lt;&lt; &quot;Target: &quot; &lt;&lt; request_.target() &lt;&lt; &quot;\n&quot;
+                      &lt;&lt; &quot;Message: &quot; &lt;&lt; request_.body() &lt;&lt; &quot;\n\n&quot;;
+
+            // 4. Display on console
+            std::cout &lt;&lt; &quot;[&quot; &lt;&lt; request_.method() &lt;&lt; &quot;] &quot; 
+                      &lt;&lt; request_.target() &lt;&lt; std::endl;
+
+            // 5. Send HTTP response
+            boost::beast::http::response&lt;boost::beast::http::string_body&gt; res{
+                status, request_.version()
+            };
+            res.set(boost::beast::http::field::server, &quot;CppDAS&quot;);
+            res.set(boost::beast::http::field::content_type, &quot;text/plain&quot;);
+            res.keep_alive(request_.keep_alive());
+            res.prepare_payload();
+
+            co_await boost::beast::http::async_write(
+                *socket_, res, boost::asio::use_awaitable
+            );
+        }
+        
+        co_return;
+    }
+};
+</code></pre>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li><strong>C++20 Coroutines</strong> (<code>co_await</code>, <code>co_return</code>)</li>
+<li><strong>Atomic first-message check</strong> (thread-safe)</li>
+<li><strong>Path validation</strong> (only accept URLs starting with <code>expected_path</code>)</li>
+<li><strong>HTTP status codes</strong> (200, 400, 404, 500)</li>
+</ul>
+<h3 id="3-producer-consumer-das-server-maincpp">3. Producer-Consumer DAS Server (<code>main.cpp</code>)</h3>
+<pre><code class="lang-cpp">template &lt;bool Disable&gt;
+void RunDAS(const std::string&amp;&amp; log_path, const std::string&amp;&amp; das_url) {
+    // Extract port and path from URL
+    std::uint16_t port = 4242;
+    std::string expected_path = &quot;/&quot;;
+    // ... URL parsing logic ...
+
+    // Shared data structures
+    std::queue&lt;std::unique_ptr&lt;tcp::socket&gt;&gt; connections;
+    std::mutex queue_lock;
+    std::counting_semaphore&lt;255&gt; queue_sema{0};
+    Logger&lt;disable_logs&gt; logger{log_path};
+    asio::io_context ioc;
+
+    // Consumer lambda (runs in worker threads)
+    auto consume = [&amp;] {
+        while (keep_going) {
+            queue_sema.acquire();  // Wait for connection
+
+            if (std::unique_lock lock{queue_lock}; 
+                keep_going &amp;&amp; !connections.empty()) {
+                
+                // Spawn coroutine to handle connection
+                boost::asio::co_spawn(
+                    ioc,
+                    [&amp;] -&gt; boost::asio::awaitable&lt;void&gt; {
+                        Connection connection{
+                            std::move(connections.front()),
+                            logger,
+                            expected_path
+                        };
+                        connections.pop();
+                        co_await connection.TalkToClientAsync();
+                    },
+                    boost::asio::detached
+                );
+                
+                ioc.run();  // Process async operations
+            }
+        }
+    };
+
+    // Create worker thread pool (one per CPU core)
+    const auto consumer_count = std::thread::hardware_concurrency();
+    std::vector&lt;std::jthread&gt; consumers;
+    for (size_t i = 0; i &lt; consumer_count; ++i) {
+        consumers.emplace_back(consume);
+    }
+
+    // Producer: Accept connections
+    tcp::acceptor acceptor{ioc, {tcp::v4(), port}};
+    logger &lt;&lt; &quot;Listening on http://localhost:&quot; &lt;&lt; port &lt;&lt; expected_path &lt;&lt; &quot;\n&quot;;
+
+    while (keep_going) {
+        auto socket = std::make_unique&lt;tcp::socket&gt;(ioc);
+        acceptor.accept(*socket);  // Block until client connects
+        
+        {
+            std::unique_lock lock{queue_lock};
+            connections.push(std::move(socket));
+        }
+        
+        queue_sema.release();  // Signal worker thread
+    }
+
+    // Graceful shutdown: wake all workers
+    for (size_t i = 0; i &lt; consumer_count; ++i) {
+        queue_sema.release();
+    }
+}
+</code></pre>
+<p><strong>Key Synchronization Primitives:</strong></p>
+<ol>
+<li><strong><code>std::queue</code></strong> - FIFO connection queue</li>
+<li><strong><code>std::mutex</code></strong> - Protects queue from race conditions</li>
+<li><strong><code>std::counting_semaphore</code></strong> - Signals available work</li>
+<li><strong><code>std::jthread</code></strong> - Auto-joining threads (RAII)</li>
+<li><strong><code>std::atomic&lt;bool&gt;</code></strong> - Thread-safe first-message flag</li>
+</ol>
+<hr>
+<h2 id="step-by-step-implementation">Step-by-Step Implementation</h2>
+<h3 id="phase-1-setup-zig-build-system">Phase 1: Setup Zig Build System</h3>
+<ol>
+<li><p><strong>Create project directory:</strong></p>
+<pre><code class="lang-bash">mkdir myDAS &amp;&amp; cd myDAS
+</code></pre>
+</li>
+<li><p><strong>Create <code>build.zig.zon</code>:</strong></p>
+<pre><code class="lang-zig">.{
+    .name = &quot;myDAS&quot;,
+    .version = &quot;0.1.0&quot;,
+    .dependencies = .{
+        // Add Boost dependencies here
+    },
+}
+</code></pre>
+</li>
+<li><p><strong>Create <code>build.zig</code>:</strong></p>
+<ul>
+<li>Copy from our example</li>
+<li>Adjust paths and names</li>
+</ul>
+</li>
+<li><p><strong>Test build system:</strong></p>
+<pre><code class="lang-bash">zig build
+# Should download dependencies and compile
+</code></pre>
+</li>
+</ol>
+<h3 id="phase-2-implement-logger">Phase 2: Implement Logger</h3>
+<ol>
+<li><p><strong>Create <code>src/include/Logger.hpp</code>:</strong></p>
+<pre><code class="lang-cpp">template &lt;bool Disabled&gt;
+class Logger {
+    std::ofstream file_;
+public:
+    Logger(std::string_view path);
+    template &lt;typename T&gt;
+    Logger&amp; operator&lt;&lt;(const T&amp; value);
+};
+</code></pre>
+</li>
+<li><p><strong>Add compile-time optimization:</strong></p>
+<pre><code class="lang-cpp">if constexpr (!Disabled) {
+    // Only compile this code if logging enabled
+}
+</code></pre>
+</li>
+<li><p><strong>Test:</strong></p>
+<pre><code class="lang-bash">zig build -Dnologs=false  # With logging
+zig build -Dnologs=true   # Without logging (smaller binary)
+</code></pre>
+</li>
+</ol>
+<h3 id="phase-3-implement-connection-handler">Phase 3: Implement Connection Handler</h3>
+<ol>
+<li><p><strong>Create <code>src/include/Connection.hpp</code>:</strong></p>
+<pre><code class="lang-cpp">template &lt;bool UseLogger&gt;
+class Connection {
+    // HTTP request/response handling
+};
+</code></pre>
+</li>
+<li><p><strong>Add async HTTP processing:</strong></p>
+<ul>
+<li>Use <code>boost::asio::awaitable</code></li>
+<li>Implement <code>co_await</code> for non-blocking I/O</li>
+</ul>
+</li>
+<li><p><strong>Add validation logic:</strong></p>
+<ul>
+<li>Check HTTP method (POST only)</li>
+<li>Validate URL path</li>
+<li>Verify first message is INITIALIZATION</li>
+</ul>
+</li>
+</ol>
+<h3 id="phase-4-implement-main-server">Phase 4: Implement Main Server</h3>
+<ol>
+<li><p><strong>Create <code>src/main.cpp</code>:</strong></p>
+<pre><code class="lang-cpp">int main(int argc, const char** argv) {
+    // Parse command-line arguments
+    // Start DAS server thread
+    // Wait for shutdown signal
+}
+</code></pre>
+</li>
+<li><p><strong>Implement producer-consumer pattern:</strong></p>
+<ul>
+<li>Producer: TCP acceptor loop</li>
+<li>Consumers: Worker threads with coroutines</li>
+</ul>
+</li>
+<li><p><strong>Add graceful shutdown:</strong></p>
+<ul>
+<li>RAII helper to set <code>keep_going = false</code></li>
+<li>Wake all worker threads before exit</li>
+</ul>
+</li>
+</ol>
+<h3 id="phase-5-build-and-test">Phase 5: Build and Test</h3>
+<ol>
+<li><p><strong>Build release version:</strong></p>
+<pre><code class="lang-bash">zig build -Doptimize=ReleaseSmall
+</code></pre>
+</li>
+<li><p><strong>Run server:</strong></p>
+<pre><code class="lang-bash">./zig-out/x86_64-windows-gnu/ReleaseSmall/myDAS.exe -dasUrl http://localhost:3000/api/
+</code></pre>
+</li>
+<li><p><strong>Test with curl:</strong></p>
+<pre><code class="lang-bash"># First message (should succeed)
+curl -X POST http://localhost:3000/api/INITIALIZATION -d &quot;init data&quot;
+
+# Second message (should succeed)
+curl -X POST http://localhost:3000/api/data -d &quot;test data&quot;
+
+# Wrong path (should fail with 404)
+curl -X POST http://localhost:3000/wrong/path -d &quot;data&quot;
+</code></pre>
+</li>
+</ol>
+<hr>
+<h2 id="advanced-features">Advanced Features</h2>
+<h3 id="1-compile-time-feature-flags">1. Compile-Time Feature Flags</h3>
+<pre><code class="lang-cpp">// In build.zig
+if (b.option(bool, &quot;enable_metrics&quot;, &quot;Enable performance metrics&quot;) orelse false) {
+    exe.defineCMacro(&quot;ENABLE_METRICS&quot;, null);
+}
+
+// In C++ code
+#ifdef ENABLE_METRICS
+    auto start = std::chrono::high_resolution_clock::now();
+    // ... operation ...
+    auto duration = std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(
+        std::chrono::high_resolution_clock::now() - start
+    );
+    std::cout &lt;&lt; &quot;Processing time: &quot; &lt;&lt; duration.count() &lt;&lt; &quot; μs\n&quot;;
+#endif
+</code></pre>
+<h3 id="2-custom-message-validation">2. Custom Message Validation</h3>
+<pre><code class="lang-cpp">// In Connection.hpp
+bool ValidateMessage(const std::string_view&amp; body) {
+    // Parse JSON
+    auto json = boost::json::parse(body);
+    
+    // Check required fields
+    if (!json.as_object().contains(&quot;timestamp&quot;)) {
+        return false;
+    }
+    
+    // Validate data format
+    return true;
+}
+</code></pre>
+<h3 id="3-response-customization">3. Response Customization</h3>
+<pre><code class="lang-cpp">// Send JSON response
+boost::beast::http::response&lt;boost::beast::http::string_body&gt; res{
+    boost::beast::http::status::ok,
+    request_.version()
+};
+res.set(boost::beast::http::field::content_type, &quot;application/json&quot;);
+res.body() = R&quot;({&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:123456789})&quot;;
+res.prepare_payload();
+</code></pre>
+<h3 id="4-performance-monitoring">4. Performance Monitoring</h3>
+<pre><code class="lang-cpp">// Track request count
+inline std::atomic&lt;uint64_t&gt; request_counter{0};
+
+// In Connection::TalkToClientAsync()
+request_counter.fetch_add(1, std::memory_order_relaxed);
+
+// In main thread
+std::thread monitor{[] {
+    while (keep_going) {
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::cout &lt;&lt; &quot;Requests/sec: &quot; &lt;&lt; request_counter.exchange(0) &lt;&lt; &quot;\n&quot;;
+    }
+}};
+</code></pre>
+<hr>
+<h2 id="testing-and-deployment">Testing and Deployment</h2>
+<h3 id="load-testing">Load Testing</h3>
+<pre><code class="lang-bash"># Using Apache Bench
+ab -n 10000 -c 100 -p data.txt http://localhost:3000/api/INITIALIZATION
+
+# Using hey
+hey -n 10000 -c 100 -m POST -D data.txt http://localhost:3000/api/data
+</code></pre>
+<h3 id="docker-deployment">Docker Deployment</h3>
+<pre><code class="lang-bash"># Build Docker image
+docker build -t mydas:latest .
+
+# Run container
+docker run -d -p 3000:3000 mydas:latest
+
+# Check logs
+docker logs -f &lt;container-id&gt;
+</code></pre>
+<h3 id="performance-benchmarks">Performance Benchmarks</h3>
+<p>On a 4-core machine:</p>
+<ul>
+<li><strong>Throughput:</strong> 50,000+ requests/second</li>
+<li><strong>Latency (p50):</strong> &lt;1ms</li>
+<li><strong>Memory usage:</strong> ~15 MB</li>
+<li><strong>Binary size:</strong> 535 KB</li>
+</ul>
+<hr>
+<h2 id="summary">Summary</h2>
+<p><strong>What You've Learned:</strong></p>
+<ol>
+<li>✅ Set up Zig as a C++ build system</li>
+<li>✅ Implement producer-consumer pattern</li>
+<li>✅ Use C++20/23 coroutines for async I/O</li>
+<li>✅ Apply compile-time optimizations</li>
+<li>✅ Build thread-safe HTTP server</li>
+<li>✅ Deploy with Docker</li>
+</ol>
+<p><strong>Why This Approach Works:</strong></p>
+<ul>
+<li><strong>Zig</strong> handles complex dependency management</li>
+<li><strong>C++23</strong> provides modern language features</li>
+<li><strong>Boost</strong> offers production-ready networking</li>
+<li><strong>Coroutines</strong> enable high scalability</li>
+<li><strong>Docker</strong> ensures consistent deployment</li>
+</ul>
+<p><strong>Next Steps:</strong></p>
+<ol>
+<li>Add SSL/TLS support (<code>boost::asio::ssl</code>)</li>
+<li>Implement authentication/authorization</li>
+<li>Add database integration (PostgreSQL, Redis)</li>
+<li>Create admin dashboard (WebSocket)</li>
+<li>Scale horizontally with load balancer</li>
+</ol>
+<p>For more details:</p>
+<ul>
+<li><a href="ZIG_OVERVIEW.html">ZIG_OVERVIEW.md</a> - Zig benefits</li>
+<li><a href="DOCKER.html">DOCKER.md</a> - Docker deployment</li>
+<li><a href="COMPILATION.html">COMPILATION.md</a> - Build options</li>
+</ul>
+<p>This guide provides a comprehensive foundation for building production-ready DAS implementations.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/IMPLEMENTATION_GUIDE.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

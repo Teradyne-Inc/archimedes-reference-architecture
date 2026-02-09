@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Video: Adaptive Test with UltraEdge - RA_0476 </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Video: Adaptive Test with UltraEdge - RA_0476 ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/UseCases/Video_RA_0476.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="video-adaptive-test-with-ultraedge---ra_0476">Video: Adaptive Test with UltraEdge - RA_0476</h1>
+
+<div class="hero-section">
+  <div class="hero-content">
+    <h2 class="hero-subtitle">⚡ GDBN application with Rebin Archimede Application</h2>
+    <p class="hero-description">
+      <strong>Reference: RA_FAARCH_476</strong><br>
+      Watch this comprehensive demonstration of how we can implement GDBN thanks to the Rebin Archimedes Application
+    </p>
+  </div>
+</div>
+<h2 id="overview">Overview</h2>
+<p>This video demonstrates the complete implementation of Rebin application using GDBN Algorithm. It showcases how Rebin Application can dynamically adapt to the results previously computed from the test program, improving test  quality without modifying the original test program.</p>
+<h2 id="watch-the-demo">Watch the Demo</h2>
+<video controls playsinline width="800">
+  <source src="Videos/476/Gdbn.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+<h3 id="what-we-will-demonstrate">What we will demonstrate</h3>
+<p>In this video demonstration, you'll discover the GDBN purpose, which is used in order to demonstrate the power of the Rebin system of Archimedes:</p>
+<p>Let me introduce you to GDBN — which stands for Good Die in a Bad Neighborhood.It’s a quality assurance methodology developed for semiconductor manufacturing.
+The key idea is this: sometimes, a die tests as 'good' — it passes all functional checks. But if that die is physically located in a region surrounded by many failing dies, we have to question its reliability. It may be a false positive.
+So GDBN doesn’t just look at a die in isolation — it considers the neighborhood.If you're surrounded by trouble, chances are you're in trouble too.
+This method allows us to flag and reject potentially risky dies before the test ends. The goal is to improve the overall reliability of shipped devices by reducing the chance of marginal parts escaping.”</p>
+<h2 id="key-features-demonstrated">Key Features Demonstrated</h2>
+<h3 id="intelligent-algorithm">Intelligent Algorithm</h3>
+<p>This video illustrates a concrete implementation of GDBN in our test flow.
+We have a typical test sequence — starting from the beginning of the test, running through multiple test steps, and then finishing with final binning.
+But GDBN introduces something smart between the last test and final binning — a heuristic evaluation step we call 'Pre Test End'.
+Look at the top-right wafer map:Devices 6 and 10 have initially passed all tests and were marked as good — you see them in green.
+However, they’re completely surrounded by failed dies — that’s a red flag. This is what we call a bad neighborhood.
+So before we assign the final binning, GDBN steps in.It questions: “Are they really good devices, or false positives?”
+Using the GDBN heuristic, we proactively reassign their binning and mark them as failed — as shown in the bottom wafer map.
+➡️ This process ensures we catch potential quality risks before final binning, even if individual tests passed.
+This demonstrates how spatial context enhances quality screening effectiveness through intelligent analysis.&quot;</p>
+<h3 id="secure-infrastructure">Secure Infrastructure</h3>
+<p>The video showcases:</p>
+<ul>
+<li><strong>Implementation of simple Rebin algorithm</strong> - We will demonstrate how to change the binning from an external process</li>
+<li><strong>How Rebin application will work</strong> - We will demonstrates how the different pieces are working together</li>
+<li><strong>Monitoring</strong> - We will show the different monitoring put in place while rebin is activated</li>
+</ul>
+<h3 id="architecture-components">Architecture Components</h3>
+<p>The demonstration covers the complete system architecture:</p>
+<ul>
+<li><strong>Rebin system</strong> - A Rebin application able to change the binning on the fly from external process</li>
+<li><strong>Demo Application</strong> - Visualizes the entire process across different dedicated sections</li>
+</ul>
+<h2 id="video-content-structure">Video Content Structure</h2>
+<ol>
+<li><strong>Introduction</strong> - Overview of Rebin Test capabilities</li>
+<li><strong>What is GDBN</strong> - Overview of the GDBN technology</li>
+<li><strong>Example of GDBN</strong> - A view of the GDBN system</li>
+<li><strong>Why does GDBN Matter</strong> - GDBN can improve a test reliability</li>
+<li><strong>Scenario Implemented</strong> - Description of the scenario implemented</li>
+<li><strong>Demos</strong>
+<ul>
+<li>Test program loading</li>
+<li>Rebin connection</li>
+<li>Test Starting</li>
+<li>GDBN implementation</li>
+<li>DAS Messages for Binning</li>
+<li>STDF file validation</li>
+</ul>
+</li>
+</ol>
+<h2 id="related-resources">Related Resources</h2>
+<p>For hands-on experience and detailed instructions:</p>
+<ul>
+<li><strong><a href="../RA/RA_0468/index.html">RA_468: Implement DAS in C#</a></strong> - Technical guide for DAS implementation</li>
+<li><strong><a href="../RA/RA_0465/index.html">RA_465: Adaptive Commands in Python</a></strong> - How to send adaptive commands</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li>Watch the video to understand the complete workflow</li>
+<li>Contact the team to discuss implementation for your use case</li>
+</ul>
+<hr>
+<div class="section-container">
+  <div class="section-header">
+    <h2>💡 Questions or Need Support?</h2>
+    <p>Looking to integrate this approach into your test strategy? <a href="https://www.teradyne.com">Contact our team</a> to explore how Adaptive Test with UltraEdge can support your roadmap.</p>
+  </div>
+</div>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/UseCases/Video_RA_0476.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

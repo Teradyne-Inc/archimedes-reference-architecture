@@ -1,0 +1,10 @@
+id: Teradyne.Archimedes.DAS.Listener
+language: CSharp
+name:
+  Default: Teradyne.Archimedes.DAS.Listener
+qualifiedName:
+  Default: Teradyne.Archimedes.DAS.Listener
+type: Assembly
+modifiers: {}
+items: []
+references: {}

@@ -1,0 +1,10 @@
+id: DockerDeployerNet8
+language: CSharp
+name:
+  Default: DockerDeployerNet8
+qualifiedName:
+  Default: DockerDeployerNet8
+type: Assembly
+modifiers: {}
+items: []
+references: {}

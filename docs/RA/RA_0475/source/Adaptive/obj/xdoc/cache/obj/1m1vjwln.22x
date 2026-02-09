@@ -1,0 +1,10 @@
+id: Adaptive
+language: CSharp
+name:
+  Default: Adaptive
+qualifiedName:
+  Default: Adaptive
+type: Assembly
+modifiers: {}
+items: []
+references: {}

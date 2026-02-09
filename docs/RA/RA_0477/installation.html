@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../UltraEdge/toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0477/installation.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/ManualVM.jpg" alt="RA 477 Installation" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h2 id="installation">Installation</h2>
+<p>The following sections describe how to install a Hyper-V UltraEdge simulator.</p>
+<p>All steps are listed from the creation of a new virtual machine until the boot to the login prompt.</p>
+<h3 id="prerequisite-the-ultraedge-emulator-iso-file-must-be-downloaded-from-eknowledge">Prerequisite: the UltraEdge Emulator ISO file must be downloaded from eKnowledge.</h3>
+<p>On eKnowledge, search for <code>UltraEdge ISO</code> to get to the download page.
+The image usually comes as a compressed file (7z and zip), please uncompress it to obtain the ISO file. The uncompressed ISO file should be around 2GB.</p>
+<h2 id="network-switch-setup">Network switch setup</h2>
+<p>A network switch makes the network setup simpler. Create a new Virtual Switch for the UltraEdge VM.</p>
+<ul>
+<li>Go to the Virtual Switch Manager
+<img src="media/network1.png" alt="Virtual Switch Manager"></li>
+<li>Create a new Internal Virtual Switch
+<img src="media/network2.png" alt="New Internal Virtual Switch"></li>
+<li>Name it UltraEdge for example
+<img src="media/network3.png" alt="UltraEdge Network"></li>
+<li>Go to the Windows <strong>Network and Sharing Center</strong><br>
+<img src="media/network4.png" alt="Network and Sharing Center"></li>
+<li>Click on your newly created adapter and click on <strong>Properties</strong><br>
+<img src="media/network5.png" alt="Properties"></li>
+<li>Alternatively, go to <strong>Change adapter settings</strong> on the left side, right-click on your newly created adapter and select Properties<br>
+<img src="media/network6.png" alt="Change adapter settings"></li>
+<li>On the network adapter window, select <strong>Internet Protocol Version 4 (TCP/IPv4)</strong> and click on <strong>Properties</strong>
+<img src="media/network7.png" alt="Internet Protocol Version 4"></li>
+<li>Fill the <strong>IP address</strong> and <strong>Subnet mask</strong> as shown here:
+<ul>
+<li>IP address = 10.100.100.126</li>
+<li>Subnet mask = 255.255.255.0<br>
+<img src="media/network8.png" alt="IP address"></li>
+</ul>
+</li>
+</ul>
+<h2 id="hyper-v-virtual-machine-creation-and-setup">Hyper-V Virtual Machine creation and setup</h2>
+<p>Open the Hyper-V manager.</p>
+<p>On the right side, select <em>“New -&gt; Virtual Machine…”</em>
+<img src="media/hp01.png" alt="New VM">
+<img src="media/hp02.png" alt="New VM"></p>
+<p>A wizard appears that will guide you through the process. Click <strong>Next&gt;</strong>
+<img src="media/hp03.png" alt="Wizard"></p>
+<p>Specify the name of the virtual machine (here MyUltraEdge). <strong>Click Next&gt;</strong>
+<img src="media/hp04.png" alt="Name"></p>
+<p>The UltraEdge Linux distribution requires UEFI boot. Select <strong>Generation 2 Click Next&gt;</strong>
+<img src="media/hp05.png" alt="Generation 2"></p>
+<p>Assign memory with a minimum of <strong>4096MB</strong>. <strong>Click Next&gt;</strong>
+<img src="media/hp06.png" alt="Memory"></p>
+<p>Choose the newly create network switch for the connection. <strong>Click Next&gt;</strong>
+<img src="media/hp07.png" alt="Network"></p>
+<p>Create a virtual hard disk of size 20GB. <strong>Click Next&gt;</strong>
+<img src="media/hp08.png" alt="HDD"></p>
+<p>Select <code>Install an operating system from a bootable image file</code> and browse to select the ISO file you downloaded. <strong>Click Next&gt;</strong></p>
+<p><img src="media/hp09.png" alt="ISO"></p>
+<p>Review your selections and Finish Alternatively, use <strong>&lt;Previous</strong> to go back in the wizard and modify a selection.
+<img src="media/hp10.png" alt="ISO"></p>
+<h2 id="first-start">First Start</h2>
+<p>Once the wizard is finished, you can connect to your new UltraEdge virtual machine. The system has not been installed yet. This is what needs to be done now.
+By default, the machine is turned off. Click on Start.
+<img src="media/hp11.png" alt="Start VM">
+<img src="media/hp12.png" alt="Start VM">
+<img src="media/hp13.png" alt="Start VM"></p>
+<ul>
+<li><strong>Note</strong>: if the Virtual Machine was configured with Generation 1, the following screen will appear.
+<ul>
+<li>In this case, the easiest course of action is to recreate the virtual machine from scratch making sure that <strong>Generation 2</strong> is selected.
+<img src="media/hp14.png" alt="Generation 1"></li>
+</ul>
+</li>
+<li>At first boot, the following screens may appear. The system is not able to start. This is expected, an additional setting needs to be set.
+<img src="media/hp15.png" alt="First Boot">
+<img src="media/hp16.png" alt="First Boot"></li>
+<li>Turn off the virtual machine
+<img src="media/hp16b.png" alt="Stop">
+<img src="media/hp17.png" alt="Stop"></li>
+</ul>
+<h3 id="security">Security</h3>
+<p>Go to the <strong>Settings</strong> for this virtual machine.
+Select the <strong>Security</strong> subsection in the <strong>Hardware</strong> section.
+Make sure the <strong>Enable Secure Boot</strong> is checked (it should be checked by default).</p>
+<p>Make sure the selected Template is <strong>Microsoft UEFI Certificate Authority.</strong> This is for Linux guest systems.</p>
+<p>The default of this option is <em>Microsoft Windows</em>, which does not work with the UltraEdge Linux guest.</p>
+<p>It is also the right time to enable the <strong>Trusted Platform Module</strong> that allows for secure connection.</p>
+<p>In the <strong>Encryption Support</strong> section, make sure to check the box entitled <strong>Enable Trusted Platform Module.</strong>
+<img src="media/hp18.png" alt="Settings">
+<img src="media/hp19.png" alt="Secure boot"></p>
+<h2 id="linux-installation">Linux Installation</h2>
+<p>Now that the Hyper-V virtual machine is created and configured, the UltraEdge Linux distribution can be installed. Turn on the virtual machine again. The correct boot options should be displayed.
+Select <strong>Install UltraEdge Instrument: Development with Network Config</strong>
+<img src="media/hp20.png" alt="Secure boot">
+Initial installation proceeds.
+<img src="media/hp21.png" alt="Installation"></p>
+<p>We now need to set the IP address of the UltraEdge VM.<br>
+Select <strong>eth0 → Edit IPv4</strong>.<br>
+Note 1: Hit 'Enter' to select.<br>
+Note 2: The keypad is not available to type in numbers. Use the numbers above the letters on the keyboard.
+<img src="media/hp22.png" alt="IPv4">
+Then, select <strong>Manual</strong>
+<img src="media/hp23.png" alt="Manual"></p>
+<p>Fill the next screen as follows:
+Subnet must be <strong>10.100.100.0/24</strong>
+Address must be <strong>10.100.100.1</strong>
+Select <strong>Save</strong>
+<img src="media/hp24.png" alt="IP address">
+The new IP address is shown.<br>
+Select <strong>Continue without network</strong> (if the bottom of the screen is not visible, make sure your virtual machine is displayed 'Full screen').<br>
+Do not worry, this label is misleading. Network will be available.
+<img src="media/hp25.png" alt="IP address">
+Confirm the action by choosing <strong>Continue</strong>
+<img src="media/hp26.png" alt="Continue">
+Installation continues until completion.
+<img src="media/hp27.png" alt="Continue"></p>
+<p>You might see a message asking to remove the drive before reboot.
+To do so, on the Virtual Machine Window, select
+<strong>Media → DVD Drive → Eject ….</strong>
+as shown here.
+<img src="media/hp28.png" alt="Eject">
+<img src="media/hp29.png" alt="Continue"></p>
+<p>Select <strong>Reboot Now</strong>
+Errors may be displayed. These are linked to the mounting of the ISO file. Do not worry about them.
+Let the system run until setup completion.</p>
+<p><img src="media/hp30.png" alt="Finishing">
+<img src="media/hp31.png" alt="Finishing">
+<img src="media/hp32.png" alt="Finishing"></p>
+<h3 id="you-are-done">You are done</h3>
+<p>Enjoy</p>
+<p><img src="media/hp33.png" alt="Done"></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0477/installation.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

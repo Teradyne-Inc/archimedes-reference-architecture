@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfDemoModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<DemoModel>
+		<FullDescription># Failed Tests DAS
+The AMP Data Application Server captures all failed tests and exports the data to a text file. This demo aims to showcase its capability to record all test results into separate systems. It will demonstrate the straightforward connection between AMP or TEMS without requiring any modifications to your test programme. Additionally, this system is fully compatible with both engineering and production modes. The Data Application Server will generate a log file containing only the failed tests.
+		</FullDescription>
+		<Title>FAILED TESTS DAS</Title>
+		<Description>Simple C# DAS, running on tester host</Description>
+		<ImagePath>Demos\UE\UENoAmp.png</ImagePath>
+		<IsNew>true</IsNew>
+		<DemoAvailable>true</DemoAvailable>
+		<VideoLink>https://teradynecom.sharepoint.com/sites/ArchimedesReferenceArchitecture/SitePages/RA-434---DAS-coll.aspx#demo-video</VideoLink>
+		<HttpLink>https://teradynecom.sharepoint.com/sites/ArchimedesReferenceArchitecture/SitePages/RA-434---DAS-coll.aspx</HttpLink>
+		<HyperV>
+			<HyperVModel>
+				<Name>IGXL-105000</Name>
+				<UpdateDemoId>true</UpdateDemoId>
+				<ShutdownBefore>false</ShutdownBefore>
+				<InstallDemo>true</InstallDemo>
+			</HyperVModel>
+		</HyperV>
+		<DemoId>FAARCH-434</DemoId>
+		<Family>
+		  <string>AMP30</string>
+		</Family>
+		<MerMaid>
+			graph TD;
+			subgraph subGraph0["Tester Computer"]
+			A["TesterOs"]
+			B["AMP Software"]
+
+
+				subgraph subGraph1["Solution"]
+				direction RL
+				C["Local DAS"]
+				D["Failed Test File"]
+				end
+			end
+
+		
+
+			D --- C
+			A o-- Datalog Server --o B
+			B &lt;-- http --&gt; C
+
+
+
+			style A fill:#1f4e79,stroke:#000,stroke-width:2px,color:#fff
+			style B fill:#1f4e79,stroke:#000,stroke-width:2px,color:#fff
+			style C fill:#76b041,stroke:#000,stroke-width:2px,color:#fff
+			style D fill:#BBDEFB
+
+			classDef cylinder fill:#BBDEFB,stroke:#000,stroke-width:2px,rx:15px,ry:15px
+			class D cylinder
+
+		</MerMaid>
+	</DemoModel>
+</ArrayOfDemoModel>

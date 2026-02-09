@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Docker Deployment Guide </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Docker Deployment Guide ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/DOCKER.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/RA617.png" alt="RA 617 Docker" style="width: 100%; height: auto; max-height: 240px; object-fit: cover;">
+</p>
+<h1 id="docker-deployment-guide">Docker Deployment Guide</h1>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="option-1-using-docker-compose-recommended">Option 1: Using Docker Compose (Recommended)</h3>
+<pre><code class="lang-bash"># Build and start the service
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop the service
+docker-compose down
+</code></pre>
+<p>The service will be available at <code>http://localhost:3000/tems/</code></p>
+<h3 id="option-2-using-docker-directly">Option 2: Using Docker Directly</h3>
+<pre><code class="lang-bash"># Build the image
+docker build -t cppdas:latest .
+
+# Run the container
+docker run -d \
+  --name cppdas \
+  -p 3000:3000 \
+  -v $(pwd)/logs:/app/logs \
+  cppdas:latest \
+  -dasUrl http://0.0.0.0:3000/tems/ \
+  -dasLog /app/logs/das.log
+
+# View logs
+docker logs -f cppdas
+
+# Stop the container
+docker stop cppdas
+docker rm cppdas
+</code></pre>
+<h2 id="why-docker--zig-is-powerful">Why Docker + Zig is Powerful</h2>
+<h3 id="multi-stage-build-benefits">Multi-Stage Build Benefits</h3>
+<p>Our Dockerfile uses a <strong>multi-stage build</strong>:</p>
+<ol>
+<li><p><strong>Build Stage</strong> (alpine + Zig): ~300 MB</p>
+<ul>
+<li>Downloads Zig</li>
+<li>Compiles C++ code</li>
+<li>Produces the binary</li>
+</ul>
+</li>
+<li><p><strong>Runtime Stage</strong> (alpine): ~10 MB</p>
+<ul>
+<li>Only includes the compiled binary</li>
+<li>Minimal dependencies (just libstdc++)</li>
+</ul>
+</li>
+</ol>
+<p><strong>Final image size: ~12 MB</strong> (compared to 300+ MB with traditional C++ Docker images!)</p>
+<h3 id="image-size-comparison">Image Size Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Base Image</th>
+<th>Final Size</th>
+<th>Build Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Traditional (gcc:latest)</td>
+<td>~1.2 GB</td>
+<td>~1.3 GB</td>
+<td>5-10 min</td>
+</tr>
+<tr>
+<td>Zig Multi-stage (alpine)</td>
+<td>~7 MB</td>
+<td>~12 MB</td>
+<td>2-3 min</td>
+</tr>
+<tr>
+<td><strong>Reduction</strong></td>
+<td><strong>99% smaller</strong></td>
+<td><strong>99% smaller</strong></td>
+<td><strong>50% faster</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="cross-platform-builds">Cross-Platform Builds</h3>
+<p>Build for different architectures from any machine:</p>
+<pre><code class="lang-bash"># Build for AMD64 (x86_64)
+docker build --platform linux/amd64 -t cppdas:amd64 .
+
+# Build for ARM64 (Apple Silicon, Raspberry Pi)
+docker build --platform linux/arm64 -t cppdas:arm64 .
+
+# Build for both platforms
+docker buildx build --platform linux/amd64,linux/arm64 -t cppdas:multi .
+</code></pre>
+<h2 id="configuration">Configuration</h2>
+<h3 id="environment-variables">Environment Variables</h3>
+<ul>
+<li><code>DAS_URL</code>: Server URL (default: <code>http://0.0.0.0:4242/cppdas/</code>)</li>
+<li><code>DAS_LOG</code>: Log file path (default: <code>/app/logs/das.log</code>)</li>
+</ul>
+<h3 id="custom-port">Custom Port</h3>
+<p>Edit <code>docker-compose.yml</code>:</p>
+<pre><code class="lang-yaml">ports:
+  - &quot;8080:8080&quot;  # Host:Container
+environment:
+  - DAS_URL=http://0.0.0.0:8080/tems/
+</code></pre>
+<h3 id="volume-mounts">Volume Mounts</h3>
+<p>Logs are persisted on the host in <code>./logs/</code>:</p>
+<pre><code class="lang-yaml">volumes:
+  - ./logs:/app/logs
+</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="development-mode">Development Mode</h3>
+<p>For development with live code changes:</p>
+<pre><code class="lang-bash"># Build without cache
+docker-compose build --no-cache
+
+# Rebuild and restart
+docker-compose up -d --build
+</code></pre>
+<h3 id="production-deployment">Production Deployment</h3>
+<pre><code class="lang-bash"># Build optimized image
+docker build --build-arg ZIG_VERSION=0.15.2 -t cppdas:v1.0 .
+
+# Run with resource limits
+docker run -d \
+  --name cppdas-prod \
+  --memory=&quot;256m&quot; \
+  --cpus=&quot;0.5&quot; \
+  -p 3000:3000 \
+  --restart=unless-stopped \
+  cppdas:v1.0
+</code></pre>
+<h3 id="health-monitoring">Health Monitoring</h3>
+<pre><code class="lang-bash"># Check container health
+docker ps
+
+# Inspect health status
+docker inspect --format='{{.State.Health.Status}}' cppdas
+
+# View health check logs
+docker inspect --format='{{range .State.Health.Log}}{{.Output}}{{end}}' cppdas
+</code></pre>
+<h2 id="kubernetes-deployment">Kubernetes Deployment</h2>
+<p>Example Kubernetes manifest:</p>
+<pre><code class="lang-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cppdas
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cppdas
+  template:
+    metadata:
+      labels:
+        app: cppdas
+    spec:
+      containers:
+      - name: cppdas
+        image: cppdas:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DAS_URL
+          value: &quot;http://0.0.0.0:3000/tems/&quot;
+        resources:
+          limits:
+            memory: &quot;256Mi&quot;
+            cpu: &quot;500m&quot;
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cppdas-service
+spec:
+  selector:
+    app: cppdas
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+  type: LoadBalancer
+</code></pre>
+<h2 id="cicd-integration">CI/CD Integration</h2>
+<h3 id="github-actions-example">GitHub Actions Example</h3>
+<pre><code class="lang-yaml">name: Build and Push Docker Image
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build Docker image
+      run: docker build -t cppdas:${{ github.sha }} .
+    
+    - name: Push to registry
+      run: |
+        docker tag cppdas:${{ github.sha }} myregistry/cppdas:latest
+        docker push myregistry/cppdas:latest
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="container-wont-start">Container won't start</h3>
+<pre><code class="lang-bash"># Check logs
+docker logs cppdas
+
+# Check if port is already in use
+netstat -an | grep 3000
+
+# Run interactively to debug
+docker run -it --rm cppdas:latest /bin/sh
+</code></pre>
+<h3 id="build-fails">Build fails</h3>
+<pre><code class="lang-bash"># Clean build
+docker system prune -af
+docker-compose build --no-cache
+</code></pre>
+<h3 id="performance-issues">Performance issues</h3>
+<pre><code class="lang-bash"># Check resource usage
+docker stats cppdas
+
+# Increase memory limit
+docker update --memory=&quot;512m&quot; cppdas
+</code></pre>
+<h2 id="benefits-summary">Benefits Summary</h2>
+<p>✅ <strong>Tiny images</strong> - 12 MB vs 1.3 GB traditional<br>
+✅ <strong>Fast builds</strong> - Zig compiles C++ quickly<br>
+✅ <strong>Cross-platform</strong> - Build once, run anywhere<br>
+✅ <strong>Reproducible</strong> - Same binary every time<br>
+✅ <strong>Secure</strong> - Minimal attack surface (alpine base)<br>
+✅ <strong>Easy deployment</strong> - One command to run</p>
+<h2 id="next-steps">Next Steps</h2>
+<ol>
+<li><strong>Test locally</strong>: <code>docker-compose up</code></li>
+<li><strong>Deploy to production</strong>: Push image to registry</li>
+<li><strong>Scale horizontally</strong>: Use Kubernetes or Docker Swarm</li>
+<li><strong>Monitor</strong>: Integrate with Prometheus/Grafana</li>
+</ol>
+<p>For more details on Zig benefits, see <a href="ZIG_OVERVIEW.html">ZIG_OVERVIEW.md</a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/RA/RA_0617/DOCKER.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

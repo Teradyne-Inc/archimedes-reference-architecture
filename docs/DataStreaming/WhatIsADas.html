@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/DataStreaming/WhatIsADas.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#23579F',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#23579F',
+            lineColor: '#23579F',
+            secondaryColor: '#006100',
+            tertiaryColor: '#fff'
+          }
+        });
+      </script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/logo_small.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p style="margin: 0; padding: 0;">
+  <img src="media/DAtaStreaming_Overview.png" alt="DAS Overview" style="width: 100%; height: auto; max-height: 100px; object-fit: cover;">
+</p>
+<h2 id="understanding-das-data-analytics-solution-and-rest-communication">Understanding DAS (Data Analytics Solution) and REST Communication</h2>
+<h3 id="what-is-a-das">What is a DAS?</h3>
+<p>A <strong>DAS</strong> (Data Analytics Solution) is a system designed to <strong>receive, process, and manage data</strong> sent by other applications — in this case, by <strong>AMP</strong>.<br>
+AMP communicates with each DAS through <strong>HTTP</strong> using the <strong>REST</strong> protocol.</p>
+<p>The DAS acts as a <strong>listener service</strong> exposing one or more <strong>REST endpoints</strong>.<br>
+Each endpoint can receive or respond to HTTP messages such as <code>POST</code> (to send data) or <code>GET</code> (to retrieve information).</p>
+<hr>
+<h3 id="how-das-and-amp-communicate">How DAS and AMP Communicate</h3>
+<p>Communication between <strong>AMP</strong> and <strong>DAS</strong> follows a REST-based message exchange model:</p>
+<ol>
+<li><strong>AMP sends data</strong> to one or more DAS instances using HTTP.</li>
+<li>Each <strong>DAS exposes REST endpoints</strong> such as:
+<pre><code>http://127.0.0.1:3000/tems/TEST_CELL/{hostname}/STATUS
+http://127.0.0.1:1805/TRV/TEST_CELL/{hostname}/STATUS
+http://10.100.100.1:5002/AdaptiveDAS/TEST_CELL/{hostname}/STATUS
+</code></pre>
+</li>
+<li><strong>AMP uses the <code>POST</code> method</strong> to send JSON-formatted messages containing operational data.</li>
+<li><strong>DAS validates and processes</strong> incoming messages, then returns an HTTP status code and, if valid, a <code>MESSAGE_LIST</code> JSON response (the DAS subscriptions).</li>
+</ol>
+<h4 id="communication-flow-diagram">Communication Flow Diagram</h4>
+<p>The following diagram illustrates the typical message exchange between AMP and DAS:</p>
+<pre class="mermaid">
+sequenceDiagram
+    participant AMP
+    participant DAS
+    
+    Note over AMP,DAS: Initial Connection
+    AMP->>DAS: POST INITIALIZATION<br>(with TCS_MESSAGE_LIST)
+    alt Valid Initialization
+        DAS-->>AMP: HTTP 200 OK<br>{MESSAGE_LIST}
+        Note over DAS: DAS subscribes to messages
+    else Invalid First Message
+        DAS-->>AMP: HTTP 500<br>(Empty Payload)
+        Note over AMP: Connection rejected
+    end
+    
+    Note over AMP,DAS: Regular Operation
+    loop Every Heartbeat Interval (e.g., 20s)
+        AMP->>DAS: POST STATUS/T_STATUS<br>(Operational Data)
+        DAS-->>AMP: HTTP 200 OK
+    end
+    
+    AMP->>DAS: POST TEST_START
+    DAS-->>AMP: HTTP 200 OK
+    
+    AMP->>DAS: POST TEST_DATA
+    DAS-->>AMP: HTTP 200 OK
+    
+    AMP->>DAS: POST TEST_END
+    DAS-->>AMP: HTTP 200 OK
+    
+    Note over AMP,DAS: Shutdown
+    AMP->>DAS: POST SHUTDOWN
+    DAS-->>AMP: HTTP 200 OK
+</pre>
+<hr>
+<h3 id="initialization-sequence">Initialization Sequence</h3>
+<p>When AMP starts communication with a DAS, the <strong>first message</strong> must always be an <strong><code>INITIALIZATION</code></strong> message.</p>
+<p>If the DAS receives any message other than <code>INITIALIZATION</code> as the first message, it <strong>must reject the request</strong> and respond with:</p>
+<ul>
+<li>An <strong>HTTP error code</strong> (e.g., <code>500 Internal Server Error</code>), and</li>
+<li>An <strong>empty payload</strong>.</li>
+</ul>
+<h4 id="example-of-a-rejected-first-message">Example of a Rejected First Message</h4>
+<pre><code class="lang-http">HTTP/1.1 500 Internal Server Error
+Content-Length: 0
+</code></pre>
+<hr>
+<h3 id="example-of-an-initialization-message-from-amp">Example of an INITIALIZATION Message (from AMP)</h3>
+<p>The <strong>INITIALIZATION</strong> message defines the start of communication between AMP and DAS.<br>
+It includes system information, supported message types, and operational parameters.</p>
+<pre><code class="lang-json">{
+  &quot;TIME_STAMP&quot;: &quot;2025-10-29T16:00:13.9855907Z&quot;,
+  &quot;TCS_VENDOR&quot;: &quot;Teradyne&quot;,
+  &quot;TCS_VERSION&quot;: &quot;TEMS_06.10.06-42&quot;,
+  &quot;TEMS_VERSION&quot;: &quot;0.80&quot;,
+  &quot;TCS_MESSAGE_LIST&quot;: [
+    &quot;INITIALIZATION&quot;,
+    &quot;SHUTDOWN&quot;,
+    &quot;STATUS&quot;,
+    &quot;T_STATUS&quot;,
+    &quot;USER_ACCOUNT&quot;,
+    &quot;DTR&quot;,
+    &quot;IGXL_DATA&quot;,
+    &quot;MST_DATA&quot;,
+    &quot;QUALITY_MONITOR_DATA&quot;,
+    &quot;TEST_END&quot;,
+    &quot;TESTER_OS&quot;,
+    &quot;TEST_PROGRAM_LOAD&quot;,
+    &quot;TEST_START&quot;,
+    &quot;CONFIGURATION&quot;,
+    &quot;LOCATION&quot;,
+    &quot;BINNAME&quot;,
+    &quot;RESULTFILE&quot;,
+    &quot;LOT_END&quot;,
+    &quot;LOT_START&quot;,
+    &quot;SUBLOT_END&quot;,
+    &quot;SUBLOT_START&quot;,
+    &quot;HALT&quot;,
+    &quot;LICENSE&quot;,
+    &quot;PERIPHERAL&quot;,
+    &quot;ALARM&quot;,
+    &quot;MAINTENANCE&quot;,
+    &quot;MAINTENANCE_DATA&quot;,
+    &quot;CZ_DATA_POINT&quot;,
+    &quot;CZ_END&quot;,
+    &quot;CZ_SETUP&quot;,
+    &quot;CZ_START&quot;,
+    &quot;CZ_START_POINT&quot;,
+    &quot;CZ_SUMMARY&quot;,
+    &quot;TEST_DATA&quot;
+  ],
+  &quot;TCS_CONTROL_LIST&quot;: [],
+  &quot;TCS_LOST_MESSAGES&quot;: 55,
+  &quot;TCS_STATUS_FREQUENCY&quot;: 60,
+  &quot;IS_PRIMARY_DAS&quot;: true,
+  &quot;TCS_COMPRESSION_TYPES&quot;: []
+}
+</code></pre>
+<blockquote>
+<p><code>TCS_MESSAGE_LIST</code> lists the message types AMP supports and may send.</p>
+</blockquote>
+<hr>
+<h3 id="das-response-behavior">DAS Response Behavior</h3>
+<p>After receiving a <strong>valid</strong> message from AMP, the <strong>DAS</strong> must:</p>
+<ol>
+<li><p><strong>Return an HTTP status code</strong>:</p>
+<ul>
+<li><code>200 OK</code> → Message accepted</li>
+<li><code>400 Bad Request</code> → Invalid or malformed message</li>
+<li><code>500 Internal Server Error</code> → Invalid message sequence or system error</li>
+</ul>
+</li>
+<li><p><strong>For valid messages</strong>, include in the response body a JSON object containing the <strong><code>MESSAGE_LIST</code></strong>: the list of message types the <strong>DAS subscribes to</strong> (i.e., wants to receive).</p>
+</li>
+</ol>
+<h4 id="example-of-a-valid-das-response">Example of a Valid DAS Response</h4>
+<pre><code class="lang-http">HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  &quot;MESSAGE_LIST&quot;: [
+    &quot;INITIALIZATION&quot;,
+    &quot;SHUTDOWN&quot;,
+    &quot;STATUS&quot;,
+    &quot;T_STATUS&quot;,
+    &quot;ALARM&quot;,
+    &quot;CONFIGURATION&quot;,
+    &quot;USER_ACCOUNT&quot;,
+    &quot;TESTER_OS&quot;,
+    &quot;TEST_PROGRAM_LOAD&quot;,
+    &quot;LOT_START&quot;,
+    &quot;LOT_END&quot;,
+    &quot;SUBLOT_START&quot;,
+    &quot;SUBLOT_END&quot;,
+    &quot;TEST_START&quot;,
+    &quot;TEST_END&quot;,
+    &quot;DTR&quot;,
+    &quot;HALT&quot;,
+    &quot;TEST_DATA&quot;,
+    &quot;PERIPHERAL&quot;,
+    &quot;MAINTENANCE&quot;,
+    &quot;MAINTENANCE_DATA&quot;,
+    &quot;LICENSE&quot;,
+    &quot;IGXL_DATA&quot;,
+    &quot;MST_DATA&quot;,
+    &quot;BINNAME&quot;,
+    &quot;RESULTFILE&quot;,
+    &quot;CZ_SETUP&quot;,
+    &quot;CZ_END&quot;,
+    &quot;CZ_DATA_POINT&quot;,
+    &quot;CZ_START&quot;,
+    &quot;CZ_START_POINT&quot;,
+    &quot;CZ_SUMMARY&quot;,
+    &quot;QUALITY_MONITOR_DATA&quot;,
+    &quot;LOCATION&quot;
+  ]
+}
+</code></pre>
+<h4 id="example-of-an-error-response-empty-payload">Example of an Error Response (Empty Payload)</h4>
+<pre><code class="lang-http">HTTP/1.1 500 Internal Server Error
+Content-Length: 0
+</code></pre>
+<hr>
+<h3 id="the-das-configuration-file-das_confxml">The DAS Configuration File (<code>DAS_Conf.xml</code>)</h3>
+<p>All DAS instances used by AMP are defined in the configuration file <strong><code>DAS_Conf.xml</code></strong>.<br>
+This file specifies each DAS endpoint, operational limits, and heartbeat intervals.</p>
+<h4 id="architecture-overview">Architecture Overview</h4>
+<p>The following diagram shows how AMP connects to multiple DAS instances as configured in <code>DAS_Conf.xml</code>:</p>
+<pre class="mermaid">
+graph LR
+    AMP[AMP<br>Application]
+    Config[DAS_Conf.xml]
+    
+    DAS1[Debug DAS<br>:3000/tems]
+    DAS2[TRV DAS<br>:1805/TRV]
+    DAS3[UE DAS<br>:5002/AdaptiveDAS]
+    
+    Config -.->|Configures| AMP
+    AMP -->|HTTP POST<br>Every 20s| DAS1
+    AMP -->|HTTP POST<br>Every 20s| DAS2
+    AMP -->|HTTP POST<br>Every 20s| DAS3
+    
+    DAS1 -->|200 OK<br>MESSAGE_LIST| AMP
+    DAS2 -->|200 OK<br>MESSAGE_LIST| AMP
+    DAS3 -->|200 OK<br>MESSAGE_LIST| AMP
+    
+    style AMP fill:#e1f5ff,stroke:#0078d4,stroke-width:2px
+    style Config fill:#fff4ce,stroke:#f59e0b,stroke-width:2px
+    style DAS1 fill:#d4f4dd,stroke:#16a34a,stroke-width:2px
+    style DAS2 fill:#d4f4dd,stroke:#16a34a,stroke-width:2px
+    style DAS3 fill:#d4f4dd,stroke:#16a34a,stroke-width:2px
+</pre>
+<h4 id="example">Example</h4>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;DASConfig xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;
+           xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+           xmlns=&quot;http://www.teradyne.com&quot;&gt;
+  &lt;DAS&gt;
+    &lt;URL&gt;http://127.0.0.1:3000/tems/&lt;/URL&gt;
+    &lt;MaxMsg&gt;20&lt;/MaxMsg&gt;
+    &lt;Name&gt;Debug DAS&lt;/Name&gt;
+    &lt;Enable&gt;true&lt;/Enable&gt;
+    &lt;Specification&gt;S_08&lt;/Specification&gt;
+  &lt;/DAS&gt;
+  &lt;DAS&gt;
+    &lt;URL&gt;http://127.0.0.1:1805/TRV/&lt;/URL&gt;
+    &lt;MaxMsg&gt;1&lt;/MaxMsg&gt;
+    &lt;Name&gt;TRV&lt;/Name&gt;
+    &lt;Enable&gt;true&lt;/Enable&gt;
+    &lt;Specification&gt;S_08&lt;/Specification&gt;
+  &lt;/DAS&gt;
+  &lt;DAS&gt;
+    &lt;URL&gt;http://10.100.100.1:5002/AdaptiveDAS/&lt;/URL&gt;
+    &lt;MaxMsg&gt;1&lt;/MaxMsg&gt;
+    &lt;Name&gt;UE&lt;/Name&gt;
+    &lt;Enable&gt;true&lt;/Enable&gt;
+    &lt;Specification&gt;S_08&lt;/Specification&gt;
+  &lt;/DAS&gt;
+  &lt;HeartBeat&gt;20&lt;/HeartBeat&gt;
+  &lt;T_Status&gt;
+    &lt;HeartBeat&gt;25&lt;/HeartBeat&gt;
+    &lt;IdleThreshold&gt;60&lt;/IdleThreshold&gt;
+  &lt;/T_Status&gt;
+&lt;/DASConfig&gt;
+</code></pre>
+<hr>
+<h3 id="understanding-the-heartbeat">Understanding the Heartbeat</h3>
+<p>The <strong>heartbeat</strong> defines the interval (in seconds) at which <strong>AMP automatically sends messages</strong> to all enabled DAS instances listed in <code>DAS_Conf.xml</code>.</p>
+<p>For example:</p>
+<ul>
+<li><code>&lt;HeartBeat&gt;20&lt;/HeartBeat&gt;</code> → AMP sends a message to each DAS every <strong>20 seconds</strong></li>
+<li><code>&lt;T_Status&gt;&lt;HeartBeat&gt;25&lt;/HeartBeat&gt;&lt;/T_Status&gt;</code> → Specific interval for test status updates</li>
+</ul>
+<p>This ensures:</p>
+<ul>
+<li>Continuous synchronization between AMP and each DAS</li>
+<li>Periodic operational updates</li>
+<li>Early detection of communication or system errors</li>
+</ul>
+<hr>
+<h3 id="summary">Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DAS</strong></td>
+<td>Data Analytics Solution — receives and processes HTTP messages from AMP</td>
+</tr>
+<tr>
+<td><strong>AMP</strong></td>
+<td>Analytics Management Platform — application that sends JSON-formatted messages to configured DAS endpoints</td>
+</tr>
+<tr>
+<td><strong>INITIALIZATION</strong></td>
+<td>The first message AMP must send to start communication</td>
+</tr>
+<tr>
+<td><strong>Rejection Rule</strong></td>
+<td>If the first message is not <code>INITIALIZATION</code>, DAS must return HTTP 500 with no payload</td>
+</tr>
+<tr>
+<td><strong>DAS Response</strong></td>
+<td>On success, DAS responds with <code>200 OK</code> and a <code>MESSAGE_LIST</code> JSON body representing its subscription</td>
+</tr>
+<tr>
+<td><strong>Error Behavior</strong></td>
+<td>If an error occurs, the DAS must return only the HTTP code — no payload</td>
+</tr>
+<tr>
+<td><strong>Configuration</strong></td>
+<td>Defined in <code>DAS_Conf.xml</code> with URLs, heartbeat, and operational parameters</td>
+</tr>
+<tr>
+<td><strong>Heartbeat</strong></td>
+<td>Defines how often AMP sends messages to each DAS instance</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="-key-takeaways">✅ Key Takeaways</h4>
+<ul>
+<li>The <strong>first message</strong> from AMP must always be <code>INITIALIZATION</code>; otherwise, the DAS rejects it with <strong>HTTP 500</strong> and <strong>no payload</strong>.</li>
+<li>Upon a <strong>valid</strong> message, the <strong>DAS responds</strong> with <strong>200 OK</strong> and returns its <strong><code>MESSAGE_LIST</code></strong> (the messages it subscribes to).</li>
+<li><strong>AMP message content</strong> varies by type; only <code>INITIALIZATION</code> includes <code>TCS_MESSAGE_LIST</code>.</li>
+<li><code>DAS_Conf.xml</code> defines endpoints and <strong>heartbeat</strong> intervals that drive periodic communication.</li>
+</ul>
+<hr>
+<p><em>This documentation is part of the Teradyne Archimedes Reference Architecture series.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TER-SEMITEST-InnerSource/archimedes-reference-architecture/blob/main/docs/DataStreaming/WhatIsADas.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © Teradyne - Generated by <a href='https://dotnet.github.io/docfx'>Archimedes FA</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
