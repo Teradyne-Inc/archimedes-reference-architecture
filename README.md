@@ -6,3 +6,4 @@ Central Home for the Archimedes Reference Architecture project. This is currentl
 
 Teradyne,
 Archimedes Reference Architecture TEAM
+Thanks
