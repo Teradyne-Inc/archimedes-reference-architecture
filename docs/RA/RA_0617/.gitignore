@@ -1,0 +1,12 @@
+.cache/
+CMakeFiles/
+_deps/
+build/
+vs/
+*.7z
+zig-out/
+.zig-cache/
+compile_commands.json
+TemsMessages.txt
+*.log
+.vscode/

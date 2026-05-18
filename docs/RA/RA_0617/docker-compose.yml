@@ -1,0 +1,24 @@
+# Docker Compose configuration for cppdas
+services:
+  cppdas:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cppdas-server
+    ports:
+      - "3000:3000"
+    environment:
+      - DAS_URL=http://0.0.0.0:3000/tems/
+      - DAS_LOG=/app/logs/das.log
+    volumes:
+      # Mount logs directory to persist logs on host
+      - ./logs:/app/logs
+    command: ["-dasUrl", "http://0.0.0.0:3000/tems/", "-dasLog", "/app/logs/das.log"]
+    restart: unless-stopped
+    # Health check
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

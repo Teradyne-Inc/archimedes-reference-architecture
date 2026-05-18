@@ -1,0 +1,12 @@
+- name: Overview
+  href: index.md
+- name: Zig Overview
+  href: ZIG_OVERVIEW.md
+- name: Installation Guide
+  href: INSTALLATION.md
+- name: Compilation Guide
+  href: COMPILATION.md
+- name: Implementation Guide
+  href: IMPLEMENTATION_GUIDE.md
+- name: Download
+  href: file-table.md
