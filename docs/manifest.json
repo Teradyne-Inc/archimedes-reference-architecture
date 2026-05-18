@@ -5103,6 +5103,46 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "RA/RA_0617/source/CMakeLists.txt",
+      "output": {
+        "resource": {
+          "relative_path": "RA/RA_0617/source/CMakeLists.txt"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RA/RA_0617/source/include/Connection.hpp",
+      "output": {
+        "resource": {
+          "relative_path": "RA/RA_0617/source/include/Connection.hpp"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RA/RA_0617/source/include/Logger.hpp",
+      "output": {
+        "resource": {
+          "relative_path": "RA/RA_0617/source/include/Logger.hpp"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RA/RA_0617/source/main.cpp",
+      "output": {
+        "resource": {
+          "relative_path": "RA/RA_0617/source/main.cpp"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "RA/RA_0617/source/readme.md",
       "output": {

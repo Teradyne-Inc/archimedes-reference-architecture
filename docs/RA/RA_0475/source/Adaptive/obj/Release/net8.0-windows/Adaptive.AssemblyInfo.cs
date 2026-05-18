@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Adaptive")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2f059be0684f1874c7c46aadfd409bfc5e2a235")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f1496e71b0a0b449c1e8cf1b3ab071bc5e9c01aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("Adaptive")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Adaptive")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

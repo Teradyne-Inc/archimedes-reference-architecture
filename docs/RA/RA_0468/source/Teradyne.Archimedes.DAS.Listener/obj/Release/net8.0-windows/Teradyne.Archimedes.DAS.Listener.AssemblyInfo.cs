@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyDescriptionAttribute(("DAS Message Listener library for processing AMP messages in the Teradyne  environ" +
     "ment."))]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("5.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("5.0.0+e2f059be0684f1874c7c46aadfd409bfc5e2a235")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("5.0.0+f1496e71b0a0b449c1e8cf1b3ab071bc5e9c01aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("Teradyne.Archimedes.DAS.Listener")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Teradyne.Archimedes.DAS.Listener")]
 [assembly: System.Reflection.AssemblyVersionAttribute("5.0.0.0")]

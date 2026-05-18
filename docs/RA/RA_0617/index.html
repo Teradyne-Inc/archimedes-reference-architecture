@@ -204,6 +204,14 @@ This reference architecture demonstrates how to build a high-performance Data An
 <p>To build for Linux UltraEdge (from Windows):</p>
 <pre><code class="lang-sh">zig build -Dtarget=x86_64-linux-musl -Doptimize=ReleaseSmall
 </code></pre>
+<h3 id="configuring-the-das">Configuring the DAS</h3>
+<p>The DAS URL must be registered before being used. To do so, open a powershell or command line as <strong>administrator</strong>.</p>
+<p>If you are using AMP, type the following command:</p>
+<pre><code class="lang-sh">ampshell -das add /u http://127.0.0.1:4242/cppdas /n cppdas
+</code></pre>
+<p>If you are using TEMS, type the following command and <strong>restart the TEMS service</strong> (or reboot the PC):</p>
+<pre><code class="lang-sh">temsshell -das add /u http://127.0.0.1:4242/cppdas /n cppdas
+</code></pre>
 <h3 id="running-the-das">Running the DAS</h3>
 <p>Run with default settings (port 4242, path &quot;/cppdas/&quot;):</p>
 <pre><code class="lang-sh">zig build run
